@@ -41,11 +41,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # Additional 'allauth' settings
-    'django.contrib.sites',
-    'allauth',
-    'allauth.account',
-    'allauth.socialaccount',
+    'django.contrib.sites',  # From 'allauth'
+    'allauth',  # From 'allauth'
+    'allauth.account',  # From 'allauth'
+    'allauth.socialaccount',  # From 'allauth'
+    'home',  # Created home app
 ]
 
 MIDDLEWARE = [
@@ -63,7 +63,10 @@ ROOT_URLCONF = 'project_main.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            os.path.join(BASE_DIR, 'templates'),  # Route template folder
+            os.path.join(BASE_DIR, 'templates', 'allauth'),  # Route allauth folder
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
