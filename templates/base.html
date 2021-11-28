@@ -1,3 +1,4 @@
+<!-- Using load tag to enable the use of static tags -->
 {% load static %}
 
 <!doctype html>
@@ -6,10 +7,9 @@
 <head>
 
   {% block meta %}
-  <!-- Required meta tags -->
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   {% endblock %}
 
   <!-- custom meta -->
@@ -17,23 +17,38 @@
   {% endblock %}
 
   {% block corecss %}
-  <!-- Bootstrap CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+  <!-- UIkit -->
+  <link rel="stylesheet" href="{% static 'css/uikit.min.css' %}" />
+  <!-- Bootstrap CSS 4.4.1 -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <!-- Google font -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato&display=swap">
+  <!-- Css folder -->
+  <!-- <link rel="stylesheet" href="{% static 'css/base.css' %}"> -->
   {% endblock %}
 
   <!-- custom css -->
   {% block extra_css %}
   {% endblock %}
 
-  {% block corjs %}
+  {% block corejs %}
+  <!-- UIkit, including icons -->
+  <script src="static/js/uikit.min.js"></script>
+  <script src="static/js/uikit-icons.min.js"></script>
+  <!-- Fontawesome -->
+  <script src="https://kit.fontawesome.com/e9c73d7092.js" crossorigin="anonymous"></script>
   <!-- jQuery -->
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"
-    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-
-  <!-- Option 1: Bootstrap Bundle with Popper -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+    integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+    crossorigin="anonymous"></script>
+  <!-- Popper -->
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+    crossorigin="anonymous"></script>
+  <!-- Bootstrap JS 4.4.1 -->
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+    integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
     crossorigin="anonymous"></script>
   {% endblock %}
 
@@ -41,11 +56,42 @@
   {% block extra_js %}
   {% endblock %}
 
-  <title>Boutique Ado {% block extra_title %}{% endblock %}</title>
+  <!-- Browser tab title -->
+  <title>Template {% block extra_title %}{% endblock %}</title>
 </head>
 
 <body>
-  <header class="container-fluid fixed-top"></header>
+  
+  <header>
+    <!-- UIkit navigation -->
+    <nav class="uk-navbar-container uk-margin" uk-navbar>
+      <div class="uk-navbar-left">
+  
+          <a class="uk-navbar-item uk-logo" href="#">Template Heaven</a>
+  
+          <ul class="uk-navbar-nav">
+              <li>
+                  <a href="#">
+                      <span class="uk-icon uk-margin-small-right" uk-icon="icon: star"></span>
+                      Features
+                  </a>
+              </li>
+          </ul>
+  
+          <div class="uk-navbar-item">
+              <div>Some <a href="#">Link</a></div>
+          </div>
+  
+          <div class="uk-navbar-item">
+              <form action="javascript:void(0)">
+                  <input class="uk-input uk-form-width-small" type="text" placeholder="Input">
+                  <button class="uk-button uk-button-default">Button</button>
+              </form>
+          </div>
+  
+      </div>
+  </nav>
+  </header>
 
   {% if messages %}
   <div class="message-container"></div>

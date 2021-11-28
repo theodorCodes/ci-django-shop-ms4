@@ -45,7 +45,7 @@ INSTALLED_APPS = [
     'allauth',  # From 'allauth'
     'allauth.account',  # From 'allauth'
     'allauth.socialaccount',  # From 'allauth'
-    'home',  # Created home app
+    'home',  # Register home app
 ]
 
 MIDDLEWARE = [
@@ -93,7 +93,7 @@ SITE_ID = 1
 # General email settings (REPLACE LATER WITH REAL EMAIL)
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
-# Allauth authentication settings
+# Allauth authentication settings for email login
 ACCOUNT_AUTHENTICATION_METHOD = 'username_email'
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
@@ -167,6 +167,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
+# Use this projects static folder
+STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field

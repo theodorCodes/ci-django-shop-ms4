@@ -16,9 +16,11 @@ Including another URLconf
 # Allauth requires 'include'
 from django.contrib import admin
 from django.urls import path, include
+from django.conf import settings  # Imports from settings.py
+from django.conf.urls.static import static  # Import links to static files
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('allauth.urls')), # Required by Allauth
-    path('', include('home.urls')),  # Refering to home/urls.py
-]
+    path('', include('home.urls')),  # Include home view routing
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)  # Path to media folder
