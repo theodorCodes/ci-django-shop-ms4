@@ -1,0 +1,76 @@
+/* 
+----------------------------------------------------------------------- 
+NAVBAR */
+
+
+/* Sign in button */
+.uk-button.uk-button-default.uk-text-capitalize {
+  background-color: #007bff !important;
+  border-radius: 22px;
+  color: #fff !important;
+  min-height: 36px;
+  line-height: 36px;
+  width: 100px;
+}
+
+/* Log in and My Account button */
+.custom-button-style-one {
+  /* border: 1px solid #999; */
+  /* line-height: 36px; */
+  /* min-height: 36px !important; */
+  /* margin-top: 20px; */
+  margin-right: 20px;
+  /* border-radius: 22px; */
+  font-weight: 600;
+  width: auto;
+}
+
+/* Search field */
+.uk-search-input {
+  border-radius: 22px;
+}
+
+/* Search icon */
+.uk-search-icon-flip.uk-icon.uk-search-icon {
+  background-color: #007bff;
+  border-radius: 22px;
+  color: #fff;
+}
+
+
+/* 
+-----------------------------------------------------------------------
+NAVBAR MEDIA QUERIES at 800px */
+
+@media only screen and (max-width: 380px) {
+  .mobile-logo {
+    display: none;
+  }
+}
+
+@media only screen and (min-width: 801px) {
+
+  /* Mobile menu */
+  .mobile-navbar {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 800px) {
+
+  /* Desktop navbar */
+  .desktop-navbar {
+    display: none;
+  }
+
+  /* Mobile login and account button */
+  .custom-button-style-one {
+    margin-right: 0px;
+  }
+
+  /* Cart margin */
+  .uk-margin-right {
+    margin-right: 0px !important;
+  }
+}
+

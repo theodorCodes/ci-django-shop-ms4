@@ -7,9 +7,9 @@
 <head>
 
   {% block meta %}
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   {% endblock %}
 
   <!-- custom meta -->
@@ -17,15 +17,17 @@
   {% endblock %}
 
   {% block corecss %}
-  <!-- UIkit -->
-  <link rel="stylesheet" href="{% static 'css/uikit.min.css' %}" />
-  <!-- Bootstrap CSS 4.4.1 -->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-  <!-- Google font -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato&display=swap">
-  <!-- Css folder -->
-  <!-- <link rel="stylesheet" href="{% static 'css/base.css' %}"> -->
+    <!-- Bootstrap CSS 4.4.1 -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <!-- Google font -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato&display=swap">
+    <!-- Css folder -->
+    <!-- <link rel="stylesheet" href="{% static 'css/base.css' %}"> -->
+    <!-- UIkit -->
+    <link rel="stylesheet" href="{% static 'css/uikit.min.css' %}" />
+    <!-- Custom -->
+    <link rel="stylesheet" href="{% static 'css/custom.css' %}" />
   {% endblock %}
 
   <!-- custom css -->
@@ -33,23 +35,23 @@
   {% endblock %}
 
   {% block corejs %}
-  <!-- UIkit, including icons -->
-  <script src="static/js/uikit.min.js"></script>
-  <script src="static/js/uikit-icons.min.js"></script>
-  <!-- Fontawesome -->
-  <script src="https://kit.fontawesome.com/e9c73d7092.js" crossorigin="anonymous"></script>
-  <!-- jQuery -->
-  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
-    integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
-    crossorigin="anonymous"></script>
-  <!-- Popper -->
-  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-    crossorigin="anonymous"></script>
-  <!-- Bootstrap JS 4.4.1 -->
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
-    integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
-    crossorigin="anonymous"></script>
+    <!-- Fontawesome -->
+    <script src="https://kit.fontawesome.com/e9c73d7092.js" crossorigin="anonymous"></script>
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+      integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+      crossorigin="anonymous"></script>
+    <!-- Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+      integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+      crossorigin="anonymous"></script>
+    <!-- Bootstrap JS 4.4.1 -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+      integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+      crossorigin="anonymous"></script>
+    <!-- UIkit, including icons -->
+    <script src="{% static 'js/uikit.min.js' %}"></script>
+    <script src="{% static 'js/uikit-icons.min.js' %}"></script>
   {% endblock %}
 
   <!-- custom js -->
@@ -61,37 +63,102 @@
 </head>
 
 <body>
-  
+
+<!-- ------ -------- -------- -------- -------- -------- -------- -------79 -->
+
   <header>
-    <!-- UIkit navigation -->
-    <nav class="uk-navbar-container uk-margin" uk-navbar>
-      <div class="uk-navbar-left">
-  
-          <a class="uk-navbar-item uk-logo" href="#">Template Heaven</a>
-  
-          <ul class="uk-navbar-nav">
-              <li>
-                  <a href="#">
-                      <span class="uk-icon uk-margin-small-right" uk-icon="icon: star"></span>
-                      Features
-                  </a>
-              </li>
-          </ul>
-  
-          <div class="uk-navbar-item">
-              <div>Some <a href="#">Link</a></div>
-          </div>
-  
-          <div class="uk-navbar-item">
-              <form action="javascript:void(0)">
-                  <input class="uk-input uk-form-width-small" type="text" placeholder="Input">
-                  <button class="uk-button uk-button-default">Button</button>
-              </form>
-          </div>
-  
+
+    <!-- Navigation -->
+    <nav uk-sticky class="uk-navbar-container" uk-navbar>
+
+      <!-- See external file for desktop and mobile menu -->
+      {% include 'includes/mobile-top-header.html' %}
+      {% include 'includes/main-nav.html' %}
+
+      <!-- Navbar right -->
+      <div class="uk-navbar-right">
+        <div class="uk-navbar-nav">
+
+          <!-- User menu depending on user status -->
+          {% if request.user.is_authenticated %}
+            <!-- Show toggle button for authenticated users -->
+            <li>
+              <a href="#offcanvas-flip" 
+                 class="uk-text-capitalize custom-button-style-one" uk-toggle>
+                 My Account
+              </a>
+            </li>
+            <!-- Show off-canvas -->
+            <div id="offcanvas-flip" uk-offcanvas="flip: true; overlay: true">
+              <div class="uk-offcanvas-bar">
+                <!-- User menu close button -->
+                <button class="uk-offcanvas-close" type="button" uk-close></button>
+                <!-- Show additional superuser menu -->
+                {% if request.user.is_superuser %}
+                  <!-- Super user menu here -->
+                {% endif %}
+                <!-- Off-canvas menu -->
+                <ul class="uk-nav uk-nav-default">
+                  <li class="uk-active"><a href="#">Active</a></li>
+                  <!-- Show 'allauth' log out -->
+                  <li class="uk-parent">
+                    <a href="{% url 'account_logout' %}">Log Out</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+          {% else %}
+            <!-- Log in button -->
+            <li>
+              <a href="{% url 'account_login' %}" class="uk-text-capitalize custom-button-style-one">
+                Log In
+              </a>
+            </li>
+            <!-- Sign up button -->
+            <li class="uk-margin uk-margin-right desktop-navbar">
+              <a href="{% url 'account_signup' %}" 
+                 class="uk-button uk-button-default uk-text-capitalize">
+                 Sign Up
+              </a>
+            </li>
+          {% endif %}
+
+          <!-- Cart -->
+          <li class="uk-margin-right">
+            <a href="#">
+              <div class="uk-text-center">
+                <span uk-icon="icon: bag"></span>
+                <div class="uk-navbar-subtitle">
+
+                  {% if grand_total %}
+                  ${{ grand_total|floatformat:2 }}
+                  {% else %}
+                  $0.00
+                  {% endif %}
+
+                </div>
+              </div>
+            </a>
+          </li>
+        </div>
       </div>
-  </nav>
+
+    </nav>
+
+    <!-- Search field -->
+    <div class="uk-margin uk-padding-small">
+      <form method="GET action="" 
+        class="uk-search uk-search-default uk-align-center uk-width-large">
+        <a href="" class="uk-search-icon-flip" uk-search-icon></a>
+        <input class="uk-search-input" type="text" name="q" placeholder="Search">
+      </form>
+    </div>
+
   </header>
+
+
+
 
   {% if messages %}
   <div class="message-container"></div>

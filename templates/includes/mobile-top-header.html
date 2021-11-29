@@ -1,0 +1,44 @@
+<!-- Mobile toggle menu -->
+<div class="uk-navbar-left mobile-navbar">
+  <!-- Mobile toggle button -->
+  <a class="uk-navbar-toggle" 
+     uk-navbar-toggle-icon href="#offcanvas-overlay" 
+     uk-toggle></a>
+  <!-- Mobile off-canvas menu -->
+  <div id="offcanvas-overlay" uk-offcanvas="overlay: true">
+    <div class="uk-offcanvas-bar">
+      <!-- Off-canvas close button -->
+      <button class="uk-offcanvas-close" type="button" uk-close></button>
+      <!-- Off-canvas menu -->
+      <ul class="uk-nav uk-nav-default">
+        <li class="uk-active"><a href="#">Active</a></li>
+        <li class="uk-parent">
+          <a href="#">Parent</a>
+          <ul class="uk-nav-sub">
+            <li><a href="#">Sub item</a></li>
+            <li><a href="#">Sub item</a></li>
+          </ul>
+        </li>
+        <li class="uk-nav-header">Header</li>
+        <li>
+          <a href="#">
+            <span class="uk-margin-small-right" uk-icon="icon: table">
+            </span> Item
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <span class="uk-margin-small-right" uk-icon="icon: thumbnails">
+            </span> Item
+          </a>
+        </li>
+        <li class="uk-nav-divider"></li>
+        <!-- Off canvas end -->
+      </ul>
+    </div>
+  </div>
+  <!-- Mobile logo -->
+  <a class="uk-navbar-item uk-logo mobile-logo" href="{% url 'home' %}">
+    <strong>Logo</strong>s
+  </a>
+</div>
