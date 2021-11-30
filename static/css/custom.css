@@ -26,7 +26,8 @@ NAVBAR */
 }
 
 /* Search field */
-.uk-search-input {
+.uk-search-input,
+.round-border {
   border-radius: 22px;
 }
 
@@ -36,6 +37,12 @@ NAVBAR */
   border-radius: 22px;
   color: #fff;
 }
+
+
+/* 
+----------------------------------------------------------------------- 
+PRODUCT CATEGORY VIEW */
+
 
 
 /* 

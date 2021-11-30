@@ -1,0 +1,50 @@
+[
+  {
+    "pk": 1,
+    "model": "products.category",
+    "fields": {
+      "name": "render",
+      "friendly_name": "Render"
+    }
+  },
+  {
+    "pk": 2,
+    "model": "products.category",
+    "fields": {
+      "name": "artwork",
+      "friendly_name": "Artwork"
+    }
+  },
+  {
+    "pk": 3,
+    "model": "products.category",
+    "fields": {
+      "name": "digital_image",
+      "friendly_name": "Digital Image"
+    }
+  },
+  {
+    "pk": 4,
+    "model": "products.category",
+    "fields": {
+      "name": "illustration",
+      "friendly_name": "Illustration"
+    }
+  },
+  {
+    "pk": 5,
+    "model": "products.category",
+    "fields": {
+      "name": "infographic",
+      "friendly_name": "Infographic"
+    }
+  },
+  {
+    "pk": 6,
+    "model": "products.category",
+    "fields": {
+      "name": "photography",
+      "friendly_name": "Photography"
+    }
+  }
+]

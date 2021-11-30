@@ -3,3 +3,4 @@
 __pycache__
 projectenv/*
 .env
+.project_notes.md

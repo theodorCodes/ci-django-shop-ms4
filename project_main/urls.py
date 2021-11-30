@@ -23,4 +23,9 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('allauth.urls')), # Required by Allauth
     path('', include('home.urls')),  # Include home view routing
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)  # Path to media folder
+    path('products/', include('products.urls')),  # Includes products/urls.py
+]
+
+# Path to media folder
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
