@@ -1,7 +1,27 @@
 {% extends "base.html" %}
 {% load static %}
 
-
 {% block content %}
+
+<div class="uk-container uk-container-medium">
+
+  {% if bag_items %}
+    <!-- Shopping bag items -->
+  {% else %}
+    <!-- Default - empty shopping cart -->
+    <h1 class="uk-heading-line uk-text-center">
+      <span>Shopping bag</span>
+    </h1>
+    <div class="uk-flex uk-flex-center">
+      <div>Your shopping bag is empty.</div>
+    </div>
+    <div class="uk-flex uk-flex-center uk-margin-medium-top">
+      <a href="{% url 'products' %}" class="uk-button uk-button-primary uk-text-capitalize uk-border-pill">
+        Keep Shopping
+      </a>
+    </div>
+  {% endif %}
+
+</div>
 
 {% endblock %}
