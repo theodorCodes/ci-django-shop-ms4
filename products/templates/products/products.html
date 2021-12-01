@@ -29,7 +29,7 @@
               </li>
             </ul>
           </div>
-
+          <!-- Sorting products by category -->
           <div>
             <ul class="uk-subnav uk-subnav-pill uk-text-capitalize" uk-margin>
               <!-- using 'Categories' from model as filters -->
@@ -40,12 +40,28 @@
               {% endfor %}
             </ul>
           </div>
+          <!-- Reset view after search -->
+          {% if search_term %}
+            <div>
+              <ul class="uk-subnav uk-subnav-pill" uk-margin>
+                <li>
+                  <span class="uk-text-small uk-text-lowercase">
+                    Found {{ products|length }} item(s) for <strong>"{{ search_term }}"</strong></span>
+                </li>
+                <li>
+                  <a href="{% url 'products' %}" 
+                     class="uk-button uk-button-default uk-border-pill uk-text-small uk-text-capitalize">
+                     Reset search</a>
+                </li>
+              </ul>
+            </div>
+          {% endif %}
 
         </div>
       </div>
 
+      <!-- Alphabetical sorting (ascending or descending) of filtered items -->
       <div class="uk-width-auto uk-text-nowrap">
-        <!-- Alphabetical sorting (ascending or descending) of filtered items -->
         <span class="uk-active" uk-filter-control="sort: data-name"><a class="uk-icon-link" href="#"
             uk-icon="icon: arrow-down"></a></span>
         <span uk-filter-control="sort: data-name; order: desc"><a class="uk-icon-link" href="#"
@@ -83,7 +99,7 @@
             </div>
             <!-- Product info -->
             <div class="uk-card-body uk-padding-small">
-              <!-- Name and price -->
+              <!-- Name, category and price -->
               <div class="uk-text-left uk-text-small">
                 {{ product.name }}
               </div>
