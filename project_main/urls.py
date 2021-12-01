@@ -22,8 +22,9 @@ from django.conf.urls.static import static  # Import links to static files
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('allauth.urls')), # Required by Allauth
-    path('', include('home.urls')),  # Include home view routing
-    path('products/', include('products.urls')),  # Includes products/urls.py
+    path('', include('home.urls')),  # Including home view routing
+    path('products/', include('products.urls')),  # Including products/urls.py
+    path('bag/', include('bag.urls')),  # Including bag/urls.py
 ]
 
 # Path to media folder

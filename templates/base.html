@@ -77,7 +77,7 @@
       <div class="uk-navbar-right">
         <div class="uk-navbar-nav">
 
-          <!-- User menu depending on user status -->
+          <!-- User menu based on authentication -->
           {% if request.user.is_authenticated %}
             <!-- Show toggle button for authenticated users -->
             <li>
@@ -95,7 +95,7 @@
                         uk-close></button>
                 <!-- Show additional superuser menu -->
                 {% if request.user.is_superuser %}
-                  <!-- Super user menu here -->
+                  <!-- Super user menu HERE -->
                 {% endif %}
                 <!-- Off-canvas menu -->
                 <ul class="uk-nav uk-nav-default">
@@ -114,7 +114,7 @@
             <li>
               <a href="{% url 'account_login' %}" 
                  class="uk-text-capitalize uk-text-bold uk-margin-right">
-                Log In
+                 Log In
               </a>
             </li>
             <!-- Sign up button -->
@@ -127,22 +127,20 @@
             </li>
           {% endif %}
 
-          <!-- Shopping cart -->
+          <!-- Shopping cart button -->
           <li class="uk-margin-right custom-mobile-cart-btn">
-            <a href="#">
+            <a href="{% url 'view_bag' %}">
               <div class="uk-text-center 
                    {% if grand_total %}
                      uk-text-emphasis
                    {% endif %}">
                 <span uk-icon="icon: bag"></span>
                 <div class="uk-navbar-subtitle">
-
                   {% if grand_total %}
                     ${{ grand_total|floatformat:2 }}
                   {% else %}
                     $0.00
                   {% endif %}
-
                 </div>
               </div>
             </a>
@@ -156,7 +154,7 @@
     <!-- Search field -->
     <div class="uk-margin uk-padding-small">
       <form method="GET" action="{% url 'products' %}" 
-        class="uk-search uk-search-default uk-align-center uk-width-large">
+            class="uk-search uk-search-default uk-align-center uk-width-large">
         <a href="" class="uk-search-icon-flip uk-border-circle custom-search-icon" 
            type="submit" uk-search-icon></a>
         <input class="uk-search-input uk-border-pill" 
