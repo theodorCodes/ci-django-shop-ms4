@@ -1,25 +1,18 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block page_header %}
-<div class="container header-container">
-  <div class="row">
-    <div class="col"></div>
-  </div>
-</div>
-{% endblock %}
-
 {% block content %}
-<div class="container h-100">
-  <div class="row h-100">
-    <div class="col-7 col-md-6 my-auto">
-      <h1 class="display-4 logo-font text-black">
-        The new collections are here
+<div class="uk-container">
+  <div class="uk-article">
+    <!-- <div class="col-7 col-md-6 my-auto"> -->
+      <h1 class="uk-article-title">
+        Discover the latest illustrations<br>
+        or shop for artwork
       </h1>
       <div>
         <h4>
-          <a href="" class="shop-now-button btn btn-lg rounded-0 text-uppercase py-3">
-            Shop Now
+          <a href="{% url 'products' %}" class="uk-button uk-button-primary uk-border-pill">
+            Discover
           </a>
         </h4>
       </div>

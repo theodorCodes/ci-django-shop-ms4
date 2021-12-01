@@ -3,7 +3,7 @@
     "pk": 1,
     "model": "products.product",
     "fields": {
-      "name": "Arizona Original Bootcut Jeans",
+      "name": "Black and white photo",
       "description": "Bootcut jeans in our just-right original fit are comfortable and look great too.  5-pocket style sits below waist straight fit through seat and thigh bootcut leg 18\" leg opening cotton washable imported extended sizes and washes available online only",
       "price": 53.99,
       "category": 4,

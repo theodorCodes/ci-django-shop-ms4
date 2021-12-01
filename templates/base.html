@@ -18,8 +18,8 @@
 
   {% block corecss %}
     <!-- Bootstrap CSS 4.4.1 -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"> -->
     <!-- Google font -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato&display=swap">
     <!-- Css folder -->
@@ -46,9 +46,9 @@
       integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
       crossorigin="anonymous"></script>
     <!-- Bootstrap JS 4.4.1 -->
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+    <!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
       integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
-      crossorigin="anonymous"></script>
+      crossorigin="anonymous"></script> -->
     <!-- UIkit, including icons -->
     <script src="{% static 'js/uikit.min.js' %}"></script>
     <script src="{% static 'js/uikit-icons.min.js' %}"></script>
@@ -63,8 +63,6 @@
 </head>
 
 <body>
-
-<!-- ------ -------- -------- -------- -------- -------- -------- -------79 -->
 
   <header>
 
@@ -84,7 +82,7 @@
             <!-- Show toggle button for authenticated users -->
             <li>
               <a href="#offcanvas-flip" 
-                 class="uk-text-capitalize custom-button-style-one" uk-toggle>
+                 class="uk-text-capitalize uk-text-bold" uk-toggle>
                  My Account
               </a>
             </li>
@@ -92,7 +90,9 @@
             <div id="offcanvas-flip" uk-offcanvas="flip: true; overlay: true">
               <div class="uk-offcanvas-bar">
                 <!-- User menu close button -->
-                <button class="uk-offcanvas-close" type="button" uk-close></button>
+                <button class="uk-offcanvas-close" 
+                        type="button" 
+                        uk-close></button>
                 <!-- Show additional superuser menu -->
                 {% if request.user.is_superuser %}
                   <!-- Super user menu here -->
@@ -108,39 +108,46 @@
               </div>
             </div>
 
-          {% else %}
+            {% else %}
+            <!-- Non authenticated users -->
             <!-- Log in button -->
             <li>
-              <a href="{% url 'account_login' %}" class="uk-text-capitalize custom-button-style-one">
+              <a href="{% url 'account_login' %}" 
+                 class="uk-text-capitalize uk-text-bold uk-margin-right">
                 Log In
               </a>
             </li>
             <!-- Sign up button -->
             <li class="uk-margin uk-margin-right desktop-navbar">
               <a href="{% url 'account_signup' %}" 
-                 class="uk-button uk-button-default uk-text-capitalize">
+                 class="uk-button uk-button-primary 
+                        uk-text-capitalize uk-border-pill custom-sign-up">
                  Sign Up
               </a>
             </li>
           {% endif %}
 
-          <!-- Cart -->
-          <li class="uk-margin-right">
+          <!-- Shopping cart -->
+          <li class="uk-margin-right custom-mobile-cart-btn">
             <a href="#">
-              <div class="uk-text-center">
+              <div class="uk-text-center 
+                   {% if grand_total %}
+                     uk-text-emphasis
+                   {% endif %}">
                 <span uk-icon="icon: bag"></span>
                 <div class="uk-navbar-subtitle">
 
                   {% if grand_total %}
-                  ${{ grand_total|floatformat:2 }}
+                    ${{ grand_total|floatformat:2 }}
                   {% else %}
-                  $0.00
+                    $0.00
                   {% endif %}
 
                 </div>
               </div>
             </a>
           </li>
+
         </div>
       </div>
 
@@ -148,10 +155,14 @@
 
     <!-- Search field -->
     <div class="uk-margin uk-padding-small">
-      <form method="GET action="" 
+      <form method="GET" action="{% url 'products' %}" 
         class="uk-search uk-search-default uk-align-center uk-width-large">
-        <a href="" class="uk-search-icon-flip" uk-search-icon></a>
-        <input class="uk-search-input" type="text" name="q" placeholder="Search">
+        <a href="" class="uk-search-icon-flip uk-border-circle custom-search-icon" 
+           type="submit" uk-search-icon></a>
+        <input class="uk-search-input uk-border-pill" 
+               type="text" 
+               name="q" 
+               placeholder="Search">
       </form>
     </div>
 

@@ -7,6 +7,10 @@
 <!-- Render page content block -->
 {% block content %}
 
+<!-- Test data read by requesting raw product data within this content block -->
+<!-- {{ products }} -->
+<!-- Test END -->
+
 <!-- uikit, centers container with medium size width -->
 <div class="uk-container uk-container-medium">
   <!-- uikit - filter and sort items by meta data container -->
@@ -16,21 +20,22 @@
       <div class="uk-width-expand">
         <div class="uk-grid-small uk-grid-divider uk-child-width-auto" uk-grid>
 
+          <!-- uikit, using uk-filter-control with classes to define filters -->
           <div>
             <ul class="uk-subnav uk-subnav-pill" uk-margin>
-              <!-- uikit, using uk-filter-control with classes to define filters -->
+              <!-- loads all available products -->
               <li class="uk-active" uk-filter-control>
-                <a href="#" class="round-border">All</a>
+                <a href="#" class="uk-text-capitalize uk-border-pill">All</a>
               </li>
             </ul>
           </div>
 
           <div>
             <ul class="uk-subnav uk-subnav-pill uk-text-capitalize" uk-margin>
-              <!-- using 'Categories' as filters -->
+              <!-- using 'Categories' from model as filters -->
               {% for category in categories %}
                 <li uk-filter-control="[data-category='{{ category.friendly_name }}']">
-                  <a href="#" class="uk-text-capitalize round-border">{{ category.friendly_name }}</a>
+                  <a href="#" class="uk-text-capitalize uk-border-pill">{{ category.friendly_name }}</a>
                 </li>
               {% endfor %}
             </ul>
@@ -60,14 +65,15 @@
             <div class="uk-card-media-top">
               <!-- Product image if available -->
               {% if product.image %}
-                <a href="#">
+                <!-- Link to product detail page -->
+                <a href="{% url 'product_detail' product.id %}">
                   <img class="" 
                        src="{{ product.image.url }}" 
                        width="600" 
                        alt="{{ product.name }}">
                 </a>
               {% else %}
-                <a href="#">
+                <a href="{% url 'product_detail' product.id %}">
                   <img class="" 
                        src="{% static 'images/noimage.png' %}" 
                        width="600" 
@@ -107,7 +113,7 @@
       {% endfor %}
 
 
-      
+
       <!-- Empty cards for tests. Delete this later -->
       <li data-color="white" data-size="large" data-name="A">
         <div class="uk-card uk-card-default uk-card-body">
@@ -181,6 +187,8 @@
           <div class="uk-position-center">L</div>
         </div>
       </li>
+
+
     </ul>
 
   </div>

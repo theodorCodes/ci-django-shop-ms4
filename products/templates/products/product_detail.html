@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+<div class="uk-container uk-container-medium">
+  <div class="uk-width-expand">
+    <div class="uk-grid-small custom-product-flex" uk-grid>
+
+      <!-- Product image -->
+      <div class="uk-card uk-card-default uk-padding-remove-left">
+        <div class="uk-card-media">
+          <!-- Product image if available -->
+          {% if product.image %}
+            <!-- UIkit lightbox -->
+            <div uk-lightbox="animate: fade">
+              <a href="{{ product.image.url }}">
+                <img class="" 
+                    src="{{ product.image.url }}" 
+                    width="500" 
+                    alt="{{ product.name }}">
+              </a>
+            </div>
+          {% else %}
+            <img class="" 
+                src="{% static 'images/noimage.png' %}" 
+                width="600" 
+                alt="{{ product.name }}">
+          {% endif %}
+        </div>
+      </div>
+
+      <!-- Product info -->
+      <div class="uk-card-body uk-margin-left uk-width-large">
+        <div class="uk-text-left uk-text-large uk-text-bold uk-width-large">
+          {{ product.name }}
+        </div>
+        <div class="uk-text-left uk-text-bold uk-margin-small-top">
+          ${{ product.price }}
+        </div>
+        <div class="uk-text-left uk-text-small uk-text-secondary uk-margin-small-top">
+          Category: {{ product.category.friendly_name }}
+        </div>
+        <div class="uk-text-left uk-text-small uk-text-secondary">
+          Views {{ product.views }}
+        </div>
+        <div class="uk-text-left uk-text-small uk-width-large uk-margin-small-top">
+          {{ product.description }}
+        </div>
+        <div>
+          <p class="uk-margin-medium-top" uk-margin>
+            <button href="#" 
+                    class="uk-button uk-button-secondary uk-border-pill"
+                    type="">Add to bag</button>
+            <button class="uk-button uk-button-text uk-text-capitalize uk-margin-left">Request custom artwork</button>
+          </p>
+        </div>
+        <!-- Rating and testimonials-->
+        <div class="uk-text-small uk-margin-large-top">
+          <!-- Likes -->
+          <span><a href="#" class="uk-button uk-button-default uk-button-small uk-border-pill">
+            Like </a>
+          </span>
+          <span class="uk-text-muted">{{ product.likes }}</span>
+          <br>
+          <!-- Toggle comments -->
+          <span>
+            <a href="#toggle-animation" 
+               uk-toggle="target: #toggle-animation; animation: uk-animation-slide-bottom"
+               class="uk-button uk-button-default uk-button-small uk-border-pill uk-margin-small-top">
+                 Comment </a>
+          </span>
+          <span class="uk-text-muted uk-margin-small-top">({{ product.comment }})</span><br>
+        </div>
+
+        <!-- Comments toggled -->
+        <div id="toggle-animation" class="uk-card uk-card-default uk-card-body uk-margin-small" hidden>
+             Animation
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+{% endblock %}
