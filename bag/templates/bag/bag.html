@@ -5,21 +5,55 @@
 
 <div class="uk-container uk-container-medium">
 
+  <h1 class="uk-heading-line uk-text-center">
+    <span>Shopping bag</span>
+  </h1>
+
+  <div class="uk-text-center uk-margin-medium-top" uk-grid>
+    <div class="uk-width-auto@m uk-padding-small">
+      <div class="uk-background-muted uk-padding">
+        Auto
+      </div>
+    </div>
+    <div class="uk-width-1-3@m uk-padding-small">
+      <div class="uk-background-muted uk-padding">
+        1-3
+      </div>
+    </div>
+    <div class="uk-width-expand@m uk-padding-small">
+      <div class="uk-background-muted uk-padding">
+        Expand
+      </div>
+    </div>
+    <div class="uk-width-expand@m uk-padding-small">
+      <div class="uk-background-muted uk-padding">
+        Expand
+      </div>
+    </div>
+    <div class="uk-width-expand@m uk-padding-small">
+      <div class="uk-background-muted uk-padding">
+        Expand
+      </div>
+    </div>
+  </div>
+
+
+
   {% if bag_items %}
     <!-- Shopping bag items -->
+
   {% else %}
     <!-- Default - empty shopping cart -->
-    <h1 class="uk-heading-line uk-text-center">
-      <span>Shopping bag</span>
-    </h1>
-    <div class="uk-flex uk-flex-center">
+
+    <!-- <div class="uk-flex uk-flex-center">
       <div>Your shopping bag is empty.</div>
     </div>
     <div class="uk-flex uk-flex-center uk-margin-medium-top">
       <a href="{% url 'products' %}" class="uk-button uk-button-primary uk-text-capitalize uk-border-pill">
         Keep Shopping
       </a>
-    </div>
+    </div> -->
+
   {% endif %}
 
 </div>

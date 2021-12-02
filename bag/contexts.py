@@ -16,12 +16,10 @@ def bag_contents(request):
     product_count = 0
 
     # Calculating when free shipping is applicable
-
     # Percentage based 'delivery' cost calculation
     # Assumption and current setting:
     # FREE_DELIVERY_THRESHOLD = 50
     # STANDARD_DELIVERY_PERCENTAGE = 10 
-
     # Calculate shipping when total is under 50
     if total < settings.FREE_DELIVERY_THRESHOLD:
         # Estimate shipping cost

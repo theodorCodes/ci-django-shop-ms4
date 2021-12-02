@@ -11,28 +11,28 @@
 <!-- {{ products }} -->
 <!-- Test END -->
 
-<!-- uikit, centers container with medium size width -->
+<!-- content wrapper -->
 <div class="uk-container uk-container-medium">
-  <!-- uikit - filter and sort items by meta data container -->
+
+  <!-- uikit - INITIATE FILTER OPTIONS and product sorting -->
   <div uk-filter="target: .js-filter">
-    <!-- uikit grid for filter controls - wrapper -->
+
+    <!-- uikit - FILTER CONTROL WRAPPER -->
     <div class="uk-grid-small uk-flex-middle" uk-grid>
+      <!-- PRODUCT FILTER OPTIONS -->
       <div class="uk-width-expand">
         <div class="uk-grid-small uk-grid-divider uk-child-width-auto" uk-grid>
-
-          <!-- uikit, using uk-filter-control with classes to define filters -->
+          <!-- Default uk-filter-control to load all available products -->
           <div>
             <ul class="uk-subnav uk-subnav-pill" uk-margin>
-              <!-- loads all available products -->
               <li class="uk-active" uk-filter-control>
                 <a href="#" class="uk-text-capitalize uk-border-pill">All</a>
               </li>
             </ul>
           </div>
-          <!-- Sorting products by category -->
+          <!-- Sorting products by category from models -->
           <div>
             <ul class="uk-subnav uk-subnav-pill uk-text-capitalize" uk-margin>
-              <!-- using 'Categories' from model as filters -->
               {% for category in categories %}
                 <li uk-filter-control="[data-category='{{ category.friendly_name }}']">
                   <a href="#" class="uk-text-capitalize uk-border-pill">{{ category.friendly_name }}</a>
@@ -40,7 +40,7 @@
               {% endfor %}
             </ul>
           </div>
-          <!-- Reset view after search -->
+          <!-- Reset search term button -->
           {% if search_term %}
             <div>
               <ul class="uk-subnav uk-subnav-pill" uk-margin>
@@ -56,10 +56,10 @@
               </ul>
             </div>
           {% endif %}
-
         </div>
       </div>
 
+      <!-- PRODUCT SORTING OPTIONS -->
       <!-- Alphabetical sorting (ascending or descending) of filtered items -->
       <div class="uk-width-auto uk-text-nowrap">
         <span class="uk-active" uk-filter-control="sort: data-name"><a class="uk-icon-link" href="#"
@@ -67,19 +67,22 @@
         <span uk-filter-control="sort: data-name; order: desc"><a class="uk-icon-link" href="#"
             uk-icon="icon: arrow-up"></a></span>
       </div>
+    <!-- END of filter control wrapper -->
     </div>
 
-    <!-- uikit - Applying masonry style and js-filter -->
+    <!-- MASONRY LAYOUT - uikit masonry layout -->
     <ul class="js-filter uk-child-width-1-2 uk-child-width-1-3@m uk-text-center" uk-grid="masonry: true">
 
-      <!-- Jinja for loop to iterate through 'product' variable -->
+      <!-- PRODUCT CARD -->
       {% for product in products %}
-        <!-- Generating a card for each product that is wrapped with its own category as
-        UIkit filterable meta data to use with the above uk-filter-control -->
+
+        <!-- Each product is wrapped with its own category as uikit
+        filterable meta data to use with the above uk-filter-control -->
         <li data-category="{{ product.category.friendly_name }}" data-name="{{ product.name }}">
           <div class="uk-card uk-card-default">
+
+            <!-- PRODUCT IMAGE -->
             <div class="uk-card-media-top">
-              <!-- Product image if available -->
               {% if product.image %}
                 <!-- Link to product detail page -->
                 <a href="{% url 'product_detail' product.id %}">
@@ -97,7 +100,8 @@
                 </a>
               {% endif %}
             </div>
-            <!-- Product info -->
+
+            <!-- PRODUCT INFO -->
             <div class="uk-card-body uk-padding-small">
               <!-- Name, category and price -->
               <div class="uk-text-left uk-text-small">
@@ -109,7 +113,7 @@
               <div class="uk-text-left uk-text-small uk-text-bold uk-margin-small-top">
                 ${{ product.price }}
               </div>
-              <!-- Rating and testimonials-->
+              <!-- Social rating or testimonials -->
               <div class="uk-grid-small uk-text-small uk-margin-top" uk-grid>
                 {% if product.views %}
                   <span class="uk-text-left uk-width-expand">
@@ -124,11 +128,10 @@
                 {% endif %}
               </div>
             </div>
+          <!-- END of card -->
           </div>
         </li>
       {% endfor %}
-
-
 
       <!-- Empty cards for tests. Delete this later -->
       <li data-color="white" data-size="large" data-name="A">
@@ -204,10 +207,11 @@
         </div>
       </li>
 
-
+    <!-- END of masonry layout -->
     </ul>
-
+  <!-- END of uikit filter section -->
   </div>
+<!-- END of content wrapper -->
 </div>
 
 {% endblock %}

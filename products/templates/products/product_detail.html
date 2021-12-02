@@ -3,34 +3,32 @@
 
 {% block content %}
 
+<!-- content wrappers -->
 <div class="uk-container uk-container-medium">
   <div class="uk-width-expand">
     <div class="uk-grid-small custom-product-flex" uk-grid>
 
-      <!-- Product image -->
+      <!-- PRODUCT IMAGE -->
       <div class="uk-card uk-card-default uk-padding-remove-left">
         <div class="uk-card-media">
-          <!-- Product image if available -->
           {% if product.image %}
-            <!-- UIkit lightbox -->
+            <!-- uikit LIGHTBOX -->
             <div uk-lightbox="animate: fade">
               <a href="{{ product.image.url }}">
-                <img class="" 
-                    src="{{ product.image.url }}" 
-                    width="500" 
-                    alt="{{ product.name }}">
+                <img src="{{ product.image.url }}" 
+                   width="500" 
+                     alt="{{ product.name }}">
               </a>
             </div>
           {% else %}
-            <img class="" 
-                src="{% static 'images/noimage.png' %}" 
-                width="600" 
-                alt="{{ product.name }}">
+            <img src="{% static 'images/noimage.png' %}" 
+               width="600" 
+                 alt="{{ product.name }}">
           {% endif %}
         </div>
       </div>
 
-      <!-- Product info -->
+      <!-- PRODUCT INFO -->
       <div class="uk-card-body uk-margin-left uk-width-large">
         <div class="uk-text-left uk-text-large uk-text-bold uk-width-large">
           {{ product.name }}
@@ -47,38 +45,78 @@
         <div class="uk-text-left uk-text-small uk-width-large uk-margin-small-top">
           {{ product.description }}
         </div>
+
+        <!-- ADD TO CART form and button -->
         <div>
           <p class="uk-margin-medium-top" uk-margin>
-            <button href="#" 
-                    class="uk-button uk-button-secondary uk-border-pill"
-                    type="">Add to bag</button>
-            <button class="uk-button uk-button-text uk-text-capitalize uk-margin-left">Request custom artwork</button>
+            <form action="{% url 'add_to_bag' product.id %}" method="POST">
+              <!-- Secure Django token -->
+              {% csrf_token %}
+              <div class="uk-margin uk-width-small">
+                <!-- Input field -->
+                <input class="uk-input uk-form-small uk-width-1-2"
+                        type="number"
+                        name="quantity"
+                       value="1"
+                         min="1"
+                         max="99"
+                data-item_id="{{ product_id }}"
+                          id="id_qty_{{ product.id }}">
+              </div>
+              <div>
+                <!-- Submit button -->
+                <button class="uk-button uk-button-secondary uk-border-pill"
+                         type="submit">
+                  Add to Bag
+                </button>
+                <!-- Link to contact page -->
+                <button class="uk-button 
+                               uk-button-text 
+                               uk-text-capitalize 
+                               uk-margin-left">
+                  Request custom artwork
+                </button>
+                <!-- Redirection link to this page -->
+                <input type="hidden"
+                       name="redirect_url"
+                      value="{{ request.path }}">
+              </div>
+            </form>
           </p>
         </div>
-        <!-- Rating and testimonials-->
+
+        <!-- RATINGS -->
         <div class="uk-text-small uk-margin-large-top">
           <!-- Likes -->
-          <span><a href="#" class="uk-button uk-button-default uk-button-small uk-border-pill">
-            Like </a>
+          <span>
+            <a href="#" 
+               class="uk-button uk-button-default uk-button-small uk-border-pill">
+               Like 
+            </a>
           </span>
-          <span class="uk-text-muted">{{ product.likes }}</span>
-          <br>
-          <!-- Toggle comments -->
+          <span class="uk-text-muted">
+            {{ product.likes }}
+          </span><br>
+          <!-- TOGGLE comments -->
           <span>
             <a href="#toggle-animation" 
                uk-toggle="target: #toggle-animation; animation: uk-animation-slide-bottom"
                class="uk-button uk-button-default uk-button-small uk-border-pill uk-margin-small-top">
-                 Comment </a>
+               Comment </a>
           </span>
-          <span class="uk-text-muted uk-margin-small-top">({{ product.comment }})</span><br>
+          <span class="uk-text-muted uk-margin-small-top">
+            ({{ product.comment }})
+          </span><br>
         </div>
 
         <!-- Comments toggled -->
-        <div id="toggle-animation" class="uk-card uk-card-default uk-card-body uk-margin-small" hidden>
+        <div id="toggle-animation" 
+             class="uk-card uk-card-default uk-card-body uk-margin-small" hidden>
              Animation
         </div>
+      <!-- END of product info -->
       </div>
-
+    <!-- END of content wrappers -->
     </div>
   </div>
 </div>

@@ -151,6 +151,14 @@
 
     </nav>
 
+    <!-- Banner -->
+    <div uk-sticky="offset: 80">
+      <div class="uk-text-center uk-background-default uk-light uk-panel uk-text-emphasis">
+        <p>Free delivery on orders over ${{ free_delivery_threshold }} for all physical goods!</p>
+      </div>
+    </div>
+
+
     <!-- Search field -->
     <div class="uk-margin uk-padding-small">
       <form method="GET" action="{% url 'products' %}" 
