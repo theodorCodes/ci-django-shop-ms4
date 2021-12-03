@@ -33,19 +33,27 @@ def bag_contents(request):
             'item_id': item_id,
             'quantity': quantity,
             'product': product,
+            'category': product.category,
         })
 
+    # Converting object to string inside list comprehension
+    # and save available categories in categories_found variable
+    categories_found = [str(category['category']) for category in bag_items]
+
     # 4) Percentage based 'delivery' cost calculation
-    # a) Calculate shipping when total is under 50 (see settings in settings.py)
+    # a) Calculate shipping when item is physical item such as a 'print'
+    #    AND when total is under 50 (see settings in settings.py)
+    #    (for digital items delivery cost should be 0)
     # b) Estimate 'delivery' (total * 10 / 100)
     # c) Estimate missing sum to reach free delivery
     # d) Delivery is free when total is greater than 50
     # e) Grand total or final sum to be charged
-    # f) Making the following data avaible or accessible from other templates
+    # f1) Making the following data avaible or accessible from other templates
     #    as this file is registered in project_main/settings.py
-    # g) return values
+    # f2) return values saved in context
 
-    if total < settings.FREE_DELIVERY_THRESHOLD:
+    # a)
+    if 'print' in categories_found and total < settings.FREE_DELIVERY_THRESHOLD:
         # b)
         delivery = total * Decimal(settings.STANDARD_DELIVERY_PERCENTAGE / 100)
         # c)
@@ -57,7 +65,7 @@ def bag_contents(request):
     # e)
     grand_total = delivery + total
 
-    # f)
+    # f1)
     context = {
         'bag_items': bag_items,
         'total': total,
@@ -68,5 +76,5 @@ def bag_contents(request):
         'grand_total': grand_total,
     }
 
-    # g)
+    # f2)
     return context

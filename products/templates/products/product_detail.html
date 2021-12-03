@@ -52,6 +52,18 @@
             <form action="{% url 'add_to_bag' product.id %}" method="POST">
               <!-- Secure Django token -->
               {% csrf_token %}
+              <!-- Size, format info -->
+              {% with product.has_formats as s %}
+                {% if s %}
+                  <div class="uk-margin">
+                    <select class="uk-select uk-form-small uk-form-width-medium">
+                      <option value="A4">Print Format A4</option>
+                      <option value="A3" selected>Print Format A3</option>
+                      <option value="A2">Print Format A2</option>
+                    </select>
+                  </div>
+                {% endif %}
+              {% endwith %}
               <div class="uk-margin uk-width-small">
                 <!-- Input field -->
                 <input class="uk-input uk-form-small uk-width-1-2"

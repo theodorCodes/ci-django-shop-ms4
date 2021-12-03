@@ -42,7 +42,10 @@
                   alt="{{ product.name }}">
             {% endif %}
           </td>
-          <td>{{ item.product.name }}</td>
+          <td>
+            {{ item.product.name }}
+            <p>Format: {% if item.product.has_formats %}{{ item.size|upper }}{% else %}N/A{% endif %}</p>
+          </td>
           <td>${{ item.product.price }}</td>
           <td>{{ item.quantity }}</td>
           <td>${{ item.product.price }}</td>

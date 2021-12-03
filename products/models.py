@@ -28,6 +28,7 @@ class Product(models.Model):
     # Other fields in 'Product' table
     name = models.CharField(max_length=254)
     description = models.TextField()
+    has_formats = models.BooleanField(default=False, null=True, blank=True)
     price = models.DecimalField(max_digits=6, decimal_places=2)
     views = models.IntegerField(null=True, blank=True)
     likes = models.IntegerField(null=True, blank=True)

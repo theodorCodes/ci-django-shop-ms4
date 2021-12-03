@@ -12,13 +12,14 @@ def view_bag(request):
 def add_to_bag(request, item_id):
     """ Add product and quantity to the shopping bag """
 
-    # Once submitted:
+    # Once submitted, from form:
     # Get and store quantity
     # Get and store redirect_url
     # Get and store existing bag variable, or create 'bag' session variable
     quantity = int(request.POST.get('quantity'))
     redirect_url = request.POST.get('redirect_url')
     bag = request.session.get('bag', {})
+    
 
     if item_id in list(bag.keys()):
         # Update the quantity
