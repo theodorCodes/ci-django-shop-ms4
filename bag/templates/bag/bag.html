@@ -9,11 +9,13 @@
     <span>Shopping bag</span>
   </h1>
 
-  <!-- Test bag items -->
-  <!-- {{ bag_items }} -->
-  <!-- END Test bag items -->
-
   {% if bag_items %}
+
+    <!-- Test bag items -->
+    {{ bag_items }}
+    {{ request.session.bag }}
+    <!-- END Test bag items -->
+  
     <!-- Shopping bag items -->
     <table class="uk-table uk-table-middle uk-table-divider">
       <thead>
@@ -33,13 +35,13 @@
             {% if item.product.image %}
               <!-- uikit LIGHTBOX -->
               <img src="{{ item.product.image.url }}" 
-                width="500" 
-                  alt="{{ product.name }}">
+                 width="500" 
+                   alt="{{ product.name }}">
               </div>
             {% else %}
               <img src="{% static 'images/noimage.png' %}" 
-                width="500" 
-                  alt="{{ product.name }}">
+                 width="500" 
+                   alt="{{ product.name }}">
             {% endif %}
           </td>
           <td>
