@@ -13,51 +13,60 @@
   <!-- {{ bag_items }} -->
   <!-- END Test bag items -->
 
-  <div class="uk-text-center uk-margin-medium-top" uk-grid>
-    <div class="uk-width-auto@m uk-padding-small">
-      <div class="uk-background-muted uk-padding">
-        Auto
-      </div>
-    </div>
-    <div class="uk-width-1-3@m uk-padding-small">
-      <div class="uk-background-muted uk-padding">
-        1-3
-      </div>
-    </div>
-    <div class="uk-width-expand@m uk-padding-small">
-      <div class="uk-background-muted uk-padding">
-        Expand
-      </div>
-    </div>
-    <div class="uk-width-expand@m uk-padding-small">
-      <div class="uk-background-muted uk-padding">
-        Expand
-      </div>
-    </div>
-    <div class="uk-width-expand@m uk-padding-small">
-      <div class="uk-background-muted uk-padding">
-        Expand
-      </div>
-    </div>
-  </div>
-
-
-
   {% if bag_items %}
     <!-- Shopping bag items -->
+    <table class="uk-table uk-table-middle uk-table-divider">
+      <thead>
+        <tr>
+          <th class="uk-width-small"></th>
+          <th>Product Description</th>
+          <th>Price</th>
+          <th>Qty</th>
+          <th>Subtotal</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Iterate through bag_items -->
+        {% for item in bag_items %}
+        <tr>
+          <td>
+            {% if item.product.image %}
+              <!-- uikit LIGHTBOX -->
+              <img src="{{ item.product.image.url }}" 
+                width="500" 
+                  alt="{{ product.name }}">
+              </div>
+            {% else %}
+              <img src="{% static 'images/noimage.png' %}" 
+                width="500" 
+                  alt="{{ product.name }}">
+            {% endif %}
+          </td>
+          <td>{{ item.product.name }}</td>
+          <td>${{ item.product.price }}</td>
+          <td>{{ item.quantity }}</td>
+          <td>${{ item.product.price }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <!-- Summary and checkout button -->
+    <div>
+      <p uk-margin class="uk-align-right">
+        <button class="uk-button uk-button-secondary">Checkout</button>
+      </p>
+    </div>
 
   {% else %}
     <!-- Default - empty shopping cart -->
-
-    <!-- <div class="uk-flex uk-flex-center">
+    <div class="uk-flex uk-flex-center">
       <div>Your shopping bag is empty.</div>
     </div>
     <div class="uk-flex uk-flex-center uk-margin-medium-top">
       <a href="{% url 'products' %}" class="uk-button uk-button-primary uk-text-capitalize uk-border-pill">
         Keep Shopping
       </a>
-    </div> -->
-
+    </div>
   {% endif %}
 
 </div>

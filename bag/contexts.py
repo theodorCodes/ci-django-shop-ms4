@@ -28,12 +28,12 @@ def bag_contents(request):
         total += quantity * product.price
         product_count += quantity
 
-    # Then store variables in bag_items including the product itself
-    bag_items.append({
-        'item_id': item_id,
-        'quantity': quantity,
-        'product': product,
-    })
+        # Then store variables in bag_items including the product itself
+        bag_items.append({
+            'item_id': item_id,
+            'quantity': quantity,
+            'product': product,
+        })
 
     # 4) Percentage based 'delivery' cost calculation
     # a) Calculate shipping when total is under 50 (see settings in settings.py)
