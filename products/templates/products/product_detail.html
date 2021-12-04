@@ -16,13 +16,13 @@
             <div uk-lightbox="animate: fade">
               <a href="{{ product.image.url }}">
                 <img src="{{ product.image.url }}" 
-                   width="500" 
+                     width="500" 
                      alt="{{ product.name }}">
               </a>
             </div>
           {% else %}
             <img src="{% static 'images/noimage.png' %}" 
-               width="500" 
+                 width="500" 
                  alt="{{ product.name }}">
           {% endif %}
         </div>
@@ -57,8 +57,8 @@
                 {% if s %}
                   <div class="uk-margin">
                     <select class="uk-select uk-form-small uk-form-width-medium"
-                             name="product_size"
-                               id="id_product_size">
+                            name="product_size"
+                            id="id_product_size">
                       <option value="A4 Print">Print Format A4</option>
                       <option value="A3 Print" selected>Print Format A3</option>
                       <option value="A2 Print">Print Format A2</option>
@@ -66,34 +66,50 @@
                   </div>
                 {% endif %}
               {% endwith %}
-              <div class="uk-margin uk-width-small">
-                <!-- Input field -->
-                <input class="uk-input uk-form-small uk-width-1-2"
-                        type="number"
-                        name="quantity"
-                       value="1"
+              <!-- Quantity field -->
+              <div class="uk-margin">
+                <div class="input-group uk-inline">
+                  <!-- Minus button, requires js -->
+                  <div class="intput-group">
+                    <button class="decrement-qty uk-form-icon" 
+                      data-item_id="{{ product.id }}" 
+                      id="decrement-qty_{{ product.id }}"
+                      uk-icon="icon: minus">
+                    </button>
+                  </div>
+                  <!-- Plus button, requires js -->
+                  <div class="intput-group">
+                    <button class="increment-qty uk-form-icon uk-form-icon-flip" 
+                      data-item_id="{{ product.id }}" 
+                      id="increment-qty_{{ product.id }}"
+                      uk-icon="icon: plus">
+                    </button>
+                  </div>
+                  <!-- Input field -->
+                  <input class="qty_input uk-input uk-form-small uk-form-width-small uk-text-center"
+                         type="number"
+                         name="quantity"
+                         value="1"
                          min="1"
                          max="99"
-                data-item_id="{{ product_id }}"
-                          id="id_qty_{{ product.id }}">
+                         data-item_id="{{ product_id }}"
+                         id="id_qty_{{ product.id }}">
+                </div>
               </div>
               <div>
                 <!-- Submit button -->
                 <button class="uk-button uk-button-secondary uk-border-pill"
-                         type="submit">
-                  Add to Bag
+                        type="submit">
+                        Add to Bag
                 </button>
                 <!-- Link to contact page -->
-                <button class="uk-button 
-                               uk-button-text 
-                               uk-text-capitalize 
-                               uk-margin-left">
+                <button class="uk-button uk-button-text uk-text-capitalize uk-margin-left">
                   Request custom artwork
                 </button>
                 <!-- Redirection link to this page -->
                 <input type="hidden"
                        name="redirect_url"
-                      value="{{ request.path }}">
+                       value="{{ request.path }}">
               </div>
             </form>
           </p>
@@ -116,7 +132,8 @@
             <a href="#toggle-animation" 
                uk-toggle="target: #toggle-animation; animation: uk-animation-slide-bottom"
                class="uk-button uk-button-default uk-button-small uk-border-pill uk-margin-small-top">
-               Comment </a>
+               Comment 
+            </a>
           </span>
           <span class="uk-text-muted uk-margin-small-top">
             ({{ product.comment }})
@@ -125,7 +142,8 @@
 
         <!-- Comments toggled -->
         <div id="toggle-animation" 
-             class="uk-card uk-card-default uk-card-body uk-margin-small" hidden>
+             class="uk-card uk-card-default uk-card-body uk-margin-small" 
+             hidden>
              Animation
         </div>
       <!-- END of product info -->
@@ -135,4 +153,10 @@
   </div>
 </div>
 
+{% endblock %}
+
+<!-- Including js file for quantity field with plus and minus dialer -->
+{% block postloadjs %}
+{{ block.super }}
+{% include 'products/includes/quantity_input_script.html' %}
 {% endblock %}

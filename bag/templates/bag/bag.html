@@ -30,29 +30,62 @@
       <tbody>
         <!-- Iterate through bag_items -->
         {% for item in bag_items %}
-        <tr>
-          <td>
-            {% if item.product.image %}
-              <!-- uikit LIGHTBOX -->
-              <img src="{{ item.product.image.url }}" 
-                 width="500" 
-                   alt="{{ product.name }}">
-              </div>
-            {% else %}
-              <img src="{% static 'images/noimage.png' %}" 
-                 width="500" 
-                   alt="{{ product.name }}">
-            {% endif %}
-          </td>
-          <td>
-            {{ item.product.name }}
-            <!-- Size info -->
-            <p>Format: {% if item.product.has_formats %}<strong>{{ item.size }}</strong>{% else %}N/A{% endif %}</p>
-          </td>
-          <td>${{ item.product.price }}</td>
-          <td>{{ item.quantity }}</td>
-          <td>${{ item.product.price }}</td>
-        </tr>
+          <tr>
+            <td>
+              {% if item.product.image %}
+                <!-- uikit LIGHTBOX -->
+                <img src="{{ item.product.image.url }}" 
+                     width="500" 
+                     alt="{{ product.name }}">
+                </div>
+              {% else %}
+                <img src="{% static 'images/noimage.png' %}" 
+                     width="500" 
+                     alt="{{ product.name }}">
+              {% endif %}
+            </td>
+            <td>
+              {{ item.product.name }}
+              <!-- Size info -->
+              <p>
+                Format: {% if item.product.has_formats %}
+                          <strong>{{ item.size }}</strong>
+                        {% else %}
+                          N/A
+                        {% endif %}
+              </p>
+            </td>
+            <td>${{ item.product.price }}</td>
+            <!-- Quantity form -->
+            <!-- <td>{{ item.quantity }}</td> -->
+            <td>
+
+              <p class="uk-margin-medium-top" uk-margin>
+                <form action="" method="POST">
+                  <!-- Secure Django token -->
+                  {% csrf_token %}
+                  <div class="uk-margin uk-width-small">
+                    <!-- Input field -->
+                    <input class="uk-input uk-form-small uk-form-width-xsmall"
+                           type="number"
+                           name="quantity"
+                           value="{{ item.quantity }}"
+                           min="1"
+                           max="99"
+                           data-item_id="{{ item.item_id }}"
+                           id="id_qty_{{ item.item_id }}">
+                    <!-- Submit button -->
+                    <a class="uk-button uk-button-default uk-button-small uk-border-pill uk-align-right"
+                       type="submit">
+                       Update
+                    </a>
+                  </div>
+                </form>
+              </p>
+
+            </td>
+            <td>${{ item.product.price }}</td>
+          </tr>
         {% endfor %}
       </tbody>
     </table>
