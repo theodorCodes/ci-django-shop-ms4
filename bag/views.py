@@ -54,9 +54,11 @@ def add_to_bag(request, item_id):
         if item_id in list(bag.keys()):
             # Update the quantity
             bag[item_id] += quantity
+            # messages.success(request, f'Updated {product.name} quantity to {bag[item_id]}')
         else:
             # Add item to 'bag'
             bag[item_id] = quantity
+            # messages.success(request, f'Added {product.name} to your bag')
 
     # B4 Then overwrite session with updated bag info
     request.session['bag'] = bag

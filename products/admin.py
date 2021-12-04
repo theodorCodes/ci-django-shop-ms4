@@ -13,6 +13,7 @@ class ProductAdmin(admin.ModelAdmin):
         'name',
         'category',
         'description',
+        'has_formats',
         'price',
         'views',
         'likes',

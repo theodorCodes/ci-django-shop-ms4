@@ -43,13 +43,14 @@ def bag_contents(request):
             for size, quantity in item_data['items_by_size'].items():
                 total += quantity * product.price
                 product_count += quantity
-            # Then store variables in bag_items including the product itself
-            bag_items.append({
-                'item_id': item_id,
-                'quantity': quantity,
-                'product': product,
-                'category': product.category,
-            })
+                # Then store variables in bag_items including the product itself
+                bag_items.append({
+                    'item_id': item_id,
+                    'quantity': quantity,
+                    'product': product,
+                    'size': size,  # Holds the actual size (!)
+                    'category': product.category,
+                })
 
     # Converting object to string inside list comprehension
     # and save available categories in categories_found variable
@@ -77,6 +78,7 @@ def bag_contents(request):
         # d)
         delivery = 0
         free_delivery_delta = 0
+
     # e)
     grand_total = delivery + total
 

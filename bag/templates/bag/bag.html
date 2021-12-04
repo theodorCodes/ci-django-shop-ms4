@@ -12,8 +12,8 @@
   {% if bag_items %}
 
     <!-- Test bag items -->
-    {{ bag_items }}
-    {{ request.session.bag }}
+    <!-- {{ bag_items }} -->
+    <!-- {{ request.session.bag }} -->
     <!-- END Test bag items -->
   
     <!-- Shopping bag items -->
@@ -46,7 +46,8 @@
           </td>
           <td>
             {{ item.product.name }}
-            <p>Format: {% if item.product.has_formats %}{{ item.size|upper }}{% else %}N/A{% endif %}</p>
+            <!-- Size info -->
+            <p>Format: {% if item.product.has_formats %}<strong>{{ item.size }}</strong>{% else %}N/A{% endif %}</p>
           </td>
           <td>${{ item.product.price }}</td>
           <td>{{ item.quantity }}</td>
