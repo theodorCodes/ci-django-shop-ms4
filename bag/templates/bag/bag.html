@@ -55,13 +55,15 @@
                 Format: {% if item.product.has_formats %}
                           <strong>{{ item.size }}</strong>
                         {% else %}
-                          N/A
+                          (downloadable item)
                         {% endif %}
               </p>
               <!-- Show only on mobile screens -->
               <p class="uk-hidden@m">
-                <span class="uk-text-muted">Qty.: </span>${{ item.product.price }}<br>
-                <span class="uk-text-muted">Subtotal: </span>${{ item.product.price | calc_subtotal:item.quantity }}
+                <span class="uk-text-muted">Qty.: </span>
+                  ${{ item.product.price }}<br>
+                <span class="uk-text-muted">Subtotal: </span>
+                  ${{ item.product.price | calc_subtotal:item.quantity }}
               </p>
             </td>
             <!-- Show only on larger screens -->
@@ -123,6 +125,7 @@
             <td class="uk-visible@m">${{ item.product.price | calc_subtotal:item.quantity }}</td>
           </tr>
         {% endfor %}
+
       </tbody>
     </table>
     <!-- Summary and checkout button -->
@@ -141,6 +144,7 @@
           You could get free delivery by spending just <strong>${{ free_delivery_delta }}</strong> more!
         </p>
       {% endif %}
+
       <p class="uk-align-right uk-margin-remove-left">
         <a href="{% url 'products' %}" 
            class="uk-button uk-button-default uk-border-pill">

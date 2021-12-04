@@ -82,8 +82,8 @@ TEMPLATES = [
     },
 ]
 
-# Django messages
-# MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
+# Store messages in session
+MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
 
 # Allauth setting
 AUTHENTICATION_BACKENDS = [

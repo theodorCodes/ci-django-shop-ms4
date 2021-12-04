@@ -1,5 +1,7 @@
 from django.shortcuts import render, redirect, reverse, HttpResponse
-
+# N1) Required for notifications
+from django.contrib import messages
+from products.models import Product
 
 # Renders bag view
 def view_bag(request):
@@ -11,6 +13,9 @@ def view_bag(request):
 # Creates add to bag session, submitting with item_id info
 def add_to_bag(request, item_id):
     """ Add product and quantity to the shopping bag """
+
+    # N2) Get product for notifications
+    product = Product.objects.get(pk=item_id)
 
     # B1 Once submitted, from form:
     # Get and store quantity
@@ -58,7 +63,8 @@ def add_to_bag(request, item_id):
         else:
             # Add item to 'bag'
             bag[item_id] = quantity
-            # messages.success(request, f'Added {product.name} to your bag')
+            # N3) TEST MESSAGE
+            messages.success(request, f'Added {product.name} to your bag')
 
     # B4 Then overwrite session with updated bag info
     request.session['bag'] = bag
