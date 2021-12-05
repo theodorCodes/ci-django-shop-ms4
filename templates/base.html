@@ -179,13 +179,20 @@
 
   <!-- Notifications -->
   {% if messages %}
-    <!-- <div class="message-container"></div> -->
-    <div uk-alert">
-      {% for message in messages %}
-        <!-- Include notification template in templates/includes/notifications/ -->
-        {% include 'includes/notifications/message_success.html' %}
-      {% endfor %}
-    </div>
+    {% for message in messages %}
+      <!-- Include notification template in templates/includes/notifications/ -->
+        {% with message.level as level %}
+          {% if level == 40 %}
+            {% include 'includes/notifications/message_error.html' %}
+          {% elif level == 30 %}
+            {% include 'includes/notifications/message_warning.html' %}
+          {% elif level == 25 %}
+            {% include 'includes/notifications/message_success.html' %}
+          {% else %}
+            {% include 'includes/notifications/message_info.html' %}
+          {% endif %}
+      {% endwith %}
+    {% endfor %}
   {% endif %}
 
   <!-- custom header -->
@@ -199,6 +206,7 @@
   <!-- custom js -->
   {% block postloadjs %}
   {% endblock %}
+  
 
 </body>
 
