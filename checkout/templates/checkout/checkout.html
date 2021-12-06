@@ -1,0 +1,135 @@
+{% extends "base.html" %}
+{% load static %}
+{% load bag_tools %}
+
+{% block content %}
+<div class="uk-container uk-container-medium">
+  <h1 class="uk-heading-line uk-text-center">
+    <span>Checkout</span>
+  </h1>
+  <div class="uk-flex uk-flex-middle uk-child-width-expand@s" uk-grid>
+
+    <div class="uk-width-auto@m uk-grid-item-match">
+      <div class="uk-card uk-card-default uk-card-body">
+        <p class="uk-margin">Please fill out the form to complete your order</p>
+        <form>
+          <fieldset class="uk-fieldset">
+            <!-- Details -->
+            <p class="uk-text-small uk-text-bolder">
+              Details
+            </p>
+            <div class="uk-margin-small">
+              <input class="uk-input" type="text" placeholder="Input">
+            </div>
+            <div class="uk-margin-small">
+              <input class="uk-input" type="text" placeholder="Input">
+            </div>
+            <!-- Delivery -->
+            <p class="uk-margin-small-left uk-text-small uk-text-bolder">
+              Delivery
+            </p>
+            <div class="uk-margin-small">
+              <input class="uk-input" type="text" placeholder="Input">
+            </div>
+            <div class="uk-margin-small">
+              <input class="uk-input" type="text" placeholder="Input">
+            </div>
+            <div class="uk-margin-small">
+              <input class="uk-input" type="text" placeholder="Input">
+            </div>
+            <div class="uk-margin-small">
+              <input class="uk-input" type="text" placeholder="Input">
+            </div>
+            <div class="uk-margin-small">
+              <input class="uk-input" type="text" placeholder="Input">
+            </div>
+            <div class="uk-margin-small">
+              <input class="uk-input" type="text" placeholder="Input">
+            </div>
+            <!-- Selector -->
+            <div class="uk-margin">
+              <select class="uk-select">
+                <option>Option 01</option>
+                <option>Option 02</option>
+              </select>
+            </div>
+          </fieldset>
+        </form>
+      </div>
+    </div>
+
+
+    <div class="uk-width-1-2@m">
+      <div class="uk-card uk-card-default uk-card-body">
+        <p>Order Summary</p>
+        
+          <!-- Checkout items -->
+          <table class="uk-table uk-table-middle uk-table-divider">
+            <thead>
+              <tr>
+                <th class="uk-width-small"></th>
+                <th class="uk-visible@m">Item(s)</th>
+                <th class="uk-visible@m">Subtotal</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Iterate through bag_items -->
+              {% for item in bag_items %}
+                <tr>
+                  <!-- Product image -->
+                  <td>
+                    {% if item.product.image %}
+                      <img class="uk-width-small@s"
+                          src="{{ item.product.image.url }}" 
+                          width="100" 
+                          alt="{{ product.name }}">
+                    {% else %}
+                      <img class="uk-width-small@s"
+                          src="{% static 'images/noimage.png' %}" 
+                          width="100" 
+                          alt="{{ product.name }}">
+                    {% endif %}
+                  </td>
+                  <!-- Product description and mobile version -->
+                  <td>
+                    {{ item.product.name }}
+                    <!-- Size info -->
+                    <p>
+                      Format: {% if item.product.has_formats %}
+                                <strong>{{ item.size }}</strong>
+                              {% else %}
+                                (downloadable item)
+                              {% endif %}
+                      <br>
+                      Qty: {{ item.quantity }}
+                    </p>
+                    <!-- Show only on mobile screens -->
+                    <p class="uk-hidden@m">
+                      <span class="uk-text-muted">Subtotal: </span>
+                        ${{ item.product.price | calc_subtotal:item.quantity }}
+                    </p>
+                  </td>
+                  <!-- Subtotal - Calc price and quantity in bag_tools.py -->
+                  <td class="uk-visible@m">${{ item.product.price | calc_subtotal:item.quantity }}</td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+          <hr class="uk-margin-small">
+          <p class="uk-text-default uk-text-right">
+            Bag Total: ${{ total|floatformat:2 }}
+          </p>
+          <p class="uk-text-default uk-text-right">
+            Delivery: ${{ delivery|floatformat:2 }}
+          </p>
+          <p class="uk-text-default uk-text-right uk-text-bold uk-text-secondary">
+            Grand Total: ${{ grand_total|floatformat:2 }}
+          </p>
+        </div>
+      </div>
+
+
+
+  </div>
+</div>
+{% endblock %}
