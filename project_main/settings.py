@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'home',  # Register home app
     'products',  # Register product app
     'bag',  # Register bag app
+    'checkout',  # Register checkout app
 ]
 
 MIDDLEWARE = [
