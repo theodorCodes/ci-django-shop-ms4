@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect, reverse, HttpResponse
+from django.shortcuts import render, redirect, reverse, HttpResponse, get_object_or_404
 # N1) Required for notifications
 from django.contrib import messages
 from products.models import Product
@@ -45,13 +45,13 @@ def add_to_bag(request, item_id):
         if item_id in list(bag.keys()):
             if size in bag[item_id]['items_by_size'].keys():
                 bag[item_id]['items_by_size'][size] += quantity
-                # messages.success(request, f'Updated size {size.upper()} {product.name} quantity to {bag[item_id]["items_by_size"][size]}')
+                messages.success(request, f'Updated format {size.upper()} {product.name} quantity to {bag[item_id]["items_by_size"][size]}')
             else:
                 bag[item_id]['items_by_size'][size] = quantity
-                # messages.success(request, f'Added size {size.upper()} {product.name} to your bag')
+                messages.success(request, f'Added format {size.upper()} {product.name} to your bag')
         else:
             bag[item_id] = {'items_by_size': {size: quantity}}
-            # messages.success(request, f'Added size {size.upper()} {product.name} to your bag')
+            messages.success(request, f'Added format {size.upper()} {product.name} to your bag')
     # B3
     # if no size then just add quantity
     else:
@@ -59,7 +59,7 @@ def add_to_bag(request, item_id):
         if item_id in list(bag.keys()):
             # Update the quantity
             bag[item_id] += quantity
-            # messages.success(request, f'Updated {product.name} quantity to {bag[item_id]}')
+            messages.success(request, f'Updated {product.name} quantity to {bag[item_id]}')
         else:
             # Add item to 'bag'
             bag[item_id] = quantity
@@ -84,7 +84,7 @@ def add_to_bag(request, item_id):
 def adjust_bag(request, item_id):
     """ Adjust the quantity of the specified product to the shopping amount """
 
-    # product = get_object_or_404(Product, pk=item_id)
+    product = get_object_or_404(Product, pk=item_id)
 
     # And the entire top portion
     # will be the same except we don't need the redirect URL since we'll always want
@@ -104,14 +104,14 @@ def adjust_bag(request, item_id):
             # we'll want to set the items quantity accordingly 
             bag[item_id]['items_by_size'][size] = quantity
             # response message
-            # messages.success(request, f'Updated size {size.upper()} {product.name} quantity to {bag[item_id]["items_by_size"][size]}')
+            messages.success(request, f'Updated format {size.upper()} {product.name} quantity to {bag[item_id]["items_by_size"][size]}')
         else:
             # and otherwise we'll just remove the item.
             del bag[item_id]['items_by_size'][size]
             if not bag[item_id]['items_by_size']:
                 bag.pop(item_id)
             # response message
-            # messages.success(request, f'Removed size {size.upper()} {product.name} from your bag')
+            messages.success(request, f'Removed format {size.upper()} {product.name} from your bag')
 
     # Summary to aboves if statement:        
     # If there's a size. Of course we'll need to drill into the
@@ -125,11 +125,11 @@ def adjust_bag(request, item_id):
         if quantity > 0:
             bag[item_id] = quantity
             # response message
-            # messages.success(request, f'Updated {product.name} quantity to {bag[item_id]}')
+            messages.success(request, f'Updated {product.name} quantity to {bag[item_id]}')
         else:
             bag.pop(item_id)
             # response message
-            # messages.success(request, f'Removed {product.name} from your bag')
+            messages.success(request, f'Removed {product.name} from your bag')
     # These two operations are basically the same.
     # They just need to be handled differently due to the more complex structure of the
     # bag for items that have sizes.
@@ -148,7 +148,7 @@ def remove_from_bag(request, item_id):
 
     try:
         # adding product here
-        # product = get_object_or_404(Product, pk=item_id)
+        product = get_object_or_404(Product, pk=item_id)
 
         # We don't need the quantity in this view since the intended quantity is zero.
         ## quantity = int(request.POST.get('quantity'))
@@ -175,12 +175,12 @@ def remove_from_bag(request, item_id):
                 # We should also do this in the adjust bag view if the quantity is set to zero.
                 # See *d)
             # response message
-            # messages.success(request, f'Removed size {size.upper()} {product.name} from your bag')
+            messages.success(request, f'Removed format {size.upper()} {product.name} from your bag')
         else:
             # If there is no size. Again removing the item is as simple as popping it out of the bag.
             bag.pop(item_id)  ## TYPO HERE! change from: [item_id] to: (item_id) 
             # response message
-            # messages.success(request, f'Removed {product.name} from your bag')
+            messages.success(request, f'Removed {product.name} from your bag')
 
         request.session['bag'] = bag
         # Finally instead of returning a redirect.
@@ -191,5 +191,5 @@ def remove_from_bag(request, item_id):
         return HttpResponse(status=200)
     except Exception as e:
         # response message
-        # messages.error(request, f'Error removing item: {e}')
+        messages.error(request, f'Error removing item: {e}')
         return HttpResponse(status=500)

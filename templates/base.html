@@ -61,12 +61,10 @@
 
   <!-- Browser tab title -->
   <title>Template {% block extra_title %}{% endblock %}</title>
+
 </head>
-
 <body>
-
   <header>
-
     <!-- Navigation -->
     <nav uk-sticky class="uk-navbar-container" uk-navbar>
 
@@ -159,38 +157,42 @@
       </div>
     </div>
 
-
-    <!-- Search field -->
+    <!-- 
+      Search field
+      Use 'button' instead of 'a' tag, otherwise 'q' is not going to be in request
+    -->
     <div class="uk-margin uk-padding-small">
       <form method="GET" action="{% url 'products' %}" 
             class="uk-search uk-search-default uk-align-center uk-width-large">
-        <a href="" class="uk-search-icon-flip uk-border-circle custom-search-icon" 
-           type="submit" uk-search-icon></a>
         <input class="uk-search-input uk-border-pill" 
-               type="text" 
-               name="q" 
-               placeholder="Search">
+            type="text" 
+            name="q" 
+            placeholder="Search">
+        <button class="uk-search-icon-flip uk-border-circle custom-search-icon" 
+                type="submit" 
+                uk-search-icon></button>
       </form>
     </div>
 
   </header>
 
-
-
   <!-- Notifications -->
   {% if messages %}
     {% for message in messages %}
-      <!-- Include notification template in templates/includes/notifications/ -->
-        {% with message.level as level %}
-          {% if level == 40 %}
-            {% include 'includes/notifications/message_error.html' %}
-          {% elif level == 30 %}
-            {% include 'includes/notifications/message_warning.html' %}
-          {% elif level == 25 %}
-            {% include 'includes/notifications/message_success.html' %}
-          {% else %}
-            {% include 'includes/notifications/message_info.html' %}
-          {% endif %}
+      <!-- 
+        Include notification template in templates/includes/notifications/ 
+        Using Django message types
+      -->
+      {% with message.level as level %}
+        {% if level == 40 %}
+          {% include 'includes/notifications/message_error.html' %}
+        {% elif level == 30 %}
+          {% include 'includes/notifications/message_warning.html' %}
+        {% elif level == 25 %}
+          {% include 'includes/notifications/message_success.html' %}
+        {% else %}
+          {% include 'includes/notifications/message_info.html' %}
+        {% endif %}
       {% endwith %}
     {% endfor %}
   {% endif %}
@@ -205,9 +207,11 @@
 
   <!-- custom js -->
   {% block postloadjs %}
+    <script type="text/javascript">
+      // Trigger uikit modal view for notifications
+      UIkit.modal('#notification').show();
+    </script>
   {% endblock %}
-  
 
 </body>
-
 </html>

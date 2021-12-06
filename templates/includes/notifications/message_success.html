@@ -1,22 +1,60 @@
-<!-- Initialize uikit notification using modals -->
-<!-- Using backslash after message: '\ and, or minfied HTML
-     as uikit does not allow spaces -->
-<script type="text/javascript">
-  UIkit.modal.dialog(
-    '<button class="uk-modal-close-default" type="button" uk-close></button><div class="uk-modal-header"><h5 class="uk-text-success">Success!</h5></div><div class="uk-modal-body"><p>{{ message }}.</p></div>'
-  );
-</script>
-
-<!-- Non-minified modal view version -->
-
-<!-- <button class="uk-modal-close-default" type="button" uk-close></button>
-<div class="uk-modal-header">
-  <h5 class="uk-text-success">Success!</h5>
+<div id="notification" uk-modal>
+  <div class="uk-modal-dialog uk-modal-body uk-padding-small">
+    <button class="uk-modal-close-default" type="button" uk-close></button>
+    <div class="uk-modal-header">
+      <h5 class="uk-text-success">Success!</h5>
+    </div>
+    <div class="uk-modal-body uk-margin-small-top uk-margin-small-bottom uk-padding-remove-top uk-padding-remove-bottom">
+      <p class="uk-text-small">{{ message }}.</p>
+    </div>
+    {% if grand_total and not on_profile_page %}
+      <hr>
+      <div class="uk-modal-body uk-padding-remove-top">
+        <p class="uk-text-small uk-margin-remove-bottom">Your Bag ({{ product_count }})</p>
+        <table class="uk-table uk-table-middle uk-table-divider">
+          <tbody>
+            {% for item in bag_items %}
+              <tr class="uk-text-small">
+                <td>
+                  {% if item.product.image %}
+                    <img src="{{ item.product.image.url }}" width="80" alt="{{ product.name }}">
+                  {% else %}
+                    <p>Image: N/A</p>
+                  {% endif %}
+                </td>
+                <td>
+                  <p class="uk-margin-remove-bottom"><strong>{{ item.product.name }}</strong></p>
+                  <p class="uk-margin-remove-bottom">
+                    Size: 
+                    {% if item.product.has_sizes %}
+                      {{ item.size|upper }}
+                    {% else %}
+                      N/A
+                    {% endif %}
+                  </p>
+                  <p class="uk-margin-remove-bottom">Qty: {{ item.quantity }}</p>
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+        <strong>
+          <p class="uk-margin-remove-bottom uk-text-left uk-text-small">
+            Total {% if free_delivery_delta > 0 %} (Exc. delivery){% endif %}:<span class="uk-text-right">${{ total|floatformat:2 }}</span>
+          </p>
+        </strong>
+        {% if free_delivery_delta > 0 %}
+          <p class="mb-0 p-2 bg-warning shadow-sm text-black text-center">
+            Spend <strong>${{ free_delivery_delta }}</strong> more to get free next day delivery!
+          </p>
+        {% endif %}
+      </div>
+      <div class="uk-modal-footer uk-text-right">
+        <a href="{% url 'products' %}" class="uk-link-text uk-margin-right">Continue Shopping</a>
+        <a href="{% url 'view_bag' %}" class="uk-button uk-button-secondary uk-border-pill">
+          <span class="uk-text-small uk-text-upper">Go To Checkout</span>
+        </a>
+      </div>
+    {% endif %}
+  </div>
 </div>
-<div class="uk-modal-body">
-  <p>{{ message }}.</p>
-</div>
-<div class="uk-modal-footer uk-text-right">
-  <button class="uk-button uk-button-default uk-modal-close" type="button">Cancel</button>
-  <button class="uk-button uk-button-primary" type="button">Save</button>
-</div> -->
