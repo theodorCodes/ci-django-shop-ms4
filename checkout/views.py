@@ -20,6 +20,10 @@ def checkout(request):
     # Create context
     context = {
         'order_form': order_form,
+        # Test Stripe public key
+        'stripe_public_key': 'pk_test_51JuyiqFRX12E4U8SGMFixDSoY5AtCCjYIgP0YQANwjzbMrXSkiO0MVYQDcRfao4PM5VrlZkmINlLOgPxLcxqglO700kmdwOlBZ',
+        # Test Stripe secret key
+        'client_secret': 'test client secret',
     }
 
     # Render
