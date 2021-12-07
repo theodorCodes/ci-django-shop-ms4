@@ -14,6 +14,8 @@ from pathlib import Path
 # Importing os, because its not imported by default
 import os
 
+# Access Stripe environment settings with os and dotenv in Linux environment
+from dotenv import load_dotenv, find_dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -63,8 +65,6 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'project_main.urls'
-
-# CRISPY_TEMPLATE_PACK = 'bootstrap4'  # Not using bootstrap
 
 TEMPLATES = [
     {
@@ -197,3 +197,10 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Variables to calculate delivery costs, used in bag/context.py
 FREE_DELIVERY_THRESHOLD = 50
 STANDARD_DELIVERY_PERCENTAGE = 10 
+
+# Stripe
+STRIPE_CURRENCY = 'usd'
+# dotenv requires to load and find environment file on system first (Linux)
+load_dotenv(find_dotenv())
+STRIPE_PUBLIC_KEY = os.getenv('STRIPE_PUBLIC_KEY', '')
+STRIPE_SECRET_KEY = os.getenv('STRIPE_SECRET_KEY', '')
