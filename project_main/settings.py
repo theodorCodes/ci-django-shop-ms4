@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'products',  # Register product app
     'bag',  # Register bag app
     'checkout',  # Register checkout app
+    'crispy_forms',  # Register crispy forms
 ]
 
 MIDDLEWARE = [
@@ -62,6 +63,8 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'project_main.urls'
+
+# CRISPY_TEMPLATE_PACK = 'bootstrap4'  # Not using bootstrap
 
 TEMPLATES = [
     {
@@ -80,6 +83,11 @@ TEMPLATES = [
                 'django.template.context_processors.media',  # Use with media url
                 'bag.contexts.bag_contents',  # Registration of bag/context.py
             ],
+            # Adding crispy_forms_tags and crispy_forms_field here
+            'builtins': [
+                'crispy_forms.templatetags.crispy_forms_tags',
+                'crispy_forms.templatetags.crispy_forms_field',
+            ]
         },
     },
 ]

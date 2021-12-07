@@ -17,6 +17,11 @@ NAVBAR */
   color: #fff !important;
 }
 
+/* Banner bg */
+.custom-banner-bg {
+  background-color: #ebebeb;
+}
+
 
 /* 
 ----------------------------------------------------------------------- 
@@ -25,6 +30,23 @@ PRODUCT CATEGORY VIEW */
 
 .custom-product-flex {
   justify-content: center;
+}
+
+
+/* 
+----------------------------------------------------------------------- 
+BAG VIEW */
+
+
+.custom-checkout-link {
+  line-height: 2.5;
+  margin-right: 3px;
+}
+
+.custom-checkout > svg {
+  margin-left: 8px;
+  margin-bottom: 8px;
+  margin-right: -5px;
 }
 
 
@@ -52,6 +74,14 @@ NAVBAR MEDIA QUERIES at 800px */
   .desktop-navbar {
     display: none;
   }
+
+
+  /* Search - padding */
+  .custom-search-padding {
+    padding-right: 16px;
+    padding-left: 16px;
+  }
+
 
   /* Cart margin */
   .custom-mobile-cart-btn {

@@ -152,7 +152,7 @@
 
     <!-- Banner -->
     <div uk-sticky="offset: 80">
-      <div class="uk-text-center uk-background-default uk-light uk-panel uk-text-emphasis">
+      <div class="uk-text-center uk-background-default uk-light uk-panel uk-text-emphasis custom-banner-bg">
         <p>Free delivery on orders over ${{ free_delivery_threshold }} for all physical goods!</p>
       </div>
     </div>
@@ -161,7 +161,7 @@
       Search field
       Use 'button' instead of 'a' tag, otherwise 'q' is not going to be in request
     -->
-    <div class="uk-margin uk-padding-small">
+    <div class="uk-margin uk-margin-medium-top custom-search-padding">
       <form method="GET" action="{% url 'products' %}" 
             class="uk-search uk-search-default uk-align-center uk-width-large">
         <input class="uk-search-input uk-border-pill" 

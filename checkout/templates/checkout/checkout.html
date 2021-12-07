@@ -2,73 +2,28 @@
 {% load static %}
 {% load bag_tools %}
 
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'checkout/css/checkout.css' %}">
+{% endblock %}
+
 {% block content %}
 <div class="uk-container uk-container-medium">
-  <h1 class="uk-heading-line uk-text-center">
+  <!-- Page title -->
+  <h1 class="uk-heading-line uk-text-center uk-margin-medium-bottom">
     <span>Checkout</span>
   </h1>
-  <div class="uk-flex uk-flex-middle uk-child-width-expand@s" uk-grid>
+  <div class="uk-flex uk-flex-center uk-child-width-expand@s" uk-grid>
 
-    <div class="uk-width-auto@m uk-grid-item-match">
-      <div class="uk-card uk-card-default uk-card-body">
-        <p class="uk-margin">Please fill out the form to complete your order</p>
-        <form>
-          <fieldset class="uk-fieldset">
-            <!-- Details -->
-            <p class="uk-text-small uk-text-bolder">
-              Details
-            </p>
-            <div class="uk-margin-small">
-              <input class="uk-input" type="text" placeholder="Input">
-            </div>
-            <div class="uk-margin-small">
-              <input class="uk-input" type="text" placeholder="Input">
-            </div>
-            <!-- Delivery -->
-            <p class="uk-margin-small-left uk-text-small uk-text-bolder">
-              Delivery
-            </p>
-            <div class="uk-margin-small">
-              <input class="uk-input" type="text" placeholder="Input">
-            </div>
-            <div class="uk-margin-small">
-              <input class="uk-input" type="text" placeholder="Input">
-            </div>
-            <div class="uk-margin-small">
-              <input class="uk-input" type="text" placeholder="Input">
-            </div>
-            <div class="uk-margin-small">
-              <input class="uk-input" type="text" placeholder="Input">
-            </div>
-            <div class="uk-margin-small">
-              <input class="uk-input" type="text" placeholder="Input">
-            </div>
-            <div class="uk-margin-small">
-              <input class="uk-input" type="text" placeholder="Input">
-            </div>
-            <!-- Selector -->
-            <div class="uk-margin">
-              <select class="uk-select">
-                <option>Option 01</option>
-                <option>Option 02</option>
-              </select>
-            </div>
-          </fieldset>
-        </form>
-      </div>
-    </div>
-
-
+    <!-- Cart info -->
     <div class="uk-width-1-2@m">
       <div class="uk-card uk-card-default uk-card-body">
-        <p>Order Summary</p>
-        
+        <p>Order Summary ({{ product_count }})</p>
           <!-- Checkout items -->
           <table class="uk-table uk-table-middle uk-table-divider">
             <thead>
               <tr>
                 <th class="uk-width-small"></th>
-                <th class="uk-visible@m">Item(s)</th>
+                <th class="uk-visible@m">Item</th>
                 <th class="uk-visible@m">Subtotal</th>
               </tr>
             </thead>
@@ -77,21 +32,19 @@
               {% for item in bag_items %}
                 <tr>
                   <!-- Product image -->
-                  <td>
+                  <td class="uk-width-1-4">
                     {% if item.product.image %}
-                      <img class="uk-width-small@s"
-                          src="{{ item.product.image.url }}" 
-                          width="100" 
-                          alt="{{ product.name }}">
+                      <img src="{{ item.product.image.url }}" 
+                           width="100" 
+                           alt="{{ product.name }}">
                     {% else %}
-                      <img class="uk-width-small@s"
-                          src="{% static 'images/noimage.png' %}" 
-                          width="100" 
-                          alt="{{ product.name }}">
+                      <img src="{{ MEDIA_URL }}noimage.png" 
+                           width="100" 
+                           alt="{{ product.name }}">
                     {% endif %}
                   </td>
                   <!-- Product description and mobile version -->
-                  <td>
+                  <td class="uk-width-auto uk-text-small">
                     {{ item.product.name }}
                     <!-- Size info -->
                     <p>
@@ -104,22 +57,22 @@
                       Qty: {{ item.quantity }}
                     </p>
                     <!-- Show only on mobile screens -->
-                    <p class="uk-hidden@m">
+                    <p class="uk-hidden@m uk-text-small">
                       <span class="uk-text-muted">Subtotal: </span>
                         ${{ item.product.price | calc_subtotal:item.quantity }}
                     </p>
                   </td>
                   <!-- Subtotal - Calc price and quantity in bag_tools.py -->
-                  <td class="uk-visible@m">${{ item.product.price | calc_subtotal:item.quantity }}</td>
+                  <td class="uk-visible@m uk-text-small">${{ item.product.price | calc_subtotal:item.quantity }}</td>
                 </tr>
               {% endfor %}
             </tbody>
           </table>
           <hr class="uk-margin-small">
-          <p class="uk-text-default uk-text-right">
-            Bag Total: ${{ total|floatformat:2 }}
+          <p class="uk-text-small uk-text-right uk-margin-remove-bottom">
+            Order Total: ${{ total|floatformat:2 }}
           </p>
-          <p class="uk-text-default uk-text-right">
+          <p class="uk-text-small uk-text-right uk-margin-remove-top">
             Delivery: ${{ delivery|floatformat:2 }}
           </p>
           <p class="uk-text-default uk-text-right uk-text-bold uk-text-secondary">
@@ -128,7 +81,86 @@
         </div>
       </div>
 
+      <!-- Form displays as first in desktop view with uk-flex-first@s -->
+      <div class="uk-width-auto@m uk-grid-item-match uk-flex-first@s">
+        <div class="uk-card uk-card-default uk-card-body">
+          <p class="uk-margin">Please fill out the form to complete your order</p>
+          <form action="{% url 'checkout' %}"  id="payment-form">
+            <!-- Django token -->
+            {% csrf_token %}
 
+            <!-- Details -->
+            <fieldset class="uk-fieldset">
+              <legend class="uk-text-small uk-text-bolder">
+                Details
+              </legend>
+                {{ order_form.full_name | as_crispy_field }}
+                {{ order_form.email | as_crispy_field }}
+            </fieldset>
+
+            <!-- Delivery -->
+            <fieldset class="uk-fieldset">
+              <legend class="uk-text-small uk-text-bolder uk-margin-top">
+                Delivery
+              </legend>
+              {{ order_form.phone_number | as_crispy_field }}
+              {{ order_form.street_address1 | as_crispy_field }}
+              {{ order_form.street_address2 | as_crispy_field }}
+              {{ order_form.town_or_city | as_crispy_field }}
+              {{ order_form.county | as_crispy_field }}
+              {{ order_form.postcode | as_crispy_field }}
+              {{ order_form.country | as_crispy_field }}
+
+              <!-- Account options -->
+              <div class="uk-text-small uk-margin-top uk-margin-bottom">
+                {% if user.is_authenticated %}
+                  <label class="uk-text-small" for="id-save-info">
+                    Save this delivery information to my profile
+                  </label>
+                  <input class="" type="checkbox" id="id-save-info" name="save-info" checked>
+                {% else %}
+                  <label class="uk-text-small" for="id-save-info">
+                    <a class="uk-text-primary" href="{% url 'account_signup' %}">Create an account</a> or
+                    <a class="uk-text-primary" href="{% url 'account_login' %}">login</a> to save this information
+                  </label>
+                {% endif %}
+              </div>
+            </fieldset>
+
+            <!-- Payment -->
+            <fieldset class="uk-fieldset">
+              <legend class="uk-text-small uk-text-bolder uk-margin-top">
+                Payment
+              </legend>
+              <!-- Empty - Stripe card element -->
+              <div class="" id="card-element"></div>
+              <!-- Empty - Stripe form errors -->
+              <div class="uk-text-danger" id="card-errors" role="alert"></div>
+              <!-- Stripe client secret -->
+              <input type="hidden" 
+                     value="{{ client_secret }}" 
+                     name="client_secret }}">
+              <!-- <div class="uk-margin-small">
+                <input class="uk-input" type="text" placeholder="Input">
+              </div> -->
+            </fieldset>
+
+            <!-- Submit button -->
+            <div class="uk-margin-medium-top">
+              <a href="{% url 'view_bag' %}" class="uk-link-text uk-text-middle">
+                <span class="uk-text-small">Adjust Bag</span>
+              </a>
+              <button id="submit-button" class="uk-button uk-button-secondary uk-border-pill uk-text-upppercase uk-align-right custom-checkout-button-margin">
+                Complete Order<span class="custom-checkout" uk-icon="icon: lock"></span>
+              </button>
+            </div>
+            <div class="uk-text-small uk-text-danger uk-text-top uk-text-right custom-note">
+              <span>Your card will be charged <strong>${{ grand_total|floatformat:2 }}</strong></span>
+            </div>
+
+          </form>
+        </div>
+      </div>
 
   </div>
 </div>

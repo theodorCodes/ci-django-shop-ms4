@@ -131,7 +131,7 @@
     <!-- Summary and checkout button -->
     <div class="uk-card uk-card-default uk-card-body uk-width-1-3@m uk-align-right">
       <p class="uk-text-default uk-text-right">
-        Bag Total: ${{ total|floatformat:2 }}
+        Order Total: ${{ total|floatformat:2 }}
       </p>
       <p class="uk-text-default uk-text-right">
         Delivery: ${{ delivery|floatformat:2 }}
@@ -148,10 +148,10 @@
       <p class="uk-align-right uk-margin-remove-left">
         <a href="{% url 'products' %}" 
            class="uk-link-text uk-text-middle">
-           Keep Shopping
+           <span class="custom-checkout-link">Keep Shopping</span>
         </a>
         <a href="{% url 'checkout' %}" class="uk-button uk-button-secondary uk-margin-small-left uk-align-right uk-border-pill">
-          Checkout
+          Checkout<span class="custom-checkout" uk-icon="icon: lock"></span>
         </a>
       </p>
     </div>
