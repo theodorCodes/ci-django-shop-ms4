@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% load static %}
+{% load bag_tools %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'checkout/css/checkout.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="uk-container uk-container-medium">
+  <!-- Page title -->
+  <h1 class="uk-heading-line uk-text-center uk-margin-medium-bottom">
+    <span>Thank You</span>
+  </h1>
+  <p>
+    Your order information is below. A confirmation email will be sent to <strong>{{ order.email }}</strong>
+  </p>
+
+  <div class="uk-flex uk-flex-center uk-child-width-expand@s" uk-grid>
+
+    <!-- Cart info -->
+    <div class="uk-width-1-2@m">
+      <div class="uk-card uk-card-default uk-card-body">
+ 
+        <!-- Checkout items -->
+        <table class="uk-table uk-table-middle uk-table-divider">
+          <thead>
+            <tr>
+              <th class="uk-width-small"></th>
+              <th class="uk-visible@m">Item</th>
+              <th class="uk-visible@m">Subtotal</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td></td>
+            </tr>
+          </tbody>
+        </table>
+
+      </div>
+    </div>
+
+    <!-- Form displays as first in desktop view with uk-flex-first@s -->
+    <div class="uk-width-auto@m uk-grid-item-match uk-flex-first@s">
+      <div class="uk-card uk-card-default uk-card-body">
+        <!-- something -->
+      </div>
+    </div>
+
+  </div>
+</div>
+{% endblock %}

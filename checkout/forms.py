@@ -9,17 +9,10 @@ class OrderForm(forms.ModelForm):
         # Connect to Order model
         model = Order
         # Fields to render
-        fields = (
-            'full_name', 
-            'email', 
-            'phone_number',
-            'street_address1', 
-            'street_address2',
-            'town_or_city', 
-            'postcode', 
-            'country',
-            'county',
-        )
+        fields = ('full_name', 'email', 'phone_number',
+                  'street_address1', 'street_address2',
+                  'town_or_city', 'postcode', 'country',
+                  'county',)
 
     # Overriding init method of the form
     def __init__(self, *args, **kwargs):

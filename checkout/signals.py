@@ -24,4 +24,6 @@ def update_on_delete(sender, instance, **kwargs):
     """
     Update order total on lineitem delete
     """
+    # TEST signal by deleting order in admin and see this message in Terminal
+    print('delete signal received!')
     instance.order.update_total()

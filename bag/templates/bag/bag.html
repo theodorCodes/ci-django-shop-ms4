@@ -52,7 +52,7 @@
               {{ item.product.name }}
               <!-- Size info -->
               <p>
-                Format: {% if item.product.has_formats %}
+                Format: {% if item.product.has_sizes %}
                           <strong>{{ item.size }}</strong>
                         {% else %}
                           (downloadable item)
@@ -104,7 +104,7 @@
                            data-item_id="{{ item.item_id }}"
                            id="id_qty_{{ item.item_id }}">
                     <!-- Size submission -->
-                    {% if item.product.has_formats %}
+                    {% if item.product.has_sizes %}
                       <input type="hidden" 
                              name="product_size" 
                              value="{{ item.size }}">

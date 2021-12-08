@@ -14,7 +14,7 @@ class ProductAdmin(admin.ModelAdmin):
         'sku',
         'category',
         'description',
-        'has_formats',
+        'has_sizes',
         'price',
         'views',
         'likes',

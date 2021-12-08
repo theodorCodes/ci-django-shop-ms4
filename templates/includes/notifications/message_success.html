@@ -25,11 +25,11 @@
                 <td>
                   <p class="uk-margin-remove-bottom"><strong>{{ item.product.name }}</strong></p>
                   <p class="uk-margin-remove-bottom">
-                    Size: 
+                    Format: 
                     {% if item.product.has_sizes %}
-                      {{ item.size|upper }}
+                      <strong>{{ item.size }}</strong>
                     {% else %}
-                      N/A
+                      (downloadable item)
                     {% endif %}
                   </p>
                   <p class="uk-margin-remove-bottom">Qty: {{ item.quantity }}</p>

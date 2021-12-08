@@ -53,7 +53,7 @@
               <!-- Secure Django token -->
               {% csrf_token %}
               <!-- Size, format info -->
-              {% with product.has_formats as s %}
+              {% with product.has_sizes as s %}
                 {% if s %}
                   <div class="uk-margin">
                     <select class="uk-select uk-form-small uk-form-width-medium"

@@ -13,17 +13,14 @@ class OrderAdmin(admin.ModelAdmin):
     inlines = (OrderLineItemAdminInline,)
 
     # Specify readonly fields
-    readonly_fields = (
-        'order_number',
-        'date',
-        'delivery_cost',
-        'order_total',
-        'grand_total',
-    )
+    readonly_fields = ('order_number', 'date',
+                       'delivery_cost', 'order_total',
+                       'grand_total',)
 
     # Editable fields
     fields = (
         'order_number',
+        # 'user_profile',
         'date',
         'full_name',
         'email',
@@ -40,19 +37,12 @@ class OrderAdmin(admin.ModelAdmin):
     )
 
     # Specify or limit visible fields under Checkout > Orders
-    list_display = (
-        'order_number',
-        'date',
-        'full_name',
-        'order_total',
-        'delivery_cost',
-        'grand_total',
-    )
+    list_display = ('order_number', 'date', 'full_name',
+                    'order_total', 'delivery_cost',
+                    'grand_total',)
 
     # Set orders to be ordered chronologically by date - newest on top
-    ordering = (
-        '-date',
-    )
+    ordering = ('-date',)
 
 # Register Order and OrderAdmin in Django admin
 admin.site.register(Order, OrderAdmin)
