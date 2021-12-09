@@ -1,6 +1,5 @@
 {% extends "base.html" %}
 {% load static %}
-{% load bag_tools %}
 
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'checkout/css/checkout.css' %}">
@@ -12,42 +11,174 @@
   <h1 class="uk-heading-line uk-text-center uk-margin-medium-bottom">
     <span>Thank You</span>
   </h1>
-  <p>
+  <p class="uk-text-center">
     Your order information is below. A confirmation email will be sent to <strong>{{ order.email }}</strong>
   </p>
 
-  <div class="uk-flex uk-flex-center uk-child-width-expand@s" uk-grid>
+  <div class="uk-card uk-card-default uk-card-body uk-text-small uk-align-center uk-width-xlarge@m">
 
-    <!-- Cart info -->
-    <div class="uk-width-1-2@m">
-      <div class="uk-card uk-card-default uk-card-body">
- 
-        <!-- Checkout items -->
-        <table class="uk-table uk-table-middle uk-table-divider">
-          <thead>
-            <tr>
-              <th class="uk-width-small"></th>
-              <th class="uk-visible@m">Item</th>
-              <th class="uk-visible@m">Subtotal</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td></td>
-            </tr>
-          </tbody>
-        </table>
+    <div class="uk-card-badge uk-label">Order Info</div>
 
+    <div class="uk-margin"></div>
+
+    <div class="uk-grid-match uk-grid-small uk-flex-center" uk-grid>
+        <div class="uk-width-1-3@m">
+          Order Number:
+        </div>
+        <div class="uk-width-expand@m uk-text-bold uk-margin-remove-top">
+          {{ order.order_number }}
+        </div>
+    </div>
+
+    <div class="uk-grid-match uk-grid-small uk-flex-center" uk-grid>
+      <div class="uk-width-1-3@m">
+        Order Date:
+      </div>
+      <div class="uk-width-expand@m uk-text-bold uk-margin-remove-top">
+        {{ order.date }}
       </div>
     </div>
 
-    <!-- Form displays as first in desktop view with uk-flex-first@s -->
-    <div class="uk-width-auto@m uk-grid-item-match uk-flex-first@s">
-      <div class="uk-card uk-card-default uk-card-body">
-        <!-- something -->
+    <h6 class="uk-heading-line uk-text-small uk-margin-medium-bottom">
+      <span class="uk-text-uppercase">Order Details</span>
+    </h6>
+
+    {% for item in order.lineitems.all %}
+      <div class="uk-grid-match uk-grid-small uk-flex-center" uk-grid>
+        <div class="uk-width-1-3@m">
+          {{ item.product_name }}{% if item.product_size %} Format: {{ item.product_size | upper }}{% endif %}
+        </div>
+        <div class="uk-width-expand@m uk-text-bold uk-margin-remove-top">
+          {{ item.quantity }} @ ${{ item.product.price }} each
+        </div>
+      </div>
+    {% endfor %}
+
+    <div class="uk-grid-match uk-grid-small uk-flex-center" uk-grid>
+      <div class="uk-width-1-3@m">
+        Delivering To:
+      </div>
+      <div class="uk-width-expand@m uk-text-bold uk-margin-remove-top">
+        {{ order.full_name }}
+      </div>
+    </div>
+
+    <div class="uk-grid-match uk-grid-small uk-flex-center" uk-grid>
+      <div class="uk-width-1-3@m">
+        Address 1:
+      </div>
+      <div class="uk-width-expand@m uk-text-bold uk-margin-remove-top">
+        {{ order.street_address1 }}
+      </div>
+    </div>
+
+    {% if order.street_address2 %}
+      <div class="uk-grid-match uk-grid-small uk-flex-center" uk-grid>
+        <div class="uk-width-1-3@m">
+          Address 2:
+        </div>
+        <div class="uk-width-expand@m uk-text-bold uk-margin-remove-top">
+          {{ order.street_address1 }}
+        </div>
+      </div>
+    {% endif %}
+
+    {% if order.county %}
+      <div class="uk-grid-match uk-grid-small uk-flex-center" uk-grid>
+        <div class="uk-width-1-3@m">
+          County:
+        </div>
+        <div class="uk-width-expand@m uk-text-bold uk-margin-remove-top">
+          {{ order.county }}
+        </div>
+      </div>
+    {% endif %}
+
+    <div class="uk-grid-match uk-grid-small uk-flex-center" uk-grid>
+      <div class="uk-width-1-3@m">
+        Town or City:
+      </div>
+      <div class="uk-width-expand@m uk-text-bold uk-margin-remove-top">
+        {{ order.town_or_city }}
+      </div>
+    </div>
+
+    {% if order.postcode %}
+      <div class="uk-grid-match uk-grid-small uk-flex-center" uk-grid>
+        <div class="uk-width-1-3@m">
+          Postal Code:
+        </div>
+        <div class="uk-width-expand@m uk-text-bold uk-margin-remove-top">
+          {{ order.postcode }}
+        </div>
+      </div>
+    {% endif %}
+
+    <div class="uk-grid-match uk-grid-small uk-flex-center" uk-grid>
+      <div class="uk-width-1-3@m">
+        Country:
+      </div>
+      <div class="uk-width-expand@m uk-text-bold uk-margin-remove-top">
+        {{ order.country }}
+      </div>
+    </div>
+
+    <div class="uk-grid-match uk-grid-small uk-flex-center" uk-grid>
+      <div class="uk-width-1-3@m">
+        Phone Number:
+      </div>
+      <div class="uk-width-expand@m uk-text-bold uk-margin-remove-top">
+        {{ order.phone_number }}
+      </div>
+    </div>
+
+    <h6 class="uk-heading-line uk-text-small uk-margin-medium-bottom">
+      <span class="uk-text-uppercase">Billing Info</span>
+    </h6>
+
+    <div class="uk-grid-match uk-grid-small uk-flex-center" uk-grid>
+      <div class="uk-width-1-3@m">
+        Order Total:
+      </div>
+      <div class="uk-width-expand@m uk-text-bold uk-margin-remove-top">
+        {{ order.order_total }}
+      </div>
+    </div>
+
+    <div class="uk-grid-match uk-grid-small uk-flex-center" uk-grid>
+      <div class="uk-width-1-3@m">
+        Delivery:
+      </div>
+      <div class="uk-width-expand@m uk-text-bold uk-margin-remove-top">
+        {{ order.delivery_cost }}
+      </div>
+    </div>
+
+    <div class="uk-grid-match uk-grid-small uk-flex-center" uk-grid>
+      <div class="uk-width-1-3@m">
+        Grand Total:
+      </div>
+      <div class="uk-width-expand@m uk-text-bold uk-margin-remove-top">
+        {{ order.grand_total }}
       </div>
     </div>
 
   </div>
+
+  <!-- Links -->
+  {% if from_profile %}
+    <div class="uk-margin">
+      <a href="#" class="uk-text-primary uk-align-right">
+        Back to Profile
+      </a>
+    </div>
+  {% else %}
+    <div class="uk-margin">
+      <a href="{% url 'products' %}" class="uk-text-primary uk-align-right">
+        Check out the latest deals!
+      </a>
+    </div>
+  {% endif %}
+
 </div>
 {% endblock %}
