@@ -1,5 +1,6 @@
-# Added redirect, reverse and get product
-from django.shortcuts import render, redirect, reverse, get_object_or_404
+# Added redirect, reverse and get product, and HttpResponse for card payment
+from django.shortcuts import render, redirect, reverse, get_object_or_404, HttpResponse
+from django.views.decorators.http import require_POST  # Import for card payment
 from django.contrib import messages  # Import messages
 from django.conf import settings  # Import settings to use with Stripe
 
@@ -8,7 +9,35 @@ from .models import Order, OrderLineItem  # Import Order, OrderLineItem from thi
 from products.models import Product  # Import Product from product model
 from bag.contexts import bag_contents  # Import context from bag
 import stripe  # Import Stripe after installation
+import json  # Import json to save bag metadata during card payment
 
+
+# Using post decorator to allow post request from stripe_elements.js only
+# Requires routing in urls.py
+@require_POST
+def cache_checkout_data(request):
+    # Try this to get 200 response. In this view:
+    try:
+        # Save client secret in pid, process id
+        pid = request.POST.get('client_secret').split('_secret')[0]
+        # Save Stripe key
+        stripe.api_key = settings.STRIPE_SECRET_KEY
+        # Modify content by adding metadata such as
+        stripe.PaymentIntent.modify(pid, metadata={
+            # Bag info using json
+            'bag': json.dumps(request.session.get('bag', {})),
+            # Save user boolean info
+            'save_info': request.POST.get('save_info'),
+            # Username
+            'username': request.user,
+        })
+        # Once info gathered respond with 200
+        return HttpResponse(status=200)
+    except Exception as e:
+        # Otherwise repsond with error message and return a 400 response
+        messages.error(request, 'Sorry, your payment cannot be \
+            processed right now. Please try again later.')
+        return HttpResponse(content=e, status=400)
 
 
 # Checkout view - payment process

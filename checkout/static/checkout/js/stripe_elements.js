@@ -1,23 +1,19 @@
 // Stripe - Element
 // Get the stripe public key
 // And client secret from template using jQuery
-//
-// 1 Getting their ids and using the .text function.
-// 2 Slice off first and last character which represent quotation marks.
-// 3 Then using Stripe (js) provided function to store public key
-// 4 And use it to create an instance of stripe elements
-// 5 Using Stripe provided styling to apply on Stripe element
-// 5 Adjusting some color and font settings
-// 5 Matching uikit uk-text-danger color class
-// 6 And create card element while using custom declared styles
-// 7 Then mount the card element to the HTML id #card-element to use in template
 
-var stripePublicKey = $('#id_stripe_public_key').text().slice(1, -1);  // 1
-var clientSecret = $('#id_client_secret').text().slice(1, -1);  // 2
-var stripe = Stripe(stripePublicKey);  // 3
-var elements = stripe.elements();  // 4
-// 5
+// Getting their ids and using the .text function.
+var stripePublicKey = $('#id_stripe_public_key').text().slice(1, -1);
+// Slice off first and last character which represent quotation marks.
+var clientSecret = $('#id_client_secret').text().slice(1, -1);
+// Then using Stripe (js) provided function to store public key
+var stripe = Stripe(stripePublicKey);
+// And use it to create an instance of stripe elements
+var elements = stripe.elements();
+
+// Using Stripe provided styling to apply on Stripe element
 var style = {
+    // Adjusting some color and font settings
     base: {
         color: '#000',
         fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
@@ -27,13 +23,17 @@ var style = {
             color: '#999'
         }
     },
+    // Matching uikit uk-text-danger color class
     invalid: {
         color: '#f0506e',
         iconColor: '#f0506e'
     }
 };
-var card = elements.create('card', {style: style});  // 6
-card.mount('#card-element');  // 7
+
+// And create card element while using custom declared styles
+var card = elements.create('card', {style: style});
+// Then mount the card element to the HTML id #card-element to use in template
+card.mount('#card-element');
 
 
 
@@ -59,51 +59,94 @@ card.addEventListener('change', function (event) {
 
 
 // Stripe - Submit Event Listener on 'form'
-//
-// 1 Get form element
-// 2 Add event listener on submit
-// 3 Prevent default 'post' submission action
-// 4 Disable card element
-// 5 Disable submit button
-// 6 Execute Stripe 'confirm card payment method' to send card info first
-// 7 Then execute function based on result
-// 8 If result or reply from Stripe is an error response
-//   display error message under the card field
-// 9 And re-enable card element
-// 10 and submit button to allow user to fix issue
-// 11 Otherwise if the response from Stripe is positive we submit the form
 
-var form = document.getElementById('payment-form');  // 1
-// 2
+// Get form element
+var form = document.getElementById('payment-form');
+// Add event listener on submit
 form.addEventListener('submit', function(ev) {
-    ev.preventDefault();  // 3
-    card.update({ 'disabled': true});  // 4
-    $('#submit-button').attr('disabled', true);  // 5
+    ev.preventDefault();  // Prevent default 'post' submission action
+    card.update({ 'disabled': true});  // Disable card element
+    $('#submit-button').attr('disabled', true);  // Disable submit button
     $('#payment-form').fadeToggle(100);  // Loading spinner
     $('#loading-overlay').fadeToggle(100);  // Loading spinner
-    // 6
-    stripe.confirmCardPayment(clientSecret, {
-        payment_method: {
-            card: card,
-        }
-    // 7
-    }).then(function(result) {
-        // 8
-        if (result.error) {
-            var errorDiv = document.getElementById('card-errors');
-            var html = `
-                <span role="alert" uk-icon="icon: warning"></span>
-                <span>${result.error.message}</span>`;
-            $(errorDiv).html(html);
-            $('#payment-form').fadeToggle(100);  // Loading spinner
-            $('#loading-overlay').fadeToggle(100);  // Loading spinner
-            card.update({ 'disabled': false});  // 9
-            $('#submit-button').attr('disabled', false);  // 10
-        // 11
-        } else {
-            if (result.paymentIntent.status === 'succeeded') {
-                form.submit();
+
+    // Save saved_info boolean value
+    var saveInfo = Boolean($('#id-save-info').attr('checked'));
+    // Save {% csrf_token %} from the form
+    var csrfToken = $('input[name="csrfmiddlewaretoken"]').val();
+    // Create object with the above info to pass to new view
+    var postData = {
+        'csrfmiddlewaretoken': csrfToken,
+        'client_secret': clientSecret,
+        'save_info': saveInfo,
+    };
+    // Save new url, cache_checkout_data function in views.py
+    var url = '/checkout/cache_checkout_data/';
+
+    // Then posting postData to new view using $.jQuery
+    // But only if payment intent was conirmed and updated before, using .done
+    // and call-back function
+    $.post(url, postData).done(function () {
+        // Executing .confirmCardPayment method in the call-back function
+        // with required payment intent info that is saved in var form above
+        // using $.trim to strip off whitespace
+        stripe.confirmCardPayment(clientSecret, {
+            // Indicating payment info
+            payment_method: {
+                card: card,
+                billing_details: {
+                    name: $.trim(form.full_name.value),
+                    phone: $.trim(form.phone_number.value),
+                    email: $.trim(form.email.value),
+                    address:{
+                        line1: $.trim(form.street_address1.value),
+                        line2: $.trim(form.street_address2.value),
+                        city: $.trim(form.town_or_city.value),
+                        country: $.trim(form.country.value),
+                        // postal code provided by card element
+                        state: $.trim(form.county.value),
+                    }
+                }
+            },
+            // Indicating shipping info
+            shipping: {
+                name: $.trim(form.full_name.value),
+                phone: $.trim(form.phone_number.value),
+                address: {
+                    line1: $.trim(form.street_address1.value),
+                    line2: $.trim(form.street_address2.value),
+                    city: $.trim(form.town_or_city.value),
+                    country: $.trim(form.country.value),
+                    postal_code: $.trim(form.postcode.value),
+                    state: $.trim(form.county.value),
+                }
+            },
+        // Then execute function based on result
+        }).then(function(result) {
+            // If result or reply from Stripe is an error response
+            // display error message under the card field
+            if (result.error) {
+                var errorDiv = document.getElementById('card-errors');
+                var html = `
+                    <span role="alert" uk-icon="icon: warning"></span>
+                    <span>${result.error.message}</span>`;
+                $(errorDiv).html(html);
+                $('#payment-form').fadeToggle(100);  // Loading spinner
+                $('#loading-overlay').fadeToggle(100);  // Loading spinner
+                // And re-enable card element
+                card.update({ 'disabled': false});
+                // and submit button to allow user to fix issue
+                $('#submit-button').attr('disabled', false);
+            // Otherwise if the response from Stripe is positive we submit the form
+            } else {
+                if (result.paymentIntent.status === 'succeeded') {
+                    form.submit();
+                }
             }
-        }
-    });
+        });
+    // Failure function will be triggered if bad view response 400
+    }).fail(function () {
+        // Reloading the page, and the error will be in django messages
+        location.reload();
+    })
 });
