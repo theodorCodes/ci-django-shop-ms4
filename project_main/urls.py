@@ -26,6 +26,7 @@ urlpatterns = [
     path('products/', include('products.urls')),  # Including products/urls.py
     path('bag/', include('bag.urls')),  # Including bag/urls.py
     path('checkout/', include('checkout.urls')),  # Including checkout/urls.py
+    path('profile/', include('profiles.urls')),  # Including profiles/urls.py
 ]
 
 # Path to media folder

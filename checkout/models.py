@@ -11,11 +11,19 @@ from django_countries.fields import CountryField
 
 from products.models import Product  # Import products
 
+# Import of user model from profiles/models.py
+from profiles.models import UserProfile
+
 
 # Data to handle all orders
 class Order(models.Model):
     # Non editable order number
     order_number = models.CharField(max_length=32, null=False, editable=False)
+    # ForeignKey to UserProfile and using models.SET_NULL to keep order record
+    # when users deletes profile, allows purchases by visitors without profile
+    # Making orders by profiles accessible via user.profile.order with 'orders'
+    user_profile = models.ForeignKey(UserProfile, on_delete=models.SET_NULL, 
+                                     null=True, blank=True, related_name='orders')
     full_name = models.CharField(max_length=50, null=False, blank=False)
     email = models.EmailField(max_length=254, null=False, blank=False)
     phone_number = models.CharField(max_length=20, null=False, blank=False)

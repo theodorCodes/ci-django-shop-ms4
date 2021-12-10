@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'products',  # Register product app
     'bag',  # Register bag app
     'checkout',  # Register checkout app
+    'profiles',  # Register profiles app
     'crispy_forms',  # Register crispy forms
 ]
 
