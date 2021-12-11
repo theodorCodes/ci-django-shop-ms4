@@ -94,15 +94,17 @@
                 <button class="uk-offcanvas-close" 
                         type="button" 
                         uk-close></button>
-                <!-- Show additional superuser menu -->
-                {% if request.user.is_superuser %}
-                  <!-- Super user menu HERE -->
-                {% endif %}
+
                 <!-- Off-canvas menu -->
                 <ul class="uk-nav uk-nav-default">
                   <li class="uk-active"><a href="#">Active</a></li>
+                    <!-- Show additional superuser menu -->
+                    {% if request.user.is_superuser %}
+                      <li class="uk-margin-top"><a href="#">Product Management</a></li>
+                    {% endif %}
+                  <li class="uk-margin-top"><a href="{% url 'profile' %}">My Profile</a></li>
                   <!-- Show 'allauth' log out -->
-                  <li class="uk-parent">
+                  <li class="uk-parent uk-margin-top">
                     <a href="{% url 'account_logout' %}">Log Out</a>
                   </li>
                 </ul>
@@ -153,7 +155,7 @@
     </nav>
 
     <!-- Banner -->
-    <div uk-sticky="offset: 80">
+    <div uk-sticky="offset: 80" class="custom-sticky-banner">
       <div class="uk-text-center uk-background-default uk-light uk-panel uk-text-emphasis custom-banner-bg">
         <p>Free delivery on orders over ${{ free_delivery_threshold }} for all physical goods!</p>
       </div>

@@ -51,7 +51,7 @@
       <!-- Buttons -->
       <div class="uk-text-right uk-margin-top">
         <a class="uk-button uk-button-default uk-border-pill uk-text-middle uk-margin-small-right" href="{% url 'home' %}">Home</a>
-        <button class="uk-button uk-button-secondary uk-border-pill uk-text-upppercase" type="submit">{% trans "Sign In" %}</button>
+        <button class="uk-button uk-button-primary uk-border-pill uk-text-upppercase" type="submit">{% trans "Sign In" %}</button>
         <p class="mt-2">
           <a class="uk-text-primary uk-text-small" href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a>
         </p>
@@ -59,4 +59,5 @@
     </form>
   <!-- UIkit card End -->
   </div>
+
 {% endblock %}

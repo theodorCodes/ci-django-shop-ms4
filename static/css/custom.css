@@ -1,5 +1,14 @@
 /* 
 ----------------------------------------------------------------------- 
+GENERAL */
+
+input.textinput.textInput {
+  outline: 0;
+}
+
+
+/* 
+----------------------------------------------------------------------- 
 NAVBAR */
 
 
@@ -20,6 +29,11 @@ NAVBAR */
 /* Banner bg */
 .custom-banner-bg {
   background-color: #ebebeb;
+}
+
+/* Banner bg */
+.custom-sticky-banner {
+  z-index: 10 !important;
 }
 
 
