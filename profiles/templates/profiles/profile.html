@@ -12,13 +12,85 @@
     <span>My Account</span>
   </h1>
 
-  <!-- Test render profile -->
-  {{ profile }}
+  <div class="uk-flex uk-flex-center uk-child-width-expand@s" uk-grid>
 
-  
+    <!-- Cart info -->
+    <div class="uk-width-1-2@m">
+      <div class="uk-card uk-card-default uk-card-body">
+
+        <p>Order History</p>
+        <!-- Checkout items -->
+        <table class="uk-table uk-table-middle uk-table-divider">
+          <thead>
+            <tr>
+              <th class="uk-width-small">Order Number</th>
+              <th class="uk-visible@m">Date</th>
+              <th class="uk-visible@m">Items</th>
+              <th class="uk-visible@m">Order Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Iterate through bag_items -->
+            {% for order in orders %}
+            <tr class="uk-text-small">
+              <td>
+                <a href="{% url 'order_history' order.order_number %}" 
+                   title="{{ order.order_number }}">
+                {{ order.order_number|truncatechars:6 }}
+                </a>
+              </td>
+              <td>{{ order.date }}</td>
+              <td>
+                {% for item in order.lineitems.all %}
+                  <li>
+                    {% if item.product.has_sizes %}
+                      Size {{ item.product.size|upper }}
+                    {% endif %}{{ item.product.name }} x{{ item.quantity }}
+                  </li>
+                {% endfor %}
+              </td>
+              <td>${{ order.grand_total }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+
+      </div>
+    </div>
+
+    <!-- Form displays as first in desktop view with uk-flex-first@s -->
+    <div class="uk-width-auto@m uk-grid-item-match uk-flex-first@s">
+      <div class="uk-card uk-card-default uk-card-body">
+
+        <p class="uk-margin">Default Delivery Information</p>
+        <form action="{% url 'profile' %}" method="POST" id="profile-update-form">
+          <!-- Django token -->
+          {% csrf_token %}
+
+          <!-- Details -->
+          <fieldset class="uk-fieldset">
+            <legend class="uk-text-small uk-text-bolder">
+              Contact
+            </legend>
+              {{ form|crispy }}
+          </fieldset>
+
+          <!-- Submit button -->
+          <div class="uk-margin-medium-top">
+            <button id="submit-button" class="uk-button uk-button-secondary uk-border-pill uk-text-upppercase uk-align-right custom-checkout-button-margin">
+              Update Information<span class="custom-checkout"></span>
+            </button>
+          </div>
+
+        </form>
+      </div>
+    </div>
+
+  </div>
 
 {% endblock %}
 
 {% block postloadjs %}
-<!-- js here -->
+  {{ block.super }}
+  <script type="text/javascript" src="{% static 'profiles/js/countryfield.js' %}"></script>
 {% endblock %}

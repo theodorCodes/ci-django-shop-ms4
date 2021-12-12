@@ -36,14 +36,12 @@ var card = elements.create('card', {style: style});
 card.mount('#card-element');
 
 
-
 // Stripe - Event Listener on 'card'
 // Handle realtime validation errors on the card element
 //
 // Adding listener on the card element
 // Checking if any errors
 // If error, display error message under the card field
-
 card.addEventListener('change', function (event) {
     var errorDiv = document.getElementById('card-errors');
     if (event.error) {
@@ -57,9 +55,8 @@ card.addEventListener('change', function (event) {
 });
 
 
-
 // Stripe - Submit Event Listener on 'form'
-
+//
 // Get form element
 var form = document.getElementById('payment-form');
 // Add event listener on submit
@@ -140,7 +137,7 @@ form.addEventListener('submit', function(ev) {
             // Otherwise if the response from Stripe is positive we submit the form
             } else {
                 if (result.paymentIntent.status === 'succeeded') {
-                    form.submit();
+                    form.submit();  // Comment out this line for testing purposes
                 }
             }
         });

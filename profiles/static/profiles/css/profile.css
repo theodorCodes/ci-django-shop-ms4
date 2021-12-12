@@ -1,0 +1,45 @@
+/* 
+----------------------------------------------------------------------- 
+PROFILE */
+
+
+.profile-style-input {
+  box-sizing: border-box;
+  height: 40px;
+  padding: 10px 12px;
+  border: 1px solid #e5e5e5;
+  width: 100%;
+  margin-top: 8px;
+  margin-bottom: 4px;
+}
+
+.profile-style-input:focus,
+.profile-style-input:active {
+  border: 1px solid #000 !important;
+  outline: 0;
+}
+
+.profile-style-input::placeholder {
+  color: #999;
+}
+
+.profile-style-input label:not([for='id_remember']) {
+  display: none;
+}
+
+#profile-update-form .form-control {
+  color: #000;
+}
+
+#profile-update-form input::placeholder {
+  color: #999;
+}
+
+#id_default_country,
+#id_default_country option:not(:first-child) {
+  color: #000;
+}
+
+#id_default_country option:first-child {
+  color: #999;
+}

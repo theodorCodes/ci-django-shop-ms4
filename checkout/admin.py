@@ -13,14 +13,20 @@ class OrderAdmin(admin.ModelAdmin):
     inlines = (OrderLineItemAdminInline,)
 
     # Specify readonly fields
-    readonly_fields = ('order_number', 'date',
-                       'delivery_cost', 'order_total',
-                       'grand_total', 'original_bag', 'stripe_pid')
+    readonly_fields = (
+        'order_number',
+        'date',
+        'delivery_cost',
+        'order_total',
+        'grand_total',
+        # 'original_bag',
+        # 'stripe_pid',
+    )
 
-    # Editable fields
+    # Editable fields, Order Line Items
     fields = (
         'order_number',
-        # 'user_profile',
+        'user_profile',
         'date',
         'full_name',
         'email',
@@ -34,8 +40,8 @@ class OrderAdmin(admin.ModelAdmin):
         'delivery_cost',
         'order_total',
         'grand_total',
-        'original_bag',
-        'stripe_pid',
+        # 'original_bag',
+        # 'stripe_pid',
     )
 
     # Specify or limit visible fields under Checkout > Orders

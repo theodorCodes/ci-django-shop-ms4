@@ -1,6 +1,11 @@
 from django.http import HttpResponse  # django.http
+from django.core.mail import send_mail  # Email
+from django.template.loader import render_to_string  # Email
+from django.conf import settings  # Email
+
 from .models import Order, OrderLineItem
 from products.models import Product
+from profiles.models import UserProfile  # Import user profile
 
 import json
 import time
@@ -9,15 +14,40 @@ import time
 # Webhook handler class
 class StripeWH_Handler:
     """ Handle Stripe webhooks """
+
     # Access attributes from Stripe requests
     def __init__(self, request):
         self.request = request
+
+
+    # Order confirmation email method, use case only within this class
+    def _send_confirmation_email(self, order):
+        """Send the user a confirmation email"""
+        # Save email from order
+        cust_email = order.email
+        # Use imported render_to_string method and info form settings
+        # to render email
+        subject = render_to_string(
+            'checkout/confirmation_emails/confirmation_email_subject.txt',
+            {'order': order})
+        body = render_to_string(
+            'checkout/confirmation_emails/confirmation_email_body.txt',
+            {'order': order, 'contact_email': settings.DEFAULT_FROM_EMAIL})
+        # Using imported send_mail function from Django to send email
+        send_mail(
+            subject,
+            body,
+            settings.DEFAULT_FROM_EMAIL,
+            [cust_email]
+        )
+
 
     """ Handle a generic/unknown/unexpected webhook event """
     def handle_event(self, event):
         return HttpResponse(
             content=f'Unhandled webhook received: {event["type"]}',
             status=200)
+
 
     def handle_payment_intent_succeeded(self, event):
         """
@@ -35,7 +65,7 @@ class StripeWH_Handler:
         # billing, shipping and grand total info
         pid = intent.id
         bag = intent.metadata.bag
-        save_info = intent.metadata.save_info
+        save_info = intent.metadata.save_info  # Contains username
         billing_details = intent.charges.data[0].billing_details
         shipping_details = intent.shipping
         grand_total = round(intent.charges.data[0].amount / 100, 2)
@@ -45,6 +75,24 @@ class StripeWH_Handler:
             if value == "":
                 shipping_details.address[field] = None
 
+        # Update profile info if save_info is checked
+        profile = None  # So that visitors can checkout
+        username = intent.metadata.username  # Save username from metadata
+        # If user is not anonymous, authenticated
+        if username != 'AnonymousUser':
+            # Get profile details using username
+            profile = UserProfile.objects.get(user__username=username)
+            # If save_info is checked, replace fields using shipping details
+            if save_info:
+                profile.default_phone_number = shipping_details.phone
+                profile.default_country = shipping_details.address.country
+                profile.default_postcode = shipping_details.address.postal_code
+                profile.default_town_or_city = shipping_details.address.city
+                profile.default_street_address1 = shipping_details.address.line1
+                profile.default_street_address2 = shipping_details.address.line2
+                profile.default_county = shipping_details.address.state
+                # and save profile with updated info
+                profile.save()
         # Create fail save order making assumptions
         # Assumption 1 - Order info does not exist
         order_exists = False
@@ -83,7 +131,7 @@ class StripeWH_Handler:
                 time.sleep(1)
         # Outside of the loop, check weather order exists
         if order_exists:
-            # Order confirmation email
+            # Order confirmation email with above email function
             self._send_confirmation_email(order)
             # And return 200 response
             return HttpResponse(
@@ -136,7 +184,7 @@ class StripeWH_Handler:
                     content=f'Webhook received: {event["type"]} | ERROR: {e}',
                     status=500)
         # Finally after above steps return 200 response
-        # Order confirmation email
+        # Order confirmation email with above email function
         self._send_confirmation_email(order)
         return HttpResponse(
             content=f'Webhook received: {event["type"]} | SUCCESS: Created order in webhook',
