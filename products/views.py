@@ -1,5 +1,7 @@
 from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.contrib import messages
+# Check access with login decorator
+from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from .models import Product, Category
 from .forms import ProductForm  # Import product form
@@ -57,7 +59,7 @@ def product_detail(request, product_id):
 
 
 # Add Product form view
-# @login_required
+@login_required
 def add_product(request):
     """ Add a product to the store """
     # Limit user access 
@@ -89,7 +91,7 @@ def add_product(request):
 
 
 # Edit Product view
-# @login_required
+@login_required
 def edit_product(request, product_id):
     """ Edit a product in the store """
     # Limit user access 
@@ -128,7 +130,7 @@ def edit_product(request, product_id):
 
 
 # Delete products
-# @login_required
+@login_required
 def delete_product(request, product_id):
     """ Delete a product from the store """
     # Limit user access 

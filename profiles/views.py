@@ -1,10 +1,12 @@
 from django.shortcuts import render, get_object_or_404  # Import products
 from django.contrib import messages  # Import messages
+from django.contrib.auth.decorators import login_required  # Login decorator
 from .models import UserProfile  # Import profiles from models
 from .forms import UserProfileForm  # Import the form function from forms.py
 from checkout.models import Order  # Import checkout order to get order_number
 
-
+# Using login decorator
+@login_required
 def profile(request):
     """ Display user profile """
     # Return profile to template
