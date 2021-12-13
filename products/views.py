@@ -68,11 +68,11 @@ def add_product(request):
     if request.method == 'POST':
         form = ProductForm(request.POST, request.FILES)
         if form.is_valid():
-            form.save()
-            # product = form.save()
+            # form.save()
+            product = form.save()
             messages.success(request, 'Successfully added product!')
-            return redirect(reverse('add_product'))
-            # return redirect(reverse('product_detail', args=[product.id]))
+            # return redirect(reverse('add_product'))
+            return redirect(reverse('product_detail', args=[product.id]))
         else:
             messages.error(request, 'Failed to add product. Please ensure the form is valid.')
     else:
@@ -125,3 +125,22 @@ def edit_product(request, product_id):
     }
 
     return render(request, template, context)
+
+
+# Delete products
+# @login_required
+def delete_product(request, product_id):
+    """ Delete a product from the store """
+    # Limit user access 
+    if not request.user.is_superuser:
+        messages.error(request, 'Sorry, only store owners can do that.')
+        return redirect(reverse('home'))
+
+    # Get product
+    product = get_object_or_404(Product, pk=product_id)
+    # Call product delete
+    product.delete()
+    # Response message
+    messages.success(request, 'Product deleted!')
+    # Redirect to products view
+    return redirect(reverse('products'))

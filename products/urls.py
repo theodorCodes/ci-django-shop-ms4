@@ -13,9 +13,9 @@ urlpatterns = [
     # Points to add product view
     path('add/', views.add_product, name='add_product'),
     # Add product page
-    # path('add/', views.add_product, name='add_product'),
+    path('add/', views.add_product, name='add_product'),
     # Edit product page
     path('edit/<int:product_id>/', views.edit_product, name='edit_product'),
-    # Delete products
-    # path('delete/<int:product_id>/', views.delete_product, name='delete_product'),
+    # Delete products at products/delete/product_id
+    path('delete/<int:product_id>/', views.delete_product, name='delete_product'),
 ]
