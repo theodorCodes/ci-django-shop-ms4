@@ -1,5 +1,5 @@
 from django import forms  # Import forms
-# from .widgets import CustomClearableFileInput
+from .widgets import CustomClearableFileInput  # Import widget with custom classes
 from .models import Product, Category  # Import product and category model
 
 
@@ -9,8 +9,8 @@ class ProductForm(forms.ModelForm):
         model = Product  # Model
         fields = '__all__'  # Fields to include
 
-    # Replacing image field on form, utilizing widget
-    # image = forms.ImageField(label='Image', required=False, widget=CustomClearableFileInput)
+    # Replacing image field on form, utilizing widget with custom classes
+    image = forms.ImageField(label='Image', required=False, widget=CustomClearableFileInput)
 
     # Overriding init method
     def __init__(self, *args, **kwargs):

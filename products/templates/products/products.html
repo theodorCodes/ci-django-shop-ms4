@@ -122,7 +122,7 @@
                   </span>
                 {% endif %}
               </div>
-              <!-- Product edit -->
+              <!-- Product edit and delete -->
               {% if request.user.is_superuser %}
                 <div class="uk-text-small uk-text-right uk-margin-small-top">
                   <a href="{% url 'edit_product' product.id %}">Edit</a> | 

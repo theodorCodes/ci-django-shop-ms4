@@ -14,8 +14,8 @@
     <!-- Cart info -->
     <div class="uk-width-1-2@m">
       <div class="uk-card uk-card-default uk-card-body">
-        <p>Add a Product</p>
-        <form method="POST" action="{% url 'add_product' %}" enctype="multipart/form-data">
+        <p>Edit a Product</p>
+        <form method="POST" action="{% url 'edit_product' product.id %}" enctype="multipart/form-data">
           {% csrf_token %}
           <!-- 
             Render fields in form 'as_crispy_field', 
@@ -31,7 +31,7 @@
           <hr class="uk-margin">
           <div class="uk-text-right uk-margin-top">
             <a class="uk-button uk-button-default uk-border-pill" href="{% url 'products' %}">Cancel</a>
-            <button class="uk-button uk-button-primary uk-border-pill" type="submit">Add Product</button>
+            <button class="uk-button uk-button-primary uk-border-pill" type="submit">Update Product</button>
           </div>
         </form>
       </div>
@@ -47,10 +47,10 @@
     <script type="text/javascript">
         // Listen to change event on #new-image
         $('#new-image').change(function() {
-          // Store new file in variable file
-          var file = $('#new-image')[0].files[0];
-          // Set file name paragraph in widget template to file name
-          $('#filename').text(`Image will be set to: ${file.name}`);
+            // Store new file in variable file
+            var file = $('#new-image')[0].files[0];
+            // Set file name paragraph in widget template to file name
+            $('#filename').text(`Image will be set to: ${file.name}`);
         });
     </script>
 {% endblock %}

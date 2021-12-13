@@ -11,8 +11,8 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
-# Importing os, because its not imported by default
-import os
+import os  # Importing os, because its not imported by default
+import dj_database_url  # Use with Postgres at Heroku
 
 # Access Stripe environment settings with os and dotenv in Linux environment
 from dotenv import load_dotenv, find_dotenv
@@ -127,6 +127,7 @@ WSGI_APPLICATION = 'project_main.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
+# Default sqlite3 database settings
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.sqlite3',
@@ -134,12 +135,18 @@ WSGI_APPLICATION = 'project_main.wsgi.application'
 #     }
 # }
 
+
+# DATABASES = {
+#     'default': dj_database_url.parse('postgres://qmfnbsxkphqeau:1474f1cfcea281b69eb55659ea7e15bc407c66b6e908df8eebbc6fb68321431d@ec2-54-229-68-88.eu-west-1.compute.amazonaws.com:5432/d2sunk0iobrkqf')
+# }
+
+# Local Postgres database settings during development
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'project_ms4',
-        'USER': 'pixelbar',
-        'PASSWORD': 'password',
+        'USER': os.getenv('POSTGRES_USER', ''),
+        'PASSWORD': os.getenv('POSTGRES_PASSWORD', ''),
         'HOST': 'localhost',
         'PORT': '5433',
     }

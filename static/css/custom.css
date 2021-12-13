@@ -138,10 +138,43 @@ PRODUCT FORMS */
   display: none;
 }
 
-/* input[type="file" i] {
-  border: none;
-  pointer-events: none;
-} */
+
+/* Classes defined in custom_clearable_file_input.html */
+
+/* Prevents 'Current Image' title to be clickable */
+.btn-file {
+  position: relative;
+  overflow: hidden;
+}
+
+/* Replace default 'Choose file' with one 'Select' button */
+.btn-file input[type="file"] {
+  position: absolute;
+  top: 0;
+  right: 0;
+  min-width: 100%;
+  min-height: 100%;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.custom-control.custom-checkbox {
+  margin-top: 12px;
+}
+
+/* 3) */
+.custom-checkbox .custom-control-label::before {
+  border-radius: 0;
+  border-color: #dc3545;
+}
+
+/* 3) */
+.custom-checkbox .custom-control-input:checked~.custom-control-label::before {
+  background-color: #dc3545;
+  border-color: #dc3545;
+  border-radius: 0;
+}
+
 
 
 /* 
