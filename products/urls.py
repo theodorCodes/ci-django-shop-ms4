@@ -8,5 +8,14 @@ from . import views
 # requires registration in project wide router in project_main/urls.py
 urlpatterns = [
     path('', views.all_products, name='products'),  # Route for catalog view
-    path('<product_id>', views.product_detail, name='product_detail'),  # Route for detail view
+    # Route for detail view, specifying that id is an integer
+    path('<int:product_id>/', views.product_detail, name='product_detail'),
+    # Points to add product view
+    path('add/', views.add_product, name='add_product'),
+    # Add product page
+    # path('add/', views.add_product, name='add_product'),
+    # Edit product page
+    path('edit/<int:product_id>/', views.edit_product, name='edit_product'),
+    # Delete products
+    # path('delete/<int:product_id>/', views.delete_product, name='delete_product'),
 ]

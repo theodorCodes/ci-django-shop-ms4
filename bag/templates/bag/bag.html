@@ -38,13 +38,13 @@
               {% if item.product.image %}
                 <img class="uk-width-small@s"
                      src="{{ item.product.image.url }}" 
-                     width="500" 
-                     alt="{{ product.name }}">
+                     alt="{{ item.product.name }}"
+                     width="500" >
               {% else %}
                 <img class="uk-width-small@s"
-                     src="{% static 'images/noimage.png' %}" 
-                     width="500" 
-                     alt="{{ product.name }}">
+                     src="{{ MEDIA_URL }}noimage.png" 
+                     alt="{{ item.product.name }}"
+                     width="500">
               {% endif %}
             </td>
             <!-- Product description and mobile version -->

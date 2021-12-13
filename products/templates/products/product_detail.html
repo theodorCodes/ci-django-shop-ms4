@@ -40,7 +40,7 @@
           Category: {{ product.category.friendly_name }}
         </div>
         <div class="uk-text-left uk-text-small uk-text-secondary">
-          Views {{ product.views }}
+          Rating: {{ product.rating }}
         </div>
         <div class="uk-text-left uk-text-small uk-width-large uk-margin-small-top">
           {{ product.description }}
@@ -115,37 +115,6 @@
           </p>
         </div>
 
-        <!-- RATINGS -->
-        <div class="uk-text-small uk-margin-large-top">
-          <!-- Likes -->
-          <span>
-            <a href="#" 
-               class="uk-button uk-button-default uk-button-small uk-border-pill">
-               Like 
-            </a>
-          </span>
-          <span class="uk-text-muted">
-            {{ product.likes }}
-          </span><br>
-          <!-- TOGGLE comments -->
-          <span>
-            <a href="#toggle-animation" 
-               uk-toggle="target: #toggle-animation; animation: uk-animation-slide-bottom"
-               class="uk-button uk-button-default uk-button-small uk-border-pill uk-margin-small-top">
-               Comment 
-            </a>
-          </span>
-          <span class="uk-text-muted uk-margin-small-top">
-            ({{ product.comment }})
-          </span><br>
-        </div>
-
-        <!-- Comments toggled -->
-        <div id="toggle-animation" 
-             class="uk-card uk-card-default uk-card-body uk-margin-small" 
-             hidden>
-             Animation
-        </div>
       <!-- END of product info -->
       </div>
     <!-- END of content wrappers -->

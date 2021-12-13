@@ -115,12 +115,10 @@
               </div>
               <!-- Social rating or testimonials -->
               <div class="uk-grid-small uk-text-small uk-margin-top" uk-grid>
-                {% if product.views %}
+                {% if product.rating %}
                   <span class="uk-text-left uk-width-expand">
-                    Views {{ product.views }}
+                    Rating {{ product.rating }}
                   </span>
-                  <span>Likes {{ product.likes }}</span>
-                  <span class="uk-text-right">Comments {{ product.comment }}</span>
                 {% else %}
                   <span class="uk-text-left uk-width-expand">
                     <a href="">Visit Artwork</a>

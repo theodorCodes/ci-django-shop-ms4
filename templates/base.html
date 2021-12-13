@@ -100,7 +100,7 @@
                   <li class="uk-active"><a href="#">Active</a></li>
                     <!-- Show additional superuser menu -->
                     {% if request.user.is_superuser %}
-                      <li class="uk-margin-top"><a href="#">Product Management</a></li>
+                      <li class="uk-margin-top"><a href="{% url 'add_product' %}">Product Management</a></li>
                     {% endif %}
                   <li class="uk-margin-top"><a href="{% url 'profile' %}">My Profile</a></li>
                   <!-- Show 'allauth' log out -->
