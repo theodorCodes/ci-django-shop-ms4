@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+<div class="uk-container uk-container-medium">
+  <!-- Page title -->
+  <h1 class="uk-heading-line uk-text-center uk-margin-medium-bottom">
+    <span>Custom Artwork</span>
+  </h1>
+
+  <div class="uk-flex uk-flex-center uk-child-width-expand@s" uk-grid>
+
+    <!-- Cart info -->
+    <div class="uk-width-1-2@m">
+      <div class="uk-card uk-card-default uk-card-body">
+        <p>Custom Artwork Description</p>
+        <form method="POST" action="{% url 'custom_product' %}" enctype="multipart/form-data">
+          <fieldset class="uk-fieldset">
+            {% csrf_token %}
+
+            <!-- Render user input fields -->
+            <div class="uk-margin">
+              {{ form.type|as_crispy_field }}
+              {{ form.format|as_crispy_field }}
+              {{ form.description|as_crispy_field }}
+              {{ form.image|as_crispy_field }}
+            </div>
+            <!-- Required but hidden crispy fields -->
+            <div class="uk-margin uk-hidden">
+              {{ form.category|as_crispy_field }}
+              {{ form.sku|as_crispy_field }}
+              {{ form.name|as_crispy_field }}
+              {{ form.price|as_crispy_field }}
+              {{ form.rating|as_crispy_field }}
+            </div>
+
+            <hr class="uk-margin">
+            <div class="uk-text-right uk-margin-top">
+              <a class="uk-button uk-button-default uk-border-pill" href="{% url 'products' %}">Cancel</a>
+              <button class="uk-button uk-button-primary uk-border-pill" type="submit">Add Product</button>
+            </div>
+          </fieldset>
+        </form>
+      </div>
+    </div>
+
+  </div>
+
+{% endblock %}
+
+<!-- Notifying the user of what the image will be changed to -->
+{% block postloadjs %}
+    {{ block.super }}
+    <script type="text/javascript">
+        // Listen to change event on #new-image
+        $('#new-image').change(function() {
+          // Store new file in variable file
+          var file = $('#new-image')[0].files[0];
+          // Set file name paragraph in widget template to file name
+          $('#filename').text(`Image will be set to: ${file.name}`);
+        });
+    </script>
+{% endblock %}

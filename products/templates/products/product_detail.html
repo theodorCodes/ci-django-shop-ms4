@@ -9,7 +9,7 @@
     <div class="uk-grid-small custom-product-flex" uk-grid>
 
       <!-- PRODUCT IMAGE -->
-      <div class="uk-card uk-card-default uk-padding-remove-left">
+      <div class="uk-card uk-card-default uk-padding-remove-left custom-image-height">
         <div class="uk-card-media">
           {% if product.image %}
             <!-- uikit LIGHTBOX -->
@@ -21,7 +21,7 @@
               </a>
             </div>
           {% else %}
-            <img src="{% static 'images/noimage.png' %}" 
+            <img src="{{ MEDIA_URL }}noimage.png" 
                  width="500" 
                  alt="{{ product.name }}">
           {% endif %}
@@ -115,16 +115,17 @@
                         type="submit">
                         Add to Bag
                 </button>
-                <!-- Link to contact page -->
-                <button class="uk-button uk-button-text uk-text-capitalize uk-margin-left">
-                  Request custom artwork
-                </button>
                 <!-- Redirection link to this page -->
                 <input type="hidden"
                        name="redirect_url"
                        value="{{ request.path }}">
               </div>
             </form>
+            <hr class="uk-margin-medium-top uk-margin-remove-bottom">
+            <!-- Link to custom product -->
+            <a href="{% url 'custom_product' %}" class="uk-button uk-button-text uk-text-capitalize uk-margin-top">
+              Request custom artwork
+            </a>
           </p>
         </div>
 

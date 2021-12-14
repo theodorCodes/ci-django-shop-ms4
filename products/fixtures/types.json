@@ -1,0 +1,26 @@
+[
+  {
+    "pk": 1,
+    "model": "products.type",
+    "fields": {
+      "name": "3d_model_and_rendering",
+      "friendly_name": "3D Model and Rendering"
+    }
+  },
+  {
+    "pk": 2,
+    "model": "products.type",
+    "fields": {
+      "name": "2d_digital_artwork",
+      "friendly_name": "2D Digital Artwork"
+    }
+  },
+  {
+    "pk": 3,
+    "model": "products.type",
+    "fields": {
+      "name": "hand_drawn_illustration",
+      "friendly_name": "Hand Drawn Illustration"
+    }
+  }
+]

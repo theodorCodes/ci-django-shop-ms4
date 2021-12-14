@@ -22,7 +22,7 @@
       <!-- PRODUCT FILTER OPTIONS -->
       <div class="uk-width-expand">
         <div class="uk-grid-small uk-grid-divider uk-child-width-auto" uk-grid>
-          <!-- Default uk-filter-control to load all available products -->
+          <!-- Default uk-filter-control to load all products categories -->
           <div>
             <ul class="uk-subnav uk-subnav-pill" uk-margin>
               <li class="uk-active" uk-filter-control>
@@ -34,9 +34,20 @@
           <div>
             <ul class="uk-subnav uk-subnav-pill uk-text-capitalize" uk-margin>
               {% for category in categories %}
-                <li uk-filter-control="[data-category='{{ category.friendly_name }}']">
-                  <a href="#" class="uk-text-capitalize uk-border-pill">{{ category.friendly_name }}</a>
-                </li>
+                <!-- CUSTOM PRODUCT CATEGORY VISIBLE -->
+                {% if request.user.is_superuser %}
+                  <li uk-filter-control="[data-category='{{ category.friendly_name }}']">
+                    <a href="#" class="uk-text-capitalize uk-border-pill">{{ category.friendly_name }}</a>
+                  </li>
+                {% else %}
+                  <!-- CUSTOM PRODUCT CATEGORY INVISIBLE -->
+                  {% if category.name != 'custom_product' %}
+                    <li uk-filter-control="[data-category='{{ category.friendly_name }}']">
+                      <a href="#" class="uk-text-capitalize uk-border-pill">{{ category.friendly_name }}</a>
+                    </li>
+                  {% endif %}
+                {% endif %}
+                
               {% endfor %}
             </ul>
           </div>
@@ -75,64 +86,113 @@
 
       <!-- PRODUCT CARD -->
       {% for product in products %}
-
-        <!-- Each product is wrapped with its own category as uikit
-        filterable meta data to use with the above uk-filter-control -->
-        <li data-category="{{ product.category.friendly_name }}" data-name="{{ product.name }}">
-          <div class="uk-card uk-card-default">
-
-            <!-- PRODUCT IMAGE -->
-            <div class="uk-card-media-top">
-              {% if product.image %}
-                <!-- Link to product detail page -->
-                <a href="{% url 'product_detail' product.id %}">
-                  <img class="" 
-                       src="{{ product.image.url }}" 
-                       width="600" 
-                       alt="{{ product.name }}">
-                </a>
-              {% else %}
-                <a href="{% url 'product_detail' product.id %}">
-                  <img class="" 
-                       src="{% static 'images/noimage.png' %}" 
-                       width="600" 
-                       alt="{{ product.name }}">
-                </a>
-              {% endif %}
-            </div>
-
-            <!-- PRODUCT INFO -->
-            <div class="uk-card-body uk-padding-small">
-              <!-- Name, category and price -->
-              <div class="uk-text-left uk-text-small">
-                {{ product.name }}
-              </div>
-              <div class="uk-text-left uk-text-bold uk-margin-small-top">
-                ${{ product.price }}
-              </div>
-              <div class="uk-text-left uk-text-small uk-margin-small-top">
-                {{ product.category.friendly_name }}
-              </div>
-              <!-- Rating or testimonials -->
-              <div class="uk-grid-small uk-text-small uk-margin-small-top" uk-grid>
-                {% if product.rating %}
-                  <span class="uk-text-left uk-width-expand">
-                    <span class="uk-text-middle" uk-icon="icon: star; ratio: 0.8"></span>
-                    <span class="uk-text-middle"> {{ product.rating }} / 5</span>
-                  </span>
+        <!-- CUSTOM PRODUCTS INVISIBLE -->
+        {% if product.category.name != 'custom_product' %}
+          <!-- Each product is wrapped with its own category as uikit
+          filterable meta data to use with the above uk-filter-control -->
+          <li data-category="{{ product.category.friendly_name }}" data-name="{{ product.name }}">
+            <div class="uk-card uk-card-default">
+              <!-- PRODUCT IMAGE -->
+              <div class="uk-card-media-top">
+                {% if product.image %}
+                  <!-- Link to product detail page -->
+                  <a href="{% url 'product_detail' product.id %}">
+                    <img class="" 
+                        src="{{ product.image.url }}" 
+                        width="600" 
+                        alt="{{ product.name }}">
+                  </a>
+                {% else %}
+                  <a href="{% url 'product_detail' product.id %}">
+                    <img class="" 
+                        src="{{ MEDIA_URL }}noimage.png" 
+                        width="600" 
+                        alt="{{ product.name }}">
+                  </a>
                 {% endif %}
               </div>
-              <!-- Product edit and delete -->
-              {% if request.user.is_superuser %}
-                <div class="uk-text-small uk-text-right uk-margin-small-top">
-                  <a href="{% url 'edit_product' product.id %}">Edit</a> | 
-                  <a class="uk-text-danger" href="{% url 'delete_product' product.id %}">Delete</a>
+              <!-- PRODUCT INFO -->
+              <div class="uk-card-body uk-padding-small">
+                <!-- Name, category and price -->
+                <div class="uk-text-left uk-text-small">
+                  {{ product.name }}
                 </div>
-              {% endif %}
+                <div class="uk-text-left uk-text-bold uk-margin-small-top">
+                  ${{ product.price }}
+                </div>
+                <div class="uk-text-left uk-text-small uk-margin-small-top">
+                  {{ product.category.friendly_name }}
+                </div>
+                <!-- Rating or testimonials -->
+                <div class="uk-grid-small uk-text-small uk-margin-small-top" uk-grid>
+                  {% if product.rating %}
+                    <span class="uk-text-left uk-width-expand">
+                      <span class="uk-text-middle" uk-icon="icon: star; ratio: 0.8"></span>
+                      <span class="uk-text-middle"> {{ product.rating }} / 5</span>
+                    </span>
+                  {% endif %}
+                </div>
+                <!-- Product edit and delete -->
+                {% if request.user.is_superuser %}
+                  <div class="uk-text-small uk-text-right uk-margin-small-top">
+                    <a href="{% url 'edit_product' product.id %}">Edit</a> | 
+                    <a class="uk-text-danger" href="{% url 'delete_product' product.id %}">Delete</a>
+                  </div>
+                {% endif %}
+              </div>
+            <!-- END of card -->
             </div>
-          <!-- END of card -->
-          </div>
-        </li>
+          </li>
+        {% endif %}
+        <!-- CUSTOM PRODUCTS VISIBLE -->
+        {% if request.user.is_superuser %}
+          <li data-category="{{ product.category.friendly_name }}" data-name="{{ product.name }}">
+            <div class="uk-card uk-card-default">
+              <div class="uk-card-media-top">
+                {% if product.image %}
+                  <a href="{% url 'product_detail' product.id %}">
+                    <img class="" 
+                        src="{{ product.image.url }}" 
+                        width="600" 
+                        alt="{{ product.name }}">
+                  </a>
+                {% else %}
+                  <a href="{% url 'product_detail' product.id %}">
+                    <img class="" 
+                        src="{{ MEDIA_URL }}noimage.png" 
+                        width="600" 
+                        alt="{{ product.name }}">
+                  </a>
+                {% endif %}
+              </div>
+              <div class="uk-card-body uk-padding-small">
+                <div class="uk-text-left uk-text-small">
+                  {{ product.name }}
+                </div>
+                <div class="uk-text-left uk-text-bold uk-margin-small-top">
+                  ${{ product.price }}
+                </div>
+                <div class="uk-text-left uk-text-small uk-margin-small-top">
+                  {{ product.category.friendly_name }}
+                </div>
+                <div class="uk-grid-small uk-text-small uk-margin-small-top" uk-grid>
+                  {% if product.rating %}
+                    <span class="uk-text-left uk-width-expand">
+                      <span class="uk-text-middle" uk-icon="icon: star; ratio: 0.8"></span>
+                      <span class="uk-text-middle"> {{ product.rating }} / 5</span>
+                    </span>
+                  {% endif %}
+                </div>
+                {% if request.user.is_superuser %}
+                  <div class="uk-text-small uk-text-right uk-margin-small-top">
+                    <a href="{% url 'edit_product' product.id %}">Edit</a> | 
+                    <a class="uk-text-danger" href="{% url 'delete_product' product.id %}">Delete</a>
+                  </div>
+                {% endif %}
+              </div>
+            </div>
+          </li>
+        {% endif %}
       {% endfor %}
 
       <!-- Empty cards for tests. Delete this later -->

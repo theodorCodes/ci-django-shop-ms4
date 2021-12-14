@@ -1,7 +1,7 @@
 from django.db import models
 
 
-# Category table
+# In stock product category table
 class Category(models.Model):
 
     # Fixes plural spelling for the word 'Categories' title in admin page
@@ -20,11 +20,41 @@ class Category(models.Model):
         return self.friendly_name
 
 
-# Product table
+# Configurable product type selection table
+class Type(models.Model):
+    name = models.CharField(max_length=254)
+    friendly_name = models.CharField(max_length=254, null=True, blank=True)
+
+    def __str__(self):
+        return self.name
+
+    def get_friendly_name(self):
+        return self.friendly_name
+
+
+# Configurable format selection table
+class Format(models.Model):
+    name = models.CharField(max_length=254)
+    friendly_name = models.CharField(max_length=254, null=True, blank=True)
+
+    def __str__(self):
+        return self.name
+
+    def get_friendly_name(self):
+        return self.friendly_name
+
+
+# In stock and configurable product table
 class Product(models.Model):
     # Creating relationship to 'Category' table
     category = models.ForeignKey(
         'Category', null=True, blank=True, on_delete=models.SET_NULL)
+    # Creating relationship to 'Type' table
+    type = models.ForeignKey(
+        'Type', null=True, blank=True, on_delete=models.SET_NULL)
+    # Creating relationship to 'Format' table
+    format = models.ForeignKey(
+        'Format', null=True, blank=True, on_delete=models.SET_NULL)
     # Other fields in 'Product' table
     sku = models.CharField(max_length=12, null=True, blank=True)
     name = models.CharField(max_length=254)

@@ -145,8 +145,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'project_ms4',
-        'USER': os.getenv('POSTGRES_USER', ''),
-        'PASSWORD': os.getenv('POSTGRES_PASSWORD', ''),
+        'USER': 'pixelbar',
+        'PASSWORD': 'password',
         'HOST': 'localhost',
         'PORT': '5433',
     }

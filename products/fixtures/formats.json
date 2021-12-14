@@ -1,0 +1,82 @@
+[
+  {
+    "pk": 1,
+    "model": "products.format",
+    "fields": {
+      "name": "instagram_ad",
+      "friendly_name": "Instagram Ad"
+    }
+  },
+  {
+    "pk": 2,
+    "model": "products.format",
+    "fields": {
+      "name": "facebook_ad",
+      "friendly_name": "Facebook Ad"
+    }
+  },
+  {
+    "pk": 3,
+    "model": "products.format",
+    "fields": {
+      "name": "hero_page_image",
+      "friendly_name": "Hero Page Image"
+    }
+  },
+  {
+    "pk": 4,
+    "model": "products.format",
+    "fields": {
+      "name": "news_headline_image",
+      "friendly_name": "News Headline Image"
+    }
+  },
+  {
+    "pk": 5,
+    "model": "products.format",
+    "fields": {
+      "name": "book_cover",
+      "friendly_name": "Book Cover"
+    }
+  },
+  {
+    "pk": 6,
+    "model": "products.format",
+    "fields": {
+      "name": "digital_image_standard_resolution",
+      "friendly_name": "Digital Image (1920 x 1080)"
+    }
+  },
+  {
+    "pk": 7,
+    "model": "products.format",
+    "fields": {
+      "name": "digital_image_high_resolution",
+      "friendly_name": "Digital Image High-Res (3840 x 2160)"
+    }
+  },
+  {
+    "pk": 8,
+    "model": "products.format",
+    "fields": {
+      "name": "print_format_a4",
+      "friendly_name": "Print Format A4"
+    }
+  },
+  {
+    "pk": 9,
+    "model": "products.format",
+    "fields": {
+      "name": "print_format_a3",
+      "friendly_name": "Print Format A3"
+    }
+  },
+  {
+    "pk": 10,
+    "model": "products.format",
+    "fields": {
+      "name": "print_format_a2",
+      "friendly_name": "Print Format A2"
+    }
+  }
+]
