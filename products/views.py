@@ -54,13 +54,46 @@ def product_detail(request, product_id):
 
 
 
-# Add custom product with configurable product template
+# Add custom, configurable product
 def add_custom_product(request):
     """ Create custom product """
+    submitbutton= request.POST.get("submit")
     if request.method == 'POST':
-        # Create instance of product form from post including files
+        # Get product form with values from post
         form = ProductForm(request.POST, request.FILES)
         if form.is_valid():
+            # CALCULATE CUSTOM PRODUCT PRICE
+            # Artwork price table
+            def artwork(cost):
+                dict={
+                    1: 160,
+                    2: 120,
+                    3: 80,
+                }
+                return dict.get(cost, 50)
+            # Get form value from custom product 'type' field
+            cost = int(form['type'].value())
+            # Markup price table
+            def markup(size):
+                dict={
+                    1: 20,
+                    2: 30,
+                    3: 40,
+                    4: 50,
+                    5: 60,
+                    6: 70,
+                    7: 80,
+                    8: 90,
+                    9: 100,
+                    10: 110,
+                }
+                return dict.get(size, 20)
+            # Get form value from custom product 'format' field
+            size = int(form['format'].value())
+            # Calculate price based on type and format choice
+            custom_product_price = artwork(cost) + markup(size)
+            # Update form value with calculated custom product price
+            form.instance.price = custom_product_price
             # form.save()
             product = form.save()
             messages.success(request, 'Successfully added custom artwork!')
@@ -69,7 +102,7 @@ def add_custom_product(request):
         else:
             messages.error(request, 'Failed to add product. Please ensure the form is valid.')
     else:
-        # Render form instance with pre-filled info
+        # Render form instance with some pre-filled info
         form = ProductForm(
             initial={
                 'sku': 0,
