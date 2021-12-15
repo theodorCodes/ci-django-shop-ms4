@@ -2,12 +2,10 @@
 {% load static %}
 
 {% block content %}
-
-<!-- content wrappers -->
+<!-- Content wrappers -->
 <div class="uk-container uk-container-medium">
   <div class="uk-width-expand">
     <div class="uk-grid-small custom-product-flex" uk-grid>
-
       <!-- PRODUCT IMAGE -->
       <div class="uk-card uk-card-default uk-padding-remove-left custom-image-height">
         <div class="uk-card-media">
@@ -27,7 +25,6 @@
           {% endif %}
         </div>
       </div>
-
       <!-- PRODUCT INFO -->
       <div class="uk-card-body uk-margin-left uk-width-large">
         <div class="uk-text-left uk-text-large uk-text-bold uk-width-large">
@@ -58,8 +55,7 @@
         <div class="uk-text-left uk-text-small uk-width-large uk-margin-small-top">
           {{ product.description }}
         </div>
-
-        <!-- ADD TO CART form and button -->
+        <!-- ADD TO CART -->
         <div>
           <p class="uk-margin-medium-top" uk-margin>
             <form action="{% url 'add_to_bag' product.id %}" method="POST">
@@ -123,19 +119,17 @@
             </form>
             <hr class="uk-margin-medium-top uk-margin-remove-bottom">
             <!-- Link to custom product -->
-            <a href="{% url 'custom_product' %}" class="uk-button uk-button-text uk-text-capitalize uk-margin-top">
+            <a href="{% url 'add_custom_product' %}" class="uk-button uk-button-text uk-text-capitalize uk-margin-top">
               Request custom artwork
             </a>
           </p>
         </div>
-
       <!-- END of product info -->
       </div>
     <!-- END of content wrappers -->
     </div>
   </div>
 </div>
-
 {% endblock %}
 
 <!-- Including js file for quantity field with plus and minus dialer -->

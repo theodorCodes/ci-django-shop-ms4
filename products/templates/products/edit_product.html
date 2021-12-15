@@ -2,32 +2,33 @@
 {% load static %}
 
 {% block content %}
-
+<!-- Content wrapper -->
 <div class="uk-container uk-container-medium">
   <!-- Page title -->
   <h1 class="uk-heading-line uk-text-center uk-margin-medium-bottom">
     <span>Product Management</span>
   </h1>
-
   <div class="uk-flex uk-flex-center uk-child-width-expand@s" uk-grid>
-
     <!-- Cart info -->
     <div class="uk-width-1-2@m">
       <div class="uk-card uk-card-default uk-card-body">
         <p>Edit a Product</p>
         <form method="POST" action="{% url 'edit_product' product.id %}" enctype="multipart/form-data">
           {% csrf_token %}
-          <!-- 
-            Render fields in form 'as_crispy_field', 
-            using custom classes declared in widgets
-          -->
-          {% for field in form %}
-            {% if field.name != 'image' %}
-              {{ field | as_crispy_field }}
-            {% else %}
-              {{ field }}
-            {% endif %}
-          {% endfor %}
+          <!-- User input fields using crispy form -->
+          <div class="uk-margin">
+            {{ form.category|as_crispy_field }}
+            {{ form.type|as_crispy_field }}
+            {{ form.format|as_crispy_field }}
+            {{ form.sku|as_crispy_field }}
+            {{ form.name|as_crispy_field }}
+            {{ form.description|as_crispy_field }}
+            {{ form.has_sizes|as_crispy_field }}
+            {{ form.price|as_crispy_field }}
+            {{ form.rating|as_crispy_field }}
+            {{ form.image_url|as_crispy_field }}
+            {{ form.image|as_crispy_field }}
+          </div>
           <hr class="uk-margin">
           <div class="uk-text-right uk-margin-top">
             <a class="uk-button uk-button-default uk-border-pill" href="{% url 'products' %}">Cancel</a>
@@ -36,9 +37,7 @@
         </form>
       </div>
     </div>
-
   </div>
-
 {% endblock %}
 
 <!-- Notifying the user of what the image will be changed to -->

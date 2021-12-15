@@ -6,12 +6,10 @@
 {% block head_title %}{% trans "Confirm E-mail Address" %}{% endblock %}
 
 {% block inner_content %}
-
   <!-- Page title -->
   <h1 class="uk-heading-line uk-text-center uk-margin-medium-bottom">
     <span>{% trans "Confirm E-mail Address" %}</span>
   </h1>
-
   {% if confirmation %}
     {% user_display confirmation.email_address.user as user_display %}
     <p>{% blocktrans with confirmation.email_address.email as email %}Please confirm that <a href="mailto:{{ email }}">{{
@@ -25,5 +23,4 @@
     <p>{% blocktrans %}This e-mail confirmation link expired or is invalid. Please <a href="{{ email_url }}">issue a new
         e-mail confirmation request</a>.{% endblocktrans %}</p>
   {% endif %}
-
 {% endblock %}

@@ -1,9 +1,7 @@
 from django.db import models
 
-
 # In stock product category table
 class Category(models.Model):
-
     # Fixes plural spelling for the word 'Categories' title in admin page
     class Meta:
         verbose_name_plural = 'Categories'

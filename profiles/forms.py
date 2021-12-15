@@ -1,6 +1,7 @@
 from django import forms  # Import Django forms
 from .models import UserProfile  # Import profile from model
 
+
 # Import this form in views.py
 class UserProfileForm(forms.ModelForm):
     class Meta:

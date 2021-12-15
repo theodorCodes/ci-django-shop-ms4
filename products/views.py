@@ -5,20 +5,17 @@ from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from .models import Product, Category, Type, Format
 from .forms import ProductForm  # Import product form
-from .forms import CustomProductForm  # Import product form
 
 
 # Product catalog view function all_products()
 def all_products(request):
     """ Show all products in catalog view, 
         applicable for sorting and search queries """
-
     # Variable 'categories' to store all available categories
     # except 'custom_product' from Django query set,
     # prevents showing custom product in catalog category menu
     # categories = Category.objects.exclude(name__in=['custom_product'])
     categories = Category.objects.all()
-
     # Variable 'products' stores all product names from model
     products = Product.objects.all()
     query = None
@@ -29,7 +26,6 @@ def all_products(request):
             if not query:
                 messages.error(request, "You didn't enter any search criteria!")
                 return redirect(reverse('products'))
-
             queries = Q(name__icontains=query) | Q(
                 description__icontains=query)
             products = products.filter(queries)
@@ -41,44 +37,40 @@ def all_products(request):
         'search_term': query,
         'categories': categories,
     }
-
     # And define in which file the 'context' will be rendered in
     # products/templates/products/products.html
     return render(request, 'products/products.html', context)
 
 
+
 # Product detail view function product_detail()
 def product_detail(request, product_id):
     """ Show product detail view """
-
     product = get_object_or_404(Product, pk=product_id)
-
     context = {
         'product': product,
     }
-
     return render(request, 'products/product_detail.html', context)
 
 
 
 # Add custom product with configurable product template
-def custom_product(request):
+def add_custom_product(request):
     """ Create custom product """
-
     if request.method == 'POST':
         # Create instance of product form from post including files
-        form = CustomProductForm(request.POST, request.FILES)
+        form = ProductForm(request.POST, request.FILES)
         if form.is_valid():
             # form.save()
             product = form.save()
-            messages.success(request, 'Successfully added product!')
+            messages.success(request, 'Successfully added custom artwork!')
             # return redirect(reverse('add_product'))
             return redirect(reverse('product_detail', args=[product.id]))
         else:
             messages.error(request, 'Failed to add product. Please ensure the form is valid.')
     else:
-        # Render empty instance of the form
-        form = CustomProductForm(
+        # Render form instance with pre-filled info
+        form = ProductForm(
             initial={
                 'sku': 0,
                 'name': 'Custom Artwork',
@@ -86,14 +78,12 @@ def custom_product(request):
                 'rating': 0,
             }
         )
-
     # Template
-    template = 'products/custom_product.html'
+    template = 'products/add_custom_product.html'
     # Context for template
     context = {
         'form': form,
     }
-
     return render(request, template, context)
 
 
@@ -128,8 +118,8 @@ def add_product(request):
     context = {
         'form': form,
     }
-
     return render(request, template, context)
+
 
 
 # Edit Product view
@@ -143,6 +133,7 @@ def edit_product(request, product_id):
 
     # Get product
     product = get_object_or_404(Product, pk=product_id)
+
     # If post
     if request.method == 'POST':
         # Make instance of product form with request product and request files
@@ -161,14 +152,15 @@ def edit_product(request, product_id):
         # Make instance of product form with produkt
         form = ProductForm(instance=product)
         messages.info(request, f'You are editing {product.name}')
+
     # Template to use
     template = 'products/edit_product.html'
     context = {
         'form': form,
         'product': product,
     }
-
     return render(request, template, context)
+
 
 
 # Delete products

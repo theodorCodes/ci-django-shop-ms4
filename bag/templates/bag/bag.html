@@ -1,190 +1,183 @@
 {% extends "base.html" %}
 {% load static %}
+
 <!-- Load custom custom Tag and Filter defined in bag_tools.py -->
 {% load bag_tools %}
 
 {% block content %}
-
-<div class="uk-container uk-container-medium">
-
-  <h1 class="uk-heading-line uk-text-center">
-    <span>Shopping bag</span>
-  </h1>
-
-  {% if bag_items %}
-
-    <!-- Test bag items -->
-    <!-- {{ bag_items }} -->
-    <!-- {{ request.session.bag }} -->
-    <!-- END Test bag items -->
-  
-    <!-- Shopping bag items -->
-    <table class="uk-table uk-table-middle uk-table-divider">
-      <thead>
-        <tr>
-          <th class="uk-width-small"></th>
-          <th>Product Description</th>
-          <th class="uk-visible@m">Price</th>
-          <th class="uk-visible@m">Qty</th>
-          <th class="uk-visible@m">Subtotal</th>
-        </tr>
-      </thead>
-      <tbody>
-        <!-- Iterate through bag_items -->
-        {% for item in bag_items %}
+  <!-- Content wrapper -->
+  <div class="uk-container uk-container-medium">
+    <!-- Page title -->
+    <h1 class="uk-heading-line uk-text-center">
+      <span>Shopping bag</span>
+    </h1>
+    {% if bag_items %}
+      <!-- Test bag items -->
+      <!-- {{ bag_items }} -->
+      <!-- {{ request.session.bag }} -->
+      <!-- END Test bag items -->
+      <!-- Shopping bag items -->
+      <table class="uk-table uk-table-middle uk-table-divider">
+        <thead>
           <tr>
-            <!-- Product image -->
-            <td>
-              {% if item.product.image %}
-                <img class="uk-width-small@s"
-                     src="{{ item.product.image.url }}" 
-                     alt="{{ item.product.name }}"
-                     width="500" >
-              {% else %}
-                <img class="uk-width-small@s"
-                     src="{{ MEDIA_URL }}noimage.png" 
-                     alt="{{ item.product.name }}"
-                     width="500">
-              {% endif %}
-            </td>
-            <!-- Product description and mobile version -->
-            <td>
-              {{ item.product.name }}
-              <!-- Size info -->
-              <p>
-                Format: {% if item.product.has_sizes %}
-                          <strong>{{ item.size }}</strong>
-                        {% else %}
-                          (downloadable item)
-                        {% endif %}
-              </p>
-              <!-- Show only on mobile screens -->
-              <p class="uk-hidden@m">
-                <span class="uk-text-muted">Qty.: </span>
-                  ${{ item.product.price }}<br>
-                <span class="uk-text-muted">Subtotal: </span>
-                  ${{ item.product.price | calc_subtotal:item.quantity }}
-              </p>
-            </td>
-            <!-- Show only on larger screens -->
-            <td class="uk-visible@m">${{ item.product.price }}</td>
-            <!-- Quantity form -->
-            <td>
-              <form class="update-form" 
-                    action="{% url 'adjust_bag' item.item_id %}" 
-                    method="POST">
-                <!-- Secure Django token -->
-                {% csrf_token %}
-                <!-- Quantity field -->
-                <div class="uk-margin">
-                  <div class="input-group uk-inline">
-                    <!-- Minus button, requires js -->
-                    <div class="intput-group">
-                      <button class="decrement-qty uk-form-icon" 
-                              data-item_id="{{ item.item_id }}" 
-                              id="decrement-qty_{{ item.item_id }}"
-                              uk-icon="icon: minus">
-                      </button>
-                    </div>
-                    <!-- Plus button, requires js -->
-                    <div class="intput-group">
-                      <button class="increment-qty uk-form-icon uk-form-icon-flip" 
-                              data-item_id="{{ item.item_id }}" 
-                              id="increment-qty_{{ item.item_id }}"
-                              uk-icon="icon: plus">
-                      </button>
-                    </div>
-                    <!-- Input field -->
-                    <input class="qty_input uk-input uk-form-small uk-form-width-small uk-text-center"
-                           type="number"
-                           name="quantity"
-                           value="{{ item.quantity }}"
-                           min="1"
-                           max="99"
-                           data-item_id="{{ item.item_id }}"
-                           id="id_qty_{{ item.item_id }}">
-                    <!-- Size submission -->
-                    {% if item.product.has_sizes %}
-                      <input type="hidden" 
-                             name="product_size" 
-                             value="{{ item.size }}">
-                    {% endif %}
-                  </div>
-                </div>
-              </form>
-              <!-- Form submit button, requires js -->
-              <a class="update-link uk-text-small">Update</a>
-              <!-- Remove item button, requires js -->
-              <a class="remove-item uk-text-small uk-margin-left" 
-                 id="remove_{{ item.item_id }}"
-                 data-product_size="{{ item.size }}">
-                 Remove
-              </a>
-            </td>
-            <!-- Subtotal - Calc price and quantity in bag_tools.py -->
-            <td class="uk-visible@m">${{ item.product.price | calc_subtotal:item.quantity }}</td>
+            <th class="uk-width-small"></th>
+            <th>Product Description</th>
+            <th class="uk-visible@m">Price</th>
+            <th class="uk-visible@m">Qty</th>
+            <th class="uk-visible@m">Subtotal</th>
           </tr>
-        {% endfor %}
-
-      </tbody>
-    </table>
-    <!-- Summary and checkout button -->
-    <div class="uk-card uk-card-default uk-card-body uk-width-1-3@m uk-align-right">
-      <p class="uk-text-default uk-text-right">
-        Order Total: ${{ total|floatformat:2 }}
-      </p>
-      <p class="uk-text-default uk-text-right">
-        Delivery: ${{ delivery|floatformat:2 }}
-      </p>
-      <p class="uk-text-default uk-text-right uk-text-bold uk-text-secondary">
-        Grand Total: ${{ grand_total|floatformat:2 }}
-      </p>
-      {% if free_delivery_delta > 0 %}
-        <p class="uk-text-small uk-text-right">
-          You could get free delivery by spending just <strong>${{ free_delivery_delta }}</strong> more!
+        </thead>
+        <tbody>
+          <!-- Iterate through bag_items -->
+          {% for item in bag_items %}
+            <tr>
+              <!-- Product image -->
+              <td>
+                {% if item.product.image %}
+                  <img class="uk-width-small@s"
+                      src="{{ item.product.image.url }}" 
+                      alt="{{ item.product.name }}"
+                      width="500" >
+                {% else %}
+                  <img class="uk-width-small@s"
+                      src="{{ MEDIA_URL }}noimage.png" 
+                      alt="{{ item.product.name }}"
+                      width="500">
+                {% endif %}
+              </td>
+              <!-- Product description and mobile version -->
+              <td>
+                {{ item.product.name }}
+                <!-- Size info -->
+                <p>
+                  Format: {% if item.product.has_sizes %}
+                            <strong>{{ item.size }}</strong>
+                          {% else %}
+                            (downloadable item)
+                          {% endif %}
+                </p>
+                <!-- Show only on mobile screens -->
+                <p class="uk-hidden@m">
+                  <span class="uk-text-muted">Qty.: </span>
+                    ${{ item.product.price }}<br>
+                  <span class="uk-text-muted">Subtotal: </span>
+                    ${{ item.product.price | calc_subtotal:item.quantity }}
+                </p>
+              </td>
+              <!-- Show only on larger screens -->
+              <td class="uk-visible@m">${{ item.product.price }}</td>
+              <!-- Quantity form -->
+              <td>
+                <form class="update-form" 
+                      action="{% url 'adjust_bag' item.item_id %}" 
+                      method="POST">
+                  <!-- Secure Django token -->
+                  {% csrf_token %}
+                  <!-- Quantity field -->
+                  <div class="uk-margin">
+                    <div class="input-group uk-inline">
+                      <!-- Minus button, requires js -->
+                      <div class="intput-group">
+                        <button class="decrement-qty uk-form-icon" 
+                                data-item_id="{{ item.item_id }}" 
+                                id="decrement-qty_{{ item.item_id }}"
+                                uk-icon="icon: minus">
+                        </button>
+                      </div>
+                      <!-- Plus button, requires js -->
+                      <div class="intput-group">
+                        <button class="increment-qty uk-form-icon uk-form-icon-flip" 
+                                data-item_id="{{ item.item_id }}" 
+                                id="increment-qty_{{ item.item_id }}"
+                                uk-icon="icon: plus">
+                        </button>
+                      </div>
+                      <!-- Input field -->
+                      <input class="qty_input uk-input uk-form-small uk-form-width-small uk-text-center"
+                            type="number"
+                            name="quantity"
+                            value="{{ item.quantity }}"
+                            min="1"
+                            max="99"
+                            data-item_id="{{ item.item_id }}"
+                            id="id_qty_{{ item.item_id }}">
+                      <!-- Size submission -->
+                      {% if item.product.has_sizes %}
+                        <input type="hidden" 
+                              name="product_size" 
+                              value="{{ item.size }}">
+                      {% endif %}
+                    </div>
+                  </div>
+                </form>
+                <!-- Form submit button, requires js -->
+                <a class="update-link uk-text-small">Update</a>
+                <!-- Remove item button, requires js -->
+                <a class="remove-item uk-text-small uk-margin-left" 
+                  id="remove_{{ item.item_id }}"
+                  data-product_size="{{ item.size }}">
+                  Remove
+                </a>
+              </td>
+              <!-- Subtotal - Calc price and quantity in bag_tools.py -->
+              <td class="uk-visible@m">
+                ${{ item.product.price | calc_subtotal:item.quantity }}
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      <!-- Summary and checkout button -->
+      <div class="uk-card uk-card-default uk-card-body uk-width-1-3@m uk-align-right">
+        <p class="uk-text-default uk-text-right">
+          Order Total: ${{ total|floatformat:2 }}
         </p>
-      {% endif %}
-
-      <p class="uk-align-right uk-margin-remove-left">
-        <a href="{% url 'products' %}" 
-           class="uk-link-text uk-text-middle">
-           <span class="custom-checkout-link">Keep Shopping</span>
+        <p class="uk-text-default uk-text-right">
+          Delivery: ${{ delivery|floatformat:2 }}
+        </p>
+        <p class="uk-text-default uk-text-right uk-text-bold uk-text-secondary">
+          Grand Total: ${{ grand_total|floatformat:2 }}
+        </p>
+        {% if free_delivery_delta > 0 %}
+          <p class="uk-text-small uk-text-right">
+            You could get free delivery by spending just <strong>${{ free_delivery_delta }}</strong> more!
+          </p>
+        {% endif %}
+        <p class="uk-align-right uk-margin-remove-left">
+          <a href="{% url 'products' %}" 
+            class="uk-link-text uk-text-middle">
+            <span class="custom-checkout-link">Keep Shopping</span>
+          </a>
+          <a href="{% url 'checkout' %}" class="uk-button uk-button-secondary uk-margin-small-left uk-align-right uk-border-pill">
+            Checkout<span class="custom-checkout" uk-icon="icon: lock"></span>
+          </a>
+        </p>
+      </div>
+    {% else %}
+      <!-- Default - empty shopping cart -->
+      <div class="uk-flex uk-flex-center">
+        <div>Your shopping bag is empty.</div>
+      </div>
+      <div class="uk-flex uk-flex-center uk-margin-medium-top">
+        <a href="{% url 'products' %}" class="uk-button uk-button-primary uk-text-capitalize uk-border-pill">
+          Keep Shopping
         </a>
-        <a href="{% url 'checkout' %}" class="uk-button uk-button-secondary uk-margin-small-left uk-align-right uk-border-pill">
-          Checkout<span class="custom-checkout" uk-icon="icon: lock"></span>
-        </a>
-      </p>
-    </div>
-
-  {% else %}
-    <!-- Default - empty shopping cart -->
-    <div class="uk-flex uk-flex-center">
-      <div>Your shopping bag is empty.</div>
-    </div>
-    <div class="uk-flex uk-flex-center uk-margin-medium-top">
-      <a href="{% url 'products' %}" class="uk-button uk-button-primary uk-text-capitalize uk-border-pill">
-        Keep Shopping
-      </a>
-    </div>
-  {% endif %}
-
-</div>
-
+      </div>
+    {% endif %}
+  </div>
 {% endblock %}
 
 <!-- Including js file for quantity field with plus and minus dialer -->
 {% block postloadjs %}
   {{ block.super }}
   {% include 'products/includes/quantity_input_script.html' %}
-
   <!-- Update quantity and remove item -->
   <script type="text/javascript">
     // Update quantity on click
     $('.update-link').click(function(e) {
-        var form = $(this).prev('.update-form');
-        form.submit();
-    })
-
+      var form = $(this).prev('.update-form');
+      form.submit();
+    });
     // Remove item and reload on click
     $('.remove-item').click(function(e) {
         var csrfToken = "{{ csrf_token }}";
@@ -192,12 +185,10 @@
         var size = $(this).data('product_size');
         var url = `/bag/remove/${itemId}/`;
         var data = {'csrfmiddlewaretoken': csrfToken, 'product_size': size};
-
         $.post(url, data)
         .done(function() {
             location.reload();
         });
-    })
+    });
   </script>
-
 {% endblock %}

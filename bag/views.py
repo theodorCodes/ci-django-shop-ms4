@@ -3,12 +3,12 @@ from django.shortcuts import render, redirect, reverse, HttpResponse, get_object
 from django.contrib import messages
 from products.models import Product
 
+
 # Renders bag view
 def view_bag(request):
     """ Show bag page """
 
     return render(request, 'bag/bag.html')
-
 
 # Creates add to bag session, submitting with item_id info
 def add_to_bag(request, item_id):
@@ -139,6 +139,7 @@ def adjust_bag(request, item_id):
     # to the view bag URL. And I'll use the reverse function to do that.
     # Importing it here at the top, see TOP
     return redirect(reverse('view_bag'))
+
 
 
 # Remove bag item

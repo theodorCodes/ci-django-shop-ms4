@@ -1,18 +1,15 @@
 # Create checkout_order table and
 # Create checkout_orderlineitem table in db
-
 import uuid  # Generates order numbers
 from django.db import models
 from django.db.models import Sum  # Imports sum function from Django models
 from django.conf import settings  # Imports settings module from django.conf
-
 # installation of django-countries library required
 from django_countries.fields import CountryField
-
 from products.models import Product  # Import products
-
 # Import of user model from profiles/models.py
 from profiles.models import UserProfile
+
 
 
 # Data to handle all orders
@@ -84,6 +81,7 @@ class Order(models.Model):
         return self.order_number
 
 
+
 # Order line items to specify each item in the order
 class OrderLineItem(models.Model):
     order = models.ForeignKey(Order, null=False, blank=False, on_delete=models.CASCADE, related_name='lineitems')
@@ -91,7 +89,6 @@ class OrderLineItem(models.Model):
     product_size = models.CharField(max_length=20, null=True, blank=True)  # format A3 PRINT
     quantity = models.IntegerField(null=False, blank=False, default=0)
     lineitem_total = models.DecimalField(max_digits=6, decimal_places=2, null=False, blank=False, editable=False)
-
 
     # Calculate subtotal for each product in the order
     def save(self, *args, **kwargs):

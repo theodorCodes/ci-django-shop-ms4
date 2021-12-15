@@ -2,6 +2,7 @@
 // Get the stripe public key
 // And client secret from template using jQuery
 
+
 // Getting their ids and using the .text function.
 var stripePublicKey = $('#id_stripe_public_key').text().slice(1, -1);
 // Slice off first and last character which represent quotation marks.
@@ -30,11 +31,11 @@ var style = {
     }
 };
 
+
 // And create card element while using custom declared styles
 var card = elements.create('card', {style: style});
 // Then mount the card element to the HTML id #card-element to use in template
 card.mount('#card-element');
-
 
 // Stripe - Event Listener on 'card'
 // Handle realtime validation errors on the card element
@@ -53,6 +54,7 @@ card.addEventListener('change', function (event) {
         errorDiv.textContent = '';
     }
 });
+
 
 
 // Stripe - Submit Event Listener on 'form'

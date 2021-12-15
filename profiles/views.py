@@ -5,6 +5,7 @@ from .models import UserProfile  # Import profiles from models
 from .forms import UserProfileForm  # Import the form function from forms.py
 from checkout.models import Order  # Import checkout order to get order_number
 
+
 # Using login decorator
 @login_required
 def profile(request):
@@ -39,27 +40,23 @@ def profile(request):
         'orders': orders,
         'on_profile_page': True
     }
-
     # Render this in profile.html template
     return render(request, template, context)
+
 
 
 # for order history in profile.html
 def order_history(request, order_number):
     # Get order
     order = get_object_or_404(Order, order_number=order_number)
-
     # Response message
     messages.info(request, (
         f'This is a post confirmation for order number { order_number }.'
         'A confirmation email was sent on the order date.'
     ))
-
-
     template = 'checkout/checkout_success.html'
     context = {
         'order': order,
         'from_profile': True,
     }
-
     return render(request, template, context)

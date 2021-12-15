@@ -3,46 +3,15 @@ from .widgets import CustomClearableFileInput  # Import widget with custom class
 from .models import Product, Category, Type, Format  # Import product and category model
 
 
-# Product form for - products in stock
+# Product form for custom and non custom products
 class ProductForm(forms.ModelForm):
     class Meta:
         model = Product  # Model
         # fields = '__all__'  # Fields to include
         # Render specific fields without type and format fields
-        fields = ('category', 'sku', 'name', 
-                  'description', 'has_sizes', 
-                  'price', 'rating', 'image_url',)
-
-    # Replacing image field on form, utilizing widget with custom classes
-    image = forms.ImageField(label='Image', required=False, widget=CustomClearableFileInput)
-
-    # Overriding init method
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        # Get categories
-        categories = Category.objects.all()
-
-        # And create tuple with id and friendly_name from categories
-        # using list comprehension
-        friendly_names = [(c.id, c.get_friendly_name()) for c in categories]
-
-        # Then update category fields with friendly_names as choices
-        self.fields['category'].choices = friendly_names
-        # Iterate through fields to attach class for CSS styling
-        for field_name, field in self.fields.items():
-            field.widget.attrs['class'] = 'form-inner-content'
-
-
-
-# Product form for - configurable products
-class CustomProductForm(forms.ModelForm):
-    class Meta:
-        model = Product  # Model
-        # fields = '__all__'  # Fields to include
-        # Render specific fields without type and format fields
-        fields = ('category', 'type', 'format',
-                  'description', 'sku', 'name',
-                  'has_sizes', 'price', 'rating', 'image_url',)
+        fields = ('category', 'type', 'format', 'description',
+                  'sku', 'name', 'has_sizes', 'price',
+                  'rating', 'image_url', 'image',)
 
     # Replacing image field on form, utilizing widget with custom classes
     image = forms.ImageField(label='Image', required=False, widget=CustomClearableFileInput)
@@ -61,13 +30,11 @@ class CustomProductForm(forms.ModelForm):
         friendly_names = [(c.id, c.get_friendly_name()) for c in categories]
         friendly_type_names = [(c.id, c.get_friendly_name()) for c in types]
         friendly_format_names = [(c.id, c.get_friendly_name()) for c in formats]
-        
 
         # Then update category fields with friendly_names as choices
         self.fields['category'].choices = friendly_names
         self.fields['type'].choices = friendly_type_names
         self.fields['format'].choices = friendly_format_names
-        self.fields['sku'].choices = 85
 
         # Iterate through fields to attach class for CSS styling
         for field_name, field in self.fields.items():

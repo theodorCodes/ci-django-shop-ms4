@@ -11,7 +11,7 @@ urlpatterns = [
     # Route for detail view, specifying that id is an integer
     path('<int:product_id>/', views.product_detail, name='product_detail'),
     # Route for custom product view
-    path('custom/', views.custom_product, name='custom_product'),
+    path('custom/', views.add_custom_product, name='add_custom_product'),
     # Points to add product view
     path('add/', views.add_product, name='add_product'),
     # Edit product page

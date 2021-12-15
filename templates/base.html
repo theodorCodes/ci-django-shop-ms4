@@ -5,7 +5,6 @@
 <html lang="en">
 
 <head>
-
   {% block meta %}
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta charset="utf-8">
@@ -46,28 +45,22 @@
     <!-- Stripe -->
     <script src="https://js.stripe.com/v3/"></script>
   {% endblock %}
-
   <!-- custom js -->
   {% block extra_js %}
   {% endblock %}
-
   <!-- Browser tab title -->
   <title>Template {% block extra_title %}{% endblock %}</title>
-
 </head>
 <body>
   <header>
     <!-- Navigation -->
     <nav uk-sticky class="uk-navbar-container" uk-navbar>
-
       <!-- See external file for desktop and mobile menu -->
       {% include 'includes/mobile-top-header.html' %}
       {% include 'includes/main-nav.html' %}
-
       <!-- Navbar right -->
       <div class="uk-navbar-right">
         <div class="uk-navbar-nav">
-
           <!-- User menu based on authentication -->
           {% if request.user.is_authenticated %}
             <!-- Show toggle button for authenticated users -->
@@ -84,7 +77,6 @@
                 <button class="uk-offcanvas-close" 
                         type="button" 
                         uk-close></button>
-
                 <!-- Off-canvas menu -->
                 <ul class="uk-nav uk-nav-default">
                   <li class="uk-active"><a href="#">Active</a></li>
@@ -100,7 +92,6 @@
                 </ul>
               </div>
             </div>
-
             {% else %}
             <!-- Non authenticated users -->
             <!-- Log in button -->
@@ -119,7 +110,6 @@
               </a>
             </li>
           {% endif %}
-
           <!-- Shopping cart button -->
           <li class="uk-margin-right custom-mobile-cart-btn">
             <a href="{% url 'view_bag' %}">
@@ -138,19 +128,15 @@
               </div>
             </a>
           </li>
-
         </div>
       </div>
-
     </nav>
-
     <!-- Banner -->
     <div uk-sticky="offset: 80" class="custom-sticky-banner">
       <div class="uk-text-center uk-background-default uk-light uk-panel uk-text-emphasis custom-banner-bg">
         <p>Free delivery on orders over ${{ free_delivery_threshold }} for all physical goods!</p>
       </div>
     </div>
-
     <!-- 
       Search field
       Use 'button' instead of 'a' tag, otherwise 'q' is not going to be in request
@@ -167,9 +153,7 @@
                 uk-search-icon></button>
       </form>
     </div>
-
   </header>
-
   <!-- Notifications -->
   {% if messages %}
     {% for message in messages %}
@@ -190,15 +174,12 @@
       {% endwith %}
     {% endfor %}
   {% endif %}
-
   <!-- custom header -->
   {% block page_header %}
   {% endblock %}
-
   <!-- custom content -->
   {% block content %}
   {% endblock %}
-
   <!-- custom js -->
   {% block postloadjs %}
     <script type="text/javascript">
@@ -206,6 +187,5 @@
       UIkit.modal('#notification').show();
     </script>
   {% endblock %}
-
 </body>
 </html>

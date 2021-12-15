@@ -1,18 +1,14 @@
 {% extends "account/base.html" %}
 
 {% load i18n %}
-
 {% block head_title %}{% trans "Sign Out" %}{% endblock %}
 
 {% block inner_content %}
-
   <!-- Page title -->
   <h1 class="uk-heading-line uk-text-center uk-margin-medium-bottom">
     <span>{% trans "Sign Out" %}</span>
   </h1>
-
   <p>{% trans 'Are you sure you want to sign out?' %}</p>
-
   <form method="post" action="{% url 'account_logout' %}">
     {% csrf_token %}
     {% if redirect_field_value %}
@@ -20,5 +16,4 @@
     {% endif %}
     <button class="uk-button uk-button-primary uk-border-pill uk-text-upppercase" type="submit">{% trans 'Sign Out' %}</button>
   </form>
-
 {% endblock %}

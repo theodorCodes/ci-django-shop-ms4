@@ -3,7 +3,6 @@ from django.shortcuts import render, redirect, reverse, get_object_or_404, HttpR
 from django.views.decorators.http import require_POST  # Import for card payment
 from django.contrib import messages  # Import messages
 from django.conf import settings  # Import settings to use with Stripe
-
 from .forms import OrderForm  # Import order form
 from .models import Order, OrderLineItem  # Import Order, OrderLineItem from this app
 from products.models import Product  # Import Product from product model
@@ -40,6 +39,7 @@ def cache_checkout_data(request):
         messages.error(request, 'Sorry, your payment cannot be \
             processed right now. Please try again later.')
         return HttpResponse(content=e, status=400)
+
 
 
 # Checkout view - payment process
