@@ -13,7 +13,6 @@
     <span>Checkout</span>
   </h1>
   <div class="uk-flex uk-flex-center uk-child-width-expand@s" uk-grid>
-
     <!-- Cart info -->
     <div class="uk-width-1-2@m">
       <div class="uk-card uk-card-default uk-card-body">
@@ -35,12 +34,12 @@
                 <td class="uk-width-1-4">
                   {% if item.product.image %}
                     <img src="{{ item.product.image.url }}" 
-                          width="100" 
-                          alt="{{ product.name }}">
+                         width="100" 
+                         alt="{{ product.name }}">
                   {% else %}
                     <img src="{{ MEDIA_URL }}noimage.png" 
-                          width="100" 
-                          alt="{{ product.name }}">
+                         width="100" 
+                         alt="{{ product.name }}">
                   {% endif %}
                 </td>
                 <!-- Product description and mobile version -->
@@ -48,11 +47,11 @@
                   {{ item.product.name }}
                   <!-- Size info -->
                   <p>
-                    Format: {% if item.product.has_sizes %}
-                              <strong>{{ item.size }}</strong>
-                            {% else %}
-                              (downloadable item)
-                            {% endif %}
+                    {% if item.product.has_sizes %}
+                      Format: <strong>{{ item.size }}</strong>
+                    {% else %}
+                      <strong>{{ item.product.category }}</strong>
+                    {% endif %}
                     <br>
                     Qty: {{ item.quantity }}
                   </p>
@@ -63,7 +62,9 @@
                   </p>
                 </td>
                 <!-- Subtotal - Calc price and quantity in bag_tools.py -->
-                <td class="uk-visible@m uk-text-small">${{ item.product.price | calc_subtotal:item.quantity }}</td>
+                <td class="uk-visible@m uk-text-small">
+                  ${{ item.product.price | calc_subtotal:item.quantity }}
+                </td>
               </tr>
             {% endfor %}
           </tbody>
@@ -80,7 +81,6 @@
         </p>
       </div>
     </div>
-
     <!-- Form displays as first in desktop view with uk-flex-first@s -->
     <div class="uk-width-auto@m uk-grid-item-match uk-flex-first@s">
       <div class="uk-card uk-card-default uk-card-body">
@@ -88,7 +88,6 @@
         <form action="{% url 'checkout' %}" method="POST" id="payment-form">
           <!-- Django token -->
           {% csrf_token %}
-
           <!-- Details -->
           <fieldset class="uk-fieldset">
             <legend class="uk-text-small uk-text-bolder">
@@ -97,7 +96,6 @@
               {{ order_form.full_name | as_crispy_field }}
               {{ order_form.email | as_crispy_field }}
           </fieldset>
-
           <!-- Delivery -->
           <fieldset class="uk-fieldset">
             <legend class="uk-text-small uk-text-bolder uk-margin-top">
@@ -110,7 +108,6 @@
             {{ order_form.county | as_crispy_field }}
             {{ order_form.postcode | as_crispy_field }}
             {{ order_form.country | as_crispy_field }}
-
             <!-- Infobox - Account options -->
             <div class="uk-text-small uk-margin-top uk-margin-bottom">
               {% if user.is_authenticated %}
@@ -126,7 +123,6 @@
               {% endif %}
             </div>
           </fieldset>
-
           <!-- Payment -->
           <fieldset class="uk-fieldset">
             <legend class="uk-text-small uk-text-bolder uk-margin-top">
@@ -139,7 +135,6 @@
             <!-- Stripe client secret -->
             <input type="hidden" value="{{ client_secret }}" name="client_secret">
           </fieldset>
-
           <!-- Submit button -->
           <div class="uk-margin-medium-top">
             <a href="{% url 'view_bag' %}" class="uk-link-text uk-text-middle">
@@ -152,14 +147,11 @@
           <div class="uk-text-small uk-text-danger uk-text-top uk-text-right custom-note">
             <span>Your card will be charged <strong>${{ grand_total|floatformat:2 }}</strong></span>
           </div>
-
         </form>
       </div>
     </div>
-
   </div>
 </div>
-
 <!-- Loading spinner -->
 <div id="loading-overlay">
   <div class="loading-spinner">
@@ -167,7 +159,6 @@
   </div>
 </div>
 {% endblock %}
-
 
 <!-- Stripe -->
 {% block postloadjs %}

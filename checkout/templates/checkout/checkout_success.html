@@ -46,7 +46,7 @@
     {% for item in order.lineitems.all %}
       <div class="uk-grid-match uk-grid-small uk-flex-center" uk-grid>
         <div class="uk-width-1-3@m">
-          {{ item.product_name }}{% if item.product_size %} Format: {{ item.product_size | upper }}{% endif %}
+          {{ item.product_name }}{% if item.product_size %} Format: {{ item.product_size | upper }}{% else %}{{ item.product.category }}{% endif %}
         </div>
         <div class="uk-width-expand@m uk-text-bold uk-margin-remove-top">
           {{ item.quantity }} @ ${{ item.product.price }} each

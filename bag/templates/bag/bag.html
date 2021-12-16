@@ -12,11 +12,6 @@
       <span>Shopping bag</span>
     </h1>
     {% if bag_items %}
-      <!-- Test bag items -->
-      <!-- {{ bag_items }} -->
-      <!-- {{ request.session.bag }} -->
-      <!-- END Test bag items -->
-      <!-- Shopping bag items -->
       <table class="uk-table uk-table-middle uk-table-divider">
         <thead>
           <tr>
@@ -35,14 +30,14 @@
               <td>
                 {% if item.product.image %}
                   <img class="uk-width-small@s"
-                      src="{{ item.product.image.url }}" 
-                      alt="{{ item.product.name }}"
-                      width="500" >
+                       src="{{ item.product.image.url }}" 
+                       alt="{{ item.product.name }}"
+                       width="500" >
                 {% else %}
                   <img class="uk-width-small@s"
-                      src="{{ MEDIA_URL }}noimage.png" 
-                      alt="{{ item.product.name }}"
-                      width="500">
+                       src="{{ MEDIA_URL }}noimage.png" 
+                       alt="{{ item.product.name }}"
+                       width="500">
                 {% endif %}
               </td>
               <!-- Product description and mobile version -->
@@ -50,11 +45,11 @@
                 {{ item.product.name }}
                 <!-- Size info -->
                 <p>
-                  Format: {% if item.product.has_sizes %}
-                            <strong>{{ item.size }}</strong>
-                          {% else %}
-                            (downloadable item)
-                          {% endif %}
+                  {% if item.product.has_sizes %}
+                    Format: <strong>{{ item.size }}</strong>
+                  {% else %}
+                    <strong>{{ item.product.category }}</strong>
+                  {% endif %}
                 </p>
                 <!-- Show only on mobile screens -->
                 <p class="uk-hidden@m">
@@ -94,18 +89,18 @@
                       </div>
                       <!-- Input field -->
                       <input class="qty_input uk-input uk-form-small uk-form-width-small uk-text-center"
-                            type="number"
-                            name="quantity"
-                            value="{{ item.quantity }}"
-                            min="1"
-                            max="99"
-                            data-item_id="{{ item.item_id }}"
-                            id="id_qty_{{ item.item_id }}">
+                             type="number"
+                             name="quantity"
+                             value="{{ item.quantity }}"
+                             min="1"
+                             max="99"
+                             data-item_id="{{ item.item_id }}"
+                             id="id_qty_{{ item.item_id }}">
                       <!-- Size submission -->
                       {% if item.product.has_sizes %}
                         <input type="hidden" 
-                              name="product_size" 
-                              value="{{ item.size }}">
+                               name="product_size" 
+                               value="{{ item.size }}">
                       {% endif %}
                     </div>
                   </div>

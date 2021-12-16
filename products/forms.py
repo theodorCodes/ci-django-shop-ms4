@@ -1,4 +1,5 @@
 from django import forms  # Import forms
+from crispy_forms.helper import FormHelper  # Import FormHelper for crispy forms
 from .widgets import CustomClearableFileInput  # Import widget with custom classes
 from .models import Product, Category, Type, Format  # Import product and category model
 
@@ -7,11 +8,7 @@ from .models import Product, Category, Type, Format  # Import product and catego
 class ProductForm(forms.ModelForm):
     class Meta:
         model = Product  # Model
-        # fields = '__all__'  # Fields to include
-        # Render specific fields without type and format fields
-        fields = ('category', 'type', 'format', 'description',
-                  'sku', 'name', 'has_sizes', 'price',
-                  'rating', 'image_url', 'image',)
+        fields = '__all__'  # Fields to include
 
     # Replacing image field on form, utilizing widget with custom classes
     image = forms.ImageField(label='Image', required=False, widget=CustomClearableFileInput)
@@ -19,9 +16,10 @@ class ProductForm(forms.ModelForm):
     # Overriding init method
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        self.helper = FormHelper()  # Using FormHelper from Crispy
 
         # Get specific 'custom_product' category, types and formats
-        categories = Category.objects.filter(name__in=['custom_product'])
+        categories = Category.objects.all()
         types = Type.objects.all()
         formats = Format.objects.all()
 

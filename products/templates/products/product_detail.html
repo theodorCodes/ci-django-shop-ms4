@@ -33,9 +33,28 @@
         <div class="uk-text-left uk-text-bold uk-margin-small-top">
           ${{ product.price }}
         </div>
-        <div class="uk-text-left uk-text-small uk-text-secondary uk-margin-small-top">
-          Category: {{ product.category.friendly_name }}
-        </div>
+        <!-- If 'product' from catalog show category name-->
+        {% if product.category.name != 'custom_product' %}
+          <div class="uk-text-left uk-text-small uk-text-secondary uk-margin-small-top">
+            Category: {{ product.category.friendly_name }}
+          </div>
+        {% endif %}
+        <!-- If 'custom product' show type and format of custom artwork -->
+        {% if product.category.name == 'custom_product' %}
+          <div class="uk-text-left uk-text-small uk-text-secondary uk-margin-small-top">
+            Type: {{ product.type.friendly_name }}
+          </div>
+          <div class="uk-text-left uk-text-small uk-text-secondary uk-margin-small-top">
+            Format: {{ product.format.friendly_name }}
+          </div>
+          <div class="uk-text-left uk-text-small uk-width-large uk-margin-small-top">
+            {{ product.description }}
+          </div>
+          <div class="uk-text-left uk-text-small uk-text-secondary uk-margin-small-top">
+            <p>If you have uploaded an image, the image wil be used as a reference image for the custom artwork.</p>
+            <p>Please login if you would like to revise your description or change your reference image.</p>
+          </div>
+        {% endif %}
         <!-- Rating or testimonials -->
         <div class="uk-grid-small uk-text-small" uk-grid>
           {% if product.rating %}
@@ -45,16 +64,24 @@
             </span>
           {% endif %}
         </div>
-        <!-- Product edit and delete -->
+        <!-- If admin - Product edit and delete -->
         {% if request.user.is_superuser %}
           <div class="uk-text-small uk-text-left uk-margin-small-top">
             <a href="{% url 'edit_product' product.id %}">Edit</a> | 
             <a class="uk-text-danger" href="{% url 'delete_product' product.id %}">Delete</a>
           </div>
+        {% else %}
+          <!-- If product is 'custom product' -->
+          {% if product.category.name == 'custom_product' %}
+            <!-- And user is logged in -->
+            {% if user.is_authenticated %}
+              <div class="uk-text-small uk-text-left uk-margin-small-top">
+                <a href="{% url 'edit_product' product.id %}">Edit</a> | 
+                <a class="uk-text-danger" href="{% url 'delete_product' product.id %}">Delete</a>
+              </div>
+            {% endif %}
+          {% endif %}
         {% endif %}
-        <div class="uk-text-left uk-text-small uk-width-large uk-margin-small-top">
-          {{ product.description }}
-        </div>
         <!-- ADD TO CART -->
         <div>
           <p class="uk-margin-medium-top" uk-margin>
@@ -117,11 +144,19 @@
                        value="{{ request.path }}">
               </div>
             </form>
-            <hr class="uk-margin-medium-top uk-margin-remove-bottom">
             <!-- Link to custom product -->
-            <a href="{% url 'add_custom_product' %}" class="uk-button uk-button-text uk-text-capitalize uk-margin-top">
-              Request custom artwork
-            </a>
+            {% if product.category.name == 'custom_product' %}
+              <div class="uk-hidden">
+                <a href="{% url 'add_custom_product' %}" class="uk-button uk-button-text uk-text-capitalize uk-margin-top">
+                  Request custom artwork
+                </a>
+              </div>
+            {% else %}
+              <hr class="uk-margin-medium-top uk-margin-remove-bottom">
+              <a href="{% url 'add_custom_product' %}" class="uk-button uk-button-text uk-text-capitalize uk-margin-top">
+                Request custom artwork
+              </a>
+            {% endif %}
           </p>
         </div>
       <!-- END of product info -->
