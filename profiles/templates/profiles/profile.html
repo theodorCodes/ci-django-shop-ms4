@@ -10,50 +10,9 @@
   <div class="uk-container uk-container-medium">
     <!-- Page title -->
     <h1 class="uk-heading-line uk-text-center uk-margin-medium-bottom">
-      <span>My Account</span>
+      <span>Shipping Details</span>
     </h1>
     <div class="uk-flex uk-flex-center uk-child-width-expand@s" uk-grid>
-      <!-- Cart info -->
-      <div class="uk-width-1-2@m">
-        <div class="uk-card uk-card-default uk-card-body">
-          <p>Order History</p>
-          <!-- Checkout items -->
-          <table class="uk-table uk-table-middle uk-table-divider">
-            <thead>
-              <tr>
-                <th class="uk-width-small">Order Number</th>
-                <th class="uk-visible@m">Date</th>
-                <th class="uk-visible@m">Items</th>
-                <th class="uk-visible@m">Order Total</th>
-              </tr>
-            </thead>
-            <tbody>
-              <!-- Iterate through bag_items -->
-              {% for order in orders %}
-              <tr class="uk-text-small">
-                <td>
-                  <a href="{% url 'order_history' order.order_number %}" 
-                    title="{{ order.order_number }}">
-                  {{ order.order_number|truncatechars:6 }}
-                  </a>
-                </td>
-                <td>{{ order.date }}</td>
-                <td>
-                  {% for item in order.lineitems.all %}
-                    <li>
-                      {% if item.product.has_sizes %}
-                        Size {{ item.product.size|upper }}
-                      {% endif %}{{ item.product.name }} x{{ item.quantity }}
-                    </li>
-                  {% endfor %}
-                </td>
-                <td>${{ order.grand_total }}</td>
-              </tr>
-              {% endfor %}
-            </tbody>
-          </table>
-        </div>
-      </div>
       <!-- Form displays as first in desktop view with uk-flex-first@s -->
       <div class="uk-width-auto@m uk-grid-item-match uk-flex-first@s">
         <div class="uk-card uk-card-default uk-card-body">

@@ -138,16 +138,16 @@
                 {% if product.image %}
                   <a href="{% url 'product_detail' product.id %}">
                     <img class="" 
-                        src="{{ product.image.url }}" 
-                        width="600" 
-                        alt="{{ product.name }}">
+                      src="{{ product.image.url }}" 
+                      width="600" 
+                      alt="{{ product.name }}">
                   </a>
                 {% else %}
                   <a href="{% url 'product_detail' product.id %}">
                     <img class="" 
-                        src="{{ MEDIA_URL }}noimage.png" 
-                        width="600" 
-                        alt="{{ product.name }}">
+                      src="{{ MEDIA_URL }}noimage.png" 
+                      width="600" 
+                      alt="{{ product.name }}">
                   </a>
                 {% endif %}
               </div>

@@ -33,12 +33,12 @@
   {% block corejs %}
     <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js" 
-            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" 
-            crossorigin="anonymous"></script>
+      integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" 
+      crossorigin="anonymous"></script>
     <!-- Popper -->
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-            integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-            crossorigin="anonymous"></script>
+      integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+      crossorigin="anonymous"></script>
     <!-- UIkit, including icons -->
     <script src="{% static 'js/uikit.min.js' %}"></script>
     <script src="{% static 'js/uikit-icons.min.js' %}"></script>
@@ -66,28 +66,51 @@
             <!-- Show toggle button for authenticated users -->
             <li>
               <a href="#offcanvas-flip" 
-                 class="uk-text-capitalize uk-text-bold" uk-toggle>
+                class="uk-text-capitalize uk-text-bold" uk-toggle>
                  My Account
               </a>
             </li>
-            <!-- Show off-canvas -->
+            <!-- Off-canvas menu -->
             <div id="offcanvas-flip" uk-offcanvas="flip: true; overlay: true">
               <div class="uk-offcanvas-bar">
                 <!-- User menu close button -->
                 <button class="uk-offcanvas-close" 
-                        type="button" 
-                        uk-close></button>
+                  type="button" 
+                  uk-close></button>
                 <!-- Off-canvas menu -->
                 <ul class="uk-nav uk-nav-default">
-                  <li class="uk-active"><a href="#">Active</a></li>
-                    <!-- Show additional superuser menu -->
-                    {% if request.user.is_superuser %}
-                      <li class="uk-margin-top"><a href="{% url 'add_product' %}">Product Management</a></li>
-                    {% endif %}
-                  <li class="uk-margin-top"><a href="{% url 'profile' %}">My Profile</a></li>
+                  <li class=""><span>Account Overview</span></li>
+                  <!-- Show additional superuser menu -->
+                  {% if request.user.is_superuser %}
+                    <!-- Add products -->
+                    <li class="uk-margin-top">
+                      <a href="{% url 'add_product' %}">
+                        <span uk-icon="icon: tag" class="uk-margin-small-right"></span> Add Products
+                      </a>
+                    </li>
+                    <!-- Orders -->
+                    <li class="uk-margin-top">
+                      <a href="{% url 'allorders' %}">
+                        <span uk-icon="icon: album" class="uk-margin-small-right"></span> Orders
+                      </a>
+                    </li>
+                  {% endif %}
+                  <!-- Order history and address -->
+                  <li class="uk-margin-top">
+                    <a href="{% url 'profile' %}">
+                      <span uk-icon="icon: user" class="uk-margin-small-right"></span> Shipping Details
+                    </a>
+                  </li>
+                  <!-- Custom product orders -->
+                  <li class="uk-margin-top">
+                    <a href="{% url 'profile_custom_orders' %}">
+                      <span uk-icon="icon: download" class="uk-margin-small-right"></span> Purchases & Downloads
+                    </a>
+                  </li>
+                  <hr class="uk-margin">
                   <!-- Show 'allauth' log out -->
                   <li class="uk-parent uk-margin-top">
-                    <a href="{% url 'account_logout' %}">Log Out</a>
+                    <a href="{% url 'account_logout' %}" uk-icon="icon: sign-out">Log Out</a>
                   </li>
                 </ul>
               </div>
@@ -97,15 +120,15 @@
             <!-- Log in button -->
             <li>
               <a href="{% url 'account_login' %}" 
-                 class="uk-text-capitalize uk-text-bold uk-margin-right">
+                class="uk-text-capitalize uk-text-bold uk-margin-right">
                  Log In
               </a>
             </li>
             <!-- Sign up button -->
             <li class="uk-margin uk-margin-right desktop-navbar">
               <a href="{% url 'account_signup' %}" 
-                 class="uk-button uk-button-primary 
-                        uk-text-capitalize uk-border-pill custom-sign-up">
+                class="uk-button uk-button-primary 
+                       uk-text-capitalize uk-border-pill custom-sign-up">
                  Sign Up
               </a>
             </li>
@@ -143,14 +166,14 @@
     -->
     <div class="uk-margin uk-margin-medium-top custom-search-padding">
       <form method="GET" action="{% url 'products' %}" 
-            class="uk-search uk-search-default uk-align-center uk-width-large">
+        class="uk-search uk-search-default uk-align-center uk-width-large">
         <input class="uk-search-input uk-border-pill" 
-            type="text" 
-            name="q" 
-            placeholder="Search">
+          type="text" 
+          name="q" 
+          placeholder="Search">
         <button class="uk-search-icon-flip uk-border-circle custom-search-icon" 
-                type="submit" 
-                uk-search-icon></button>
+          type="submit" uk-search-icon>
+        </button>
       </form>
     </div>
   </header>

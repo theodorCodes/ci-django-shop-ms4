@@ -23,6 +23,7 @@
               <div class="uk-margin">
                 {{ form.type|as_crispy_field }}
                 {{ form.format|as_crispy_field }}
+                {{ form.created_by|as_crispy_field }}
                 {{ form.sku|as_crispy_field }}
                 {{ form.name|as_crispy_field }}
                 {{ form.description|as_crispy_field }}
@@ -66,6 +67,7 @@
                 <!-- Present even when hidden to avoid empty field values -->
                 <div class="uk-margin uk-hidden">
                   {{ form.category|as_crispy_field }}
+                  {{ form.created_by|as_crispy_field }}
                   {{ form.sku|as_crispy_field }}
                   {{ form.name|as_crispy_field }}
                   {{ form.has_sizes|as_crispy_field }}

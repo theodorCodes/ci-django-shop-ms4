@@ -11,8 +11,9 @@ class ProductAdmin(admin.ModelAdmin):
     # By default Django list only the first item
     list_display = (
         'name',
-        'sku',
         'category',
+        'created_by',
+        'sku',
         'type',
         'format',
         'description',

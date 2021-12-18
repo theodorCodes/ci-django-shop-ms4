@@ -3,9 +3,9 @@ from django.contrib import messages
 # Check access with login decorator
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
-from .models import Product, Category, Type, Format
+from .models import Product, Category, Type, Format  # Import products
 from .forms import ProductForm  # Import product form
-# from .forms import CustomProductForm  # Import product form
+from profiles.models import UserProfile  # Import from profile model
 
 
 # Product catalog view function all_products()
@@ -89,10 +89,18 @@ def add_product(request):
 
 
 
-# Add custom, configurable product
+# Add custom product, requires authentication
+@login_required
 def add_custom_product(request):
     """ Create custom product """
-    # submitbutton= request.POST.get("submit")
+    if request.user.is_authenticated:
+        # Get profile
+        creator = UserProfile.objects.get(user=request.user)
+        print(type(creator))
+
+
+
+
     if request.method == 'POST':
         # Get product form with values from post
         form = ProductForm(request.POST, request.FILES)
@@ -148,6 +156,7 @@ def add_custom_product(request):
             initial={
                 'name': 'Custom Artwork',
                 'category': 1,  # Set custom product index
+                'created_by': creator,
                 'price': 0.00,
                 'sku': 0,
                 'rating': 0,
@@ -247,7 +256,7 @@ def delete_product(request, product_id):
     # Get product
     product = get_object_or_404(Product, pk=product_id)
     # If product is 'custom product' allow logged in, non super users to delete
-    if request.user.is_authenticated and product.category == 'custom_product' or request.user.is_superuser:
+    if request.user.is_authenticated and str(product.category) == 'custom_product' or request.user.is_superuser:
         # Call product delete
         product.delete()
         # Response message

@@ -2,169 +2,224 @@
 {% load static %}
 
 {% block content %}
-<!-- Content wrappers -->
-<div class="uk-container uk-container-medium">
-  <div class="uk-width-expand">
-    <div class="uk-grid-small custom-product-flex" uk-grid>
-      <!-- PRODUCT IMAGE -->
-      <div class="uk-card uk-card-default uk-padding-remove-left custom-image-height">
-        <div class="uk-card-media">
-          {% if product.image %}
-            <!-- uikit LIGHTBOX -->
-            <div uk-lightbox="animate: fade">
-              <a href="{{ product.image.url }}">
-                <img src="{{ product.image.url }}" 
-                     width="500" 
-                     alt="{{ product.name }}">
-              </a>
-            </div>
-          {% else %}
-            <img src="{{ MEDIA_URL }}noimage.png" 
-                 width="500" 
-                 alt="{{ product.name }}">
-          {% endif %}
-        </div>
-      </div>
-      <!-- PRODUCT INFO -->
-      <div class="uk-card-body uk-margin-left uk-width-large">
-        <div class="uk-text-left uk-text-large uk-text-bold uk-width-large">
-          {{ product.name }}
-        </div>
-        <div class="uk-text-left uk-text-bold uk-margin-small-top">
-          ${{ product.price }}
-        </div>
-        <!-- If 'product' from catalog show category name-->
-        {% if product.category.name != 'custom_product' %}
-          <div class="uk-text-left uk-text-small uk-text-secondary uk-margin-small-top">
-            Category: {{ product.category.friendly_name }}
-          </div>
-        {% endif %}
-        <!-- If 'custom product' show type and format of custom artwork -->
-        {% if product.category.name == 'custom_product' %}
-          <div class="uk-text-left uk-text-small uk-text-secondary uk-margin-small-top">
-            Type: {{ product.type.friendly_name }}
-          </div>
-          <div class="uk-text-left uk-text-small uk-text-secondary uk-margin-small-top">
-            Format: {{ product.format.friendly_name }}
-          </div>
-          <div class="uk-text-left uk-text-small uk-width-large uk-margin-small-top">
-            {{ product.description }}
-          </div>
-          <div class="uk-text-left uk-text-small uk-text-secondary uk-margin-small-top">
-            <p>If you have uploaded an image, the image wil be used as a reference image for the custom artwork.</p>
-            <p>Please login if you would like to revise your description or change your reference image.</p>
-          </div>
-        {% endif %}
-        <!-- Rating or testimonials -->
-        <div class="uk-grid-small uk-text-small" uk-grid>
-          {% if product.rating %}
-            <span class="uk-text-left uk-width-expand">
-              <span class="uk-text-middle" uk-icon="icon: star; ratio: 0.8"></span>
-              <span class="uk-text-middle"> {{ product.rating }} / 5</span>
-            </span>
-          {% endif %}
-        </div>
-        <!-- If admin - Product edit and delete -->
-        {% if request.user.is_superuser %}
-          <div class="uk-text-small uk-text-left uk-margin-small-top">
-            <a href="{% url 'edit_product' product.id %}">Edit</a> | 
-            <a class="uk-text-danger" href="{% url 'delete_product' product.id %}">Delete</a>
-          </div>
-        {% else %}
-          <!-- If product is 'custom product' -->
-          {% if product.category.name == 'custom_product' %}
-            <!-- And user is logged in -->
-            {% if user.is_authenticated %}
-              <div class="uk-text-small uk-text-left uk-margin-small-top">
-                <a href="{% url 'edit_product' product.id %}">Edit</a> | 
-                <a class="uk-text-danger" href="{% url 'delete_product' product.id %}">Delete</a>
-              </div>
-            {% endif %}
-          {% endif %}
-        {% endif %}
-        <!-- ADD TO CART -->
-        <div>
-          <p class="uk-margin-medium-top" uk-margin>
-            <form action="{% url 'add_to_bag' product.id %}" method="POST">
-              <!-- Secure Django token -->
-              {% csrf_token %}
-              <!-- Size, format info -->
-              {% with product.has_sizes as s %}
-                {% if s %}
-                  <div class="uk-margin">
-                    <select class="uk-select uk-form-small uk-form-width-medium"
-                            name="product_size"
-                            id="id_product_size">
-                      <option value="A4 Print">Print Format A4</option>
-                      <option value="A3 Print" selected>Print Format A3</option>
-                      <option value="A2 Print">Print Format A2</option>
-                    </select>
-                  </div>
-                {% endif %}
-              {% endwith %}
-              <!-- Quantity field -->
-              <div class="uk-margin">
-                <div class="input-group uk-inline">
-                  <!-- Minus button, requires js -->
-                  <div class="intput-group">
-                    <button class="decrement-qty uk-form-icon" 
-                            data-item_id="{{ product.id }}" 
-                            id="decrement-qty_{{ product.id }}"
-                            uk-icon="icon: minus">
-                    </button>
-                  </div>
-                  <!-- Plus button, requires js -->
-                  <div class="intput-group">
-                    <button class="increment-qty uk-form-icon uk-form-icon-flip" 
-                            data-item_id="{{ product.id }}" 
-                            id="increment-qty_{{ product.id }}"
-                            uk-icon="icon: plus">
-                    </button>
-                  </div>
-                  <!-- Input field -->
-                  <input class="qty_input uk-input uk-form-small uk-form-width-small uk-text-center"
-                         type="number"
-                         name="quantity"
-                         value="1"
-                         min="1"
-                         max="99"
-                         data-item_id="{{ product.id }}"
-                         id="id_qty_{{ product.id }}">
-                </div>
-              </div>
-              <div>
-                <!-- Submit button -->
-                <button class="uk-button uk-button-secondary uk-border-pill"
-                        type="submit">
-                        Add to Bag
-                </button>
-                <!-- Redirection link to this page -->
-                <input type="hidden"
-                       name="redirect_url"
-                       value="{{ request.path }}">
-              </div>
-            </form>
-            <!-- Link to custom product -->
-            {% if product.category.name == 'custom_product' %}
-              <div class="uk-hidden">
-                <a href="{% url 'add_custom_product' %}" class="uk-button uk-button-text uk-text-capitalize uk-margin-top">
-                  Request custom artwork
+  <!-- Content wrappers -->
+  <div class="uk-container uk-container-medium">
+    <div class="uk-width-expand">
+      <div class="uk-grid-small custom-product-flex" uk-grid>
+        <!-- PRODUCT IMAGE -->
+        <div class="uk-card uk-card-default uk-padding-remove-left custom-image-height">
+          <div class="uk-card-media">
+            {% if product.image %}
+              <!-- uikit LIGHTBOX -->
+              <div uk-lightbox="animate: fade">
+                <a href="{{ product.image.url }}">
+                  <img src="{{ product.image.url }}" 
+                    width="500" 
+                    alt="{{ product.name }}">
                 </a>
               </div>
             {% else %}
-              <hr class="uk-margin-medium-top uk-margin-remove-bottom">
-              <a href="{% url 'add_custom_product' %}" class="uk-button uk-button-text uk-text-capitalize uk-margin-top">
-                Request custom artwork
-              </a>
+              <img src="{{ MEDIA_URL }}noimage.png" 
+                width="500" 
+                alt="{{ product.name }}">
             {% endif %}
-          </p>
+          </div>
         </div>
-      <!-- END of product info -->
+        <!-- PRODUCT INFO -->
+        <div class="uk-card-body uk-margin-left uk-width-large">
+          <div class="uk-text-left uk-text-large uk-text-bold uk-width-large">
+            {{ product.name }}
+          </div>
+          <div class="uk-text-left uk-text-bold uk-margin-small-top">
+            ${{ product.price }}
+          </div>
+          <!-- If 'product' from catalog show category name-->
+          {% if product.category.name != 'custom_product' %}
+            <div class="uk-text-left uk-text-small uk-text-secondary uk-margin-small-top">
+              Category: {{ product.category.friendly_name }}
+            </div>
+          {% endif %}
+          <!-- If 'custom product' show type and format of custom artwork -->
+          {% if product.category.name == 'custom_product' %}
+            <div class="uk-text-left uk-text-small uk-text-secondary uk-margin-small-top">
+              <strong>Type:</strong> {{ product.type.friendly_name }}
+            </div>
+            <div class="uk-text-left uk-text-small uk-text-secondary uk-margin-small-top">
+              <strong>Format:</strong> {{ product.format.friendly_name }}
+            </div>
+            <div class="uk-text-left uk-text-small uk-text-secondary uk-margin-small-top">
+              <strong>Inquiry by:</strong> {{ product.created_by }}
+            </div>
+            <div class="uk-text-left uk-text-small uk-width-large uk-margin-small-top">
+              {{ product.description }}
+            </div>
+            <div class="uk-text-left uk-text-small uk-text-secondary uk-margin-small-top">
+              {% if not product.image|length %}
+                <p>A reference image helps to communicate the final outcome of a custom artwork.</p>
+              {% endif %}
+              {% if not user.is_authenticated %}
+                <p>Please login if you would like to:<br><br>
+                  - Revise your description<br>
+                  - Change your reference image<br>
+                  - Save this product to your account</p>
+              {% endif %}
+            </div>
+          {% endif %}
+          <!-- Rating or testimonials -->
+          <div class="uk-grid-small uk-text-small" uk-grid>
+            {% if product.rating %}
+              <span class="uk-text-left uk-width-expand">
+                <span class="uk-text-middle" uk-icon="icon: star; ratio: 0.8"></span>
+                <span class="uk-text-middle"> {{ product.rating }} / 5</span>
+              </span>
+            {% endif %}
+          </div>
+          <!-- If admin - Product edit and delete -->
+          {% if request.user.is_superuser %}
+            <div class="uk-text-small uk-text-left uk-margin-small-top">
+              <a href="{% url 'edit_product' product.id %}">Edit</a> | 
+              <a class="uk-text-danger" href="{% url 'delete_product' product.id %}">Delete</a>
+            </div>
+          {% else %}
+            <!-- If product is 'custom product' -->
+            {% if product.category.name == 'custom_product' %}
+              <!-- And user is logged in -->
+              {% if user.is_authenticated %}
+                <div class="uk-text-small uk-text-left uk-margin-small-top">
+                  <a href="{% url 'edit_product' product.id %}">Edit</a> | 
+                  <a class="uk-text-danger" href="{% url 'delete_product' product.id %}">Delete</a>
+                </div>
+              {% endif %}
+            {% endif %}
+          {% endif %}
+          <!-- ADD TO CART -->
+          <div>
+            <p class="uk-margin-medium-top" uk-margin>
+              <form action="{% url 'add_to_bag' product.id %}" method="POST">
+                <!-- Secure Django token -->
+                {% csrf_token %}
+                <!-- Size, format info -->
+                {% with product.has_sizes as s %}
+                  {% if s %}
+                    <div class="uk-margin">
+                      <select class="uk-select uk-form-small uk-form-width-medium"
+                        name="product_size"
+                        id="id_product_size">
+                          <option value="A4 Print">Print Format A4</option>
+                          <option value="A3 Print" selected>Print Format A3</option>
+                          <option value="A2 Print">Print Format A2</option>
+                      </select>
+                    </div>
+                  {% endif %}
+                {% endwith %}
+
+
+
+                <!-- Do not show quantity choice for custom products -->
+                {% if product.category.name == 'custom_product' %}
+                  <!-- Using uikit class uk-hidden to hide -->
+                  <div class="uk-hidden">
+                    <!-- Quantity field -->
+                    <div class="uk-margin">
+                      <div class="input-group uk-inline">
+                        <!-- Minus button, requires js -->
+                        <div class="intput-group">
+                          <button class="decrement-qty uk-form-icon" 
+                            data-item_id="{{ product.id }}" 
+                            id="decrement-qty_{{ product.id }}"
+                            uk-icon="icon: minus">
+                          </button>
+                        </div>
+                        <!-- Plus button, requires js -->
+                        <div class="intput-group">
+                          <button class="increment-qty uk-form-icon uk-form-icon-flip" 
+                            data-item_id="{{ product.id }}" 
+                            id="increment-qty_{{ product.id }}"
+                            uk-icon="icon: plus">
+                          </button>
+                        </div>
+                        <!-- Input field -->
+                        <input class="qty_input uk-input uk-form-small uk-form-width-small uk-text-center"
+                          type="number"
+                          name="quantity"
+                          value="1"
+                          min="1"
+                          max="99"
+                          data-item_id="{{ product.id }}"
+                          id="id_qty_{{ product.id }}">
+                      </div>
+                    </div>
+                  </div>
+                {% else %}
+                  <!-- Quantity field -->
+                  <div class="uk-margin">
+                    <div class="input-group uk-inline">
+                      <!-- Minus button, requires js -->
+                      <div class="intput-group">
+                        <button class="decrement-qty uk-form-icon" 
+                          data-item_id="{{ product.id }}" 
+                          id="decrement-qty_{{ product.id }}"
+                          uk-icon="icon: minus">
+                        </button>
+                      </div>
+                      <!-- Plus button, requires js -->
+                      <div class="intput-group">
+                        <button class="increment-qty uk-form-icon uk-form-icon-flip" 
+                          data-item_id="{{ product.id }}" 
+                          id="increment-qty_{{ product.id }}"
+                          uk-icon="icon: plus">
+                        </button>
+                      </div>
+                      <!-- Input field -->
+                      <input class="qty_input uk-input uk-form-small uk-form-width-small uk-text-center"
+                        type="number"
+                        name="quantity"
+                        value="1"
+                        min="1"
+                        max="99"
+                        data-item_id="{{ product.id }}"
+                        id="id_qty_{{ product.id }}">
+                    </div>
+                  </div>
+
+                {% endif %}
+                <div>
+                  <!-- Submit button -->
+                  <button class="uk-button uk-button-secondary uk-border-pill"
+                    type="submit">
+                      Add to Bag
+                  </button>
+                  <!-- Redirection link to this page -->
+                  <input type="hidden"
+                    name="redirect_url"
+                    value="{{ request.path }}">
+                </div>
+
+
+
+
+              </form>
+              <!-- Link to custom product -->
+              {% if product.category.name == 'custom_product' %}
+                <div class="uk-hidden">
+                  <a href="{% url 'add_custom_product' %}" class="uk-button uk-button-text uk-text-capitalize uk-margin-top">
+                    Request custom artwork
+                  </a>
+                </div>
+              {% else %}
+                <hr class="uk-margin-medium-top uk-margin-remove-bottom">
+                <a href="{% url 'add_custom_product' %}" class="uk-button uk-button-text uk-text-capitalize uk-margin-top">
+                  Request custom artwork
+                </a>
+              {% endif %}
+            </p>
+          </div>
+        <!-- END of product info -->
+        </div>
+      <!-- END of content wrappers -->
       </div>
-    <!-- END of content wrappers -->
     </div>
   </div>
-</div>
 {% endblock %}
 
 <!-- Including js file for quantity field with plus and minus dialer -->

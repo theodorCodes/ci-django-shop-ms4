@@ -1,5 +1,4 @@
 from django import forms  # Import forms
-from crispy_forms.helper import FormHelper  # Import FormHelper for crispy forms
 from .widgets import CustomClearableFileInput  # Import widget with custom classes
 from .models import Product, Category, Type, Format  # Import product and category model
 
@@ -16,7 +15,6 @@ class ProductForm(forms.ModelForm):
     # Overriding init method
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.helper = FormHelper()  # Using FormHelper from Crispy
 
         # Get specific 'custom_product' category, types and formats
         categories = Category.objects.all()

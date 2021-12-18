@@ -9,8 +9,8 @@ from checkout.models import Order  # Import checkout order to get order_number
 # Using login decorator
 @login_required
 def profile(request):
-    """ Display user profile """
-    # Return profile to template
+    """ Display user shipping info """
+    # Get profile name of authenticated user
     profile = get_object_or_404(UserProfile, user=request.user)
 
     # If request is post
@@ -45,6 +45,38 @@ def profile(request):
 
 
 
+@login_required
+def profile_custom_orders(request):
+    """ Display user purchases """
+    # Get profile name of authenticated user
+    profile = get_object_or_404(UserProfile, user=request.user)
+    # If request is post
+    if request.method == 'POST':
+        # Get user form with info
+        form = UserProfileForm(request.POST, instance=profile)
+        # If form valid
+        if form.is_valid():
+            # Save and publish response message
+            form.save()
+    else:
+        # Populate form variable with user's current profile information
+        form = UserProfileForm(instance=profile)
+    # Return the profile with the order, 
+    # instead of adding user profile to context
+    orders = profile.orders.all()
+    # Store template
+    template = 'profiles/profile_custom_orders.html'
+    # Add profile to context, without profile as it is returned within orders
+    context = {
+        'form': form,
+        'orders': orders,
+        'on_profile_page': True
+    }
+    # Render this in profile.html template
+    return render(request, template, context)
+
+
+
 # for order history in profile.html
 def order_history(request, order_number):
     # Get order
@@ -58,5 +90,19 @@ def order_history(request, order_number):
     context = {
         'order': order,
         'from_profile': True,
+    }
+    return render(request, template, context)
+
+
+@login_required
+def order_overview(request):
+    """ Display all orders for superuser """
+    # Get orders
+    orders = Order.objects.all()
+    # Use this template
+    template = 'profiles/allorders.html'
+    # Template context
+    context = {
+        'orders': orders,
     }
     return render(request, template, context)

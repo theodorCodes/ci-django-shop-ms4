@@ -1,0 +1,127 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'profiles/css/profile.css' %}">
+{% endblock %}
+
+{% block content %}
+  <!-- Content wrapper -->
+  <div class="uk-container uk-container-medium">
+    <!-- Page title -->
+    <h1 class="uk-heading-line uk-text-center uk-margin-medium-bottom">
+      <span>Order Overview</span>
+    </h1>
+    <!-- Order frame -->
+    <div class="uk-card uk-card-default uk-grid-collapse uk-child-width-1-1@s uk-margin" uk-grid>
+      <!-- Iterate through orders -->
+      {% for order in orders %}
+      <!-- Order overview -->
+        <div>
+          <div class="uk-card-body uk-text-secondary">
+            <p class="uk-margin-remove-vertical"><strong>Order: </strong>
+              <a href="{% url 'order_history' order.order_number %}" 
+                title="{{ order.order_number }}">
+                {{ order.order_number|truncatechars:22 }}
+              </a>
+            </p>
+            <p class="uk-margin-remove-vertical"><strong>Order Date: </strong>{{ order.date }}</p>
+            <p class="uk-margin-remove-vertical"><strong>Grand Total: </strong>${{ order.grand_total }}</p>
+            <p class="uk-margin-remove-vertical"><strong>Order by: </strong>{{ order.full_name }}</p>
+          </div>
+        </div>
+        <!-- Product cards wrapper -->
+        <div>
+          <div class="uk-card-body">
+            <div class="uk-child-width-1-4@m" uk-grid>
+              <!-- Product card -->
+              {% for item in order.lineitems.all %}
+                <div>
+                  <div class="uk-card uk-card-default">
+                    <!-- Product image -->
+                    <div class="uk-card-media-top">
+                      {% if item.product.image %}
+                        <!-- uikit LIGHTBOX -->
+                        <div uk-lightbox="animate: fade">
+                          <a href="{{ item.product.image.url }}">
+                            <img class="uk-width-expand"
+                              src="{{ item.product.image.url }}" 
+                              alt="{{ item.product.name }}"
+                              uk-ratio>
+                          </a>
+                        </div>
+                      {% else %}
+                        <img class="uk-width-auto"
+                          src="{{ MEDIA_URL }}noimage.png" 
+                          alt="{{ item.product.name }}"
+                          uk-ratio>
+                      {% endif %}
+                    </div>
+                    <!-- Product info -->
+                    <div class="uk-card-body uk-padding-small">
+                      <!-- If custom product show badge -->
+                      {% if item.product.category.name == 'custom_product' %}
+                        <span class="uk-badge uk-text-uppercase uk-align-right uk-margin-remove custom-badge">Custom Product</span>
+                      {% endif %}
+                      <!-- Product name -->
+                      <h3 class="uk-text-default uk-text-bold">{{ item.product.name }}</h3>
+                      <div class="uk-text-small uk-margin-remove-vertical">
+                        <!-- Show quantity -->
+                        <p class="uk-margin-remove-vertical"><strong>Qty: </strong>{{ item.quantity }}</p>
+                        <!-- If custom product hide category -->
+                        {% if not item.product.category.name == 'custom_product' %}
+                          <p class="uk-margin-remove-vertical"><strong>Cagegory: </strong>{{ item.product.category.friendly_name }}</p>
+                        {% endif %}
+                        <!-- If custom product show type and format -->
+                        {% if item.product.category.name == 'custom_product' %}
+                          <p class="uk-margin-remove-vertical"><strong>Type: </strong>{{ item.product.type.friendly_name }}</p>
+                          <p class="uk-margin-remove-vertical"><strong>Format: </strong>{{ item.product.format.friendly_name }}</p>
+                        {% endif %}
+                        <!-- If product has size show size -->
+                        {% if item.product_size %}
+                          <strong>Format: </strong>{{ item.product_size | upper }}
+                          <!-- Tasks, fulfilments -->
+                          <p class="uk-margin-remove-vertical uk-text-small uk-text-danger"><strong>Task: </strong>Shipment</p>
+                        {% else %}
+                          {% if item.product.category.name == 'custom_product' %}
+                            <!-- Tasks, product  -->
+                            <p class="uk-margin-remove-vertical uk-text-small uk-text-danger"><strong>Task: </strong>Create Artwork</p>
+                            <!-- Product edit and delete -->
+                            {% if request.user.is_superuser %}
+                              <div class="uk-text-small uk-margin-small-top">
+                                <a href="{% url 'edit_product' item.product.id %}">Upload Artwork</a>
+                              </div>
+                            {% endif %}
+                          {% endif %}  
+                        {% endif %}
+                      </div>
+                      {% if item.product.category.name == 'custom_product' %}
+                        <!-- Show product description -->
+                        <p class="uk-text-secondary">{{ item.product.description }}</p>
+                      {% endif %}
+                    </div>
+                  </div>
+                </div>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+        <hr class="uk-margin">
+      {% endfor %}
+      {% if not orders %}
+        <!-- Default - empty shopping cart -->
+        <div class="uk-flex uk-flex-center uk-margin-medium-top">
+          <div>No record of purchase history was found.</div>
+        </div>
+        <div class="uk-flex uk-flex-center uk-margin-medium">
+          <a href="{% url 'products' %}" class="uk-button uk-button-primary uk-text-capitalize uk-border-pill">
+            Keep Shopping
+          </a>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+{% endblock %}
+
+{% block postloadjs %}
+{% endblock %}

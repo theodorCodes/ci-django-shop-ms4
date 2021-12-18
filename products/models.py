@@ -1,4 +1,7 @@
 from django.db import models
+# Import of user model from profiles/models.py
+from profiles.models import UserProfile
+
 
 # In stock product category table
 class Category(models.Model):
@@ -42,6 +45,7 @@ class Format(models.Model):
         return self.friendly_name
 
 
+
 # In stock and configurable product table
 class Product(models.Model):
     # Creating relationship to 'Category' table
@@ -56,6 +60,7 @@ class Product(models.Model):
     # Other fields in 'Product' table
     sku = models.CharField(max_length=12, null=True, blank=True)
     name = models.CharField(max_length=254)
+    created_by = models.CharField(max_length=50, null=True, blank=True)
     description = models.TextField()
     has_sizes = models.BooleanField(default=False, null=True, blank=True)
     price = models.DecimalField(max_digits=6, decimal_places=2)
