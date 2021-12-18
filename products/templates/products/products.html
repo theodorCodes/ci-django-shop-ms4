@@ -129,55 +129,56 @@
               </div>
             </div>
           </li>
-        {% endif %}
-        <!-- CUSTOM PRODUCTS VISIBLE -->
-        {% if request.user.is_superuser %}
-          <li data-category="{{ product.category.friendly_name }}" data-name="{{ product.name }}">
-            <div class="uk-card uk-card-default">
-              <div class="uk-card-media-top">
-                {% if product.image %}
-                  <a href="{% url 'product_detail' product.id %}">
-                    <img class="" 
-                      src="{{ product.image.url }}" 
-                      width="600" 
-                      alt="{{ product.name }}">
-                  </a>
-                {% else %}
-                  <a href="{% url 'product_detail' product.id %}">
-                    <img class="" 
-                      src="{{ MEDIA_URL }}noimage.png" 
-                      width="600" 
-                      alt="{{ product.name }}">
-                  </a>
-                {% endif %}
-              </div>
-              <div class="uk-card-body uk-padding-small">
-                <div class="uk-text-left uk-text-small">
-                  {{ product.name }}
-                </div>
-                <div class="uk-text-left uk-text-bold uk-margin-small-top">
-                  ${{ product.price }}
-                </div>
-                <div class="uk-text-left uk-text-small uk-margin-small-top">
-                  {{ product.category.friendly_name }}
-                </div>
-                <div class="uk-grid-small uk-text-small uk-margin-small-top" uk-grid>
-                  {% if product.rating %}
-                    <span class="uk-text-left uk-width-expand">
-                      <span class="uk-text-middle" uk-icon="icon: star; ratio: 0.8"></span>
-                      <span class="uk-text-middle"> {{ product.rating }} / 5</span>
-                    </span>
+        {% else %}
+          <!-- CUSTOM PRODUCTS VISIBLE -->
+          {% if request.user.is_superuser %}
+            <li data-category="{{ product.category.friendly_name }}" data-name="{{ product.name }}">
+              <div class="uk-card uk-card-default">
+                <div class="uk-card-media-top">
+                  {% if product.image %}
+                    <a href="{% url 'product_detail' product.id %}">
+                      <img class="" 
+                        src="{{ product.image.url }}" 
+                        width="600" 
+                        alt="{{ product.name }}">
+                    </a>
+                  {% else %}
+                    <a href="{% url 'product_detail' product.id %}">
+                      <img class="" 
+                        src="{{ MEDIA_URL }}noimage.png" 
+                        width="600" 
+                        alt="{{ product.name }}">
+                    </a>
                   {% endif %}
                 </div>
-                {% if request.user.is_superuser %}
-                  <div class="uk-text-small uk-text-right uk-margin-small-top">
-                    <a href="{% url 'edit_product' product.id %}">Edit</a> | 
-                    <a class="uk-text-danger" href="{% url 'delete_product' product.id %}">Delete</a>
+                <div class="uk-card-body uk-padding-small">
+                  <div class="uk-text-left uk-text-small">
+                    {{ product.name }}
                   </div>
-                {% endif %}
+                  <div class="uk-text-left uk-text-bold uk-margin-small-top">
+                    ${{ product.price }}
+                  </div>
+                  <div class="uk-text-left uk-text-small uk-margin-small-top">
+                    {{ product.category.friendly_name }}
+                  </div>
+                  <div class="uk-grid-small uk-text-small uk-margin-small-top" uk-grid>
+                    {% if product.rating %}
+                      <span class="uk-text-left uk-width-expand">
+                        <span class="uk-text-middle" uk-icon="icon: star; ratio: 0.8"></span>
+                        <span class="uk-text-middle"> {{ product.rating }} / 5</span>
+                      </span>
+                    {% endif %}
+                  </div>
+                  {% if request.user.is_superuser %}
+                    <div class="uk-text-small uk-text-right uk-margin-small-top">
+                      <a href="{% url 'edit_product' product.id %}">Edit</a> | 
+                      <a class="uk-text-danger" href="{% url 'delete_product' product.id %}">Delete</a>
+                    </div>
+                  {% endif %}
+                </div>
               </div>
-            </div>
-          </li>
+            </li>
+          {% endif %}
         {% endif %}
       {% endfor %}
       <!-- Empty cards for tests. Delete this later -->

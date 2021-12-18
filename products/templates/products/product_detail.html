@@ -33,7 +33,7 @@
           <div class="uk-text-left uk-text-bold uk-margin-small-top">
             ${{ product.price }}
           </div>
-          <!-- If 'product' from catalog show category name-->
+          <!-- If 'product' from catalog show category name -->
           {% if product.category.name != 'custom_product' %}
             <div class="uk-text-left uk-text-small uk-text-secondary uk-margin-small-top">
               Category: {{ product.category.friendly_name }}
@@ -64,6 +64,8 @@
                   - Save this product to your account</p>
               {% endif %}
             </div>
+          {% else %}
+            <!-- options -->
           {% endif %}
           <!-- Rating or testimonials -->
           <div class="uk-grid-small uk-text-small" uk-grid>
@@ -73,6 +75,10 @@
                 <span class="uk-text-middle"> {{ product.rating }} / 5</span>
               </span>
             {% endif %}
+          </div>
+          <!-- Product description -->
+          <div class="uk-text-left uk-text-small uk-width-large uk-margin-small-top">
+            {{ product.description }}
           </div>
           <!-- If admin - Product edit and delete -->
           {% if request.user.is_superuser %}
