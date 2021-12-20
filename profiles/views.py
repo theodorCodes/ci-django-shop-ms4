@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required  # Login decorator
 from .models import UserProfile  # Import profiles from models
 from .forms import UserProfileForm  # Import the form function from forms.py
 from checkout.models import Order  # Import checkout order to get order_number
+from products.models import Product, Category, Type, Format  # Import products
 
 
 # Using login decorator
@@ -46,8 +47,27 @@ def profile(request):
 
 
 @login_required
-def profile_custom_orders(request):
+def profile_custom_products(request):
     """ Display user purchases """
+    # Get profile name of user
+    profile = get_object_or_404(UserProfile, user=request.user)
+    # Get products created by user
+    products = Product.objects.filter(created_by=request.user)
+    # Use this template
+    template = 'profiles/profile_custom_products.html'
+    # Template context
+    context = {
+        'profile': profile,
+        'products': products,
+    }
+    # Render this in profile.html template
+    return render(request, template, context)
+
+
+
+@login_required
+def profile_custom_orders(request):
+    """ Display users purchases """
     # Get profile name of authenticated user
     profile = get_object_or_404(UserProfile, user=request.user)
     # If request is post

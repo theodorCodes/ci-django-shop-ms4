@@ -57,7 +57,7 @@ def bag_contents(request):
     categories_found = [str(category['category']) for category in bag_items]
 
     # 4) Percentage based 'delivery' cost calculation
-    # a) Calculate shipping when item is physical item such as a 'print'
+    # a) Calculate shipping when item is physical item such as an 'artwork'
     #    AND when total is under 50 (see settings in settings.py)
     #    (for digital items delivery cost should be 0)
     # b) Estimate 'delivery' (total * 10 / 100)
@@ -69,7 +69,7 @@ def bag_contents(request):
     # f2) return values saved in context
 
     # a)
-    if 'print' in categories_found and total < settings.FREE_DELIVERY_THRESHOLD:
+    if 'artwork' in categories_found and total < settings.FREE_DELIVERY_THRESHOLD:
         # b)
         delivery = total * Decimal(settings.STANDARD_DELIVERY_PERCENTAGE / 100)
         # c)

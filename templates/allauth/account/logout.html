@@ -8,12 +8,16 @@
   <h1 class="uk-heading-line uk-text-center uk-margin-medium-bottom">
     <span>{% trans "Sign Out" %}</span>
   </h1>
-  <p>{% trans 'Are you sure you want to sign out?' %}</p>
-  <form method="post" action="{% url 'account_logout' %}">
-    {% csrf_token %}
-    {% if redirect_field_value %}
-    <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}"/>
-    {% endif %}
-    <button class="uk-button uk-button-primary uk-border-pill uk-text-upppercase" type="submit">{% trans 'Sign Out' %}</button>
-  </form>
+  <div class="uk-flex uk-flex-center">
+    {% trans 'Are you sure you want to sign out?' %}
+  </div>
+  <div class="uk-flex uk-flex-center uk-margin-medium-top">
+    <form method="post" action="{% url 'account_logout' %}">
+      {% csrf_token %}
+      {% if redirect_field_value %}
+      <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}"/>
+      {% endif %}
+      <button class="uk-button uk-button-primary uk-border-pill uk-text-upppercase" type="submit">{% trans 'Sign Out' %}</button>
+    </form>
+  </div>
 {% endblock %}

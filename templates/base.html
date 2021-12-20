@@ -54,7 +54,7 @@
 <body>
   <header>
     <!-- Navigation -->
-    <nav uk-sticky class="uk-navbar-container" uk-navbar>
+    <nav uk-sticky class="uk-navbar-container custom-navbar-bg" uk-navbar>
       <!-- See external file for desktop and mobile menu -->
       {% include 'includes/mobile-top-header.html' %}
       {% include 'includes/main-nav.html' %}
@@ -66,7 +66,7 @@
             <!-- Show toggle button for authenticated users -->
             <li>
               <a href="#offcanvas-flip" 
-                class="uk-text-capitalize uk-text-bold" uk-toggle>
+                class="uk-text-capitalize uk-text-bold uk-text-secondary" uk-toggle>
                  My Account
               </a>
             </li>
@@ -88,17 +88,24 @@
                         <span uk-icon="icon: tag" class="uk-margin-small-right"></span> Add Products
                       </a>
                     </li>
-                    <!-- Orders -->
+                    <!-- Admin order overview -->
                     <li class="uk-margin-top">
                       <a href="{% url 'allorders' %}">
-                        <span uk-icon="icon: album" class="uk-margin-small-right"></span> Orders
+                        <span uk-icon="icon: album" class="uk-margin-small-right"></span> All Orders
                       </a>
                     </li>
+                    <hr class="uk-margin">
                   {% endif %}
                   <!-- Order history and address -->
                   <li class="uk-margin-top">
                     <a href="{% url 'profile' %}">
                       <span uk-icon="icon: user" class="uk-margin-small-right"></span> Shipping Details
+                    </a>
+                  </li>
+                  <!-- Custom products created -->
+                  <li class="uk-margin-top">
+                    <a href="{% url 'profile_custom_products' %}">
+                      <span uk-icon="icon: image" class="uk-margin-small-right"></span> My Wishlist
                     </a>
                   </li>
                   <!-- Custom product orders -->
@@ -115,12 +122,12 @@
                 </ul>
               </div>
             </div>
-            {% else %}
+          {% else %}
             <!-- Non authenticated users -->
             <!-- Log in button -->
             <li>
               <a href="{% url 'account_login' %}" 
-                class="uk-text-capitalize uk-text-bold uk-margin-right">
+                class="uk-text-capitalize uk-text-bold uk-margin-right uk-text-secondary">
                  Log In
               </a>
             </li>
@@ -156,8 +163,8 @@
     </nav>
     <!-- Banner -->
     <div uk-sticky="offset: 80" class="custom-sticky-banner">
-      <div class="uk-text-center uk-background-default uk-light uk-panel uk-text-emphasis custom-banner-bg">
-        <p>Free delivery on orders over ${{ free_delivery_threshold }} for all physical goods!</p>
+      <div class="uk-text-center uk-text-small uk-text-bold uk-background-default uk-light uk-panel uk-text-emphasis custom-banner-bg">
+        <p>Free delivery on orders over ${{ free_delivery_threshold }} for all prints of 'artwork'!</p>
       </div>
     </div>
     <!-- 
@@ -167,7 +174,7 @@
     <div class="uk-margin uk-margin-medium-top custom-search-padding">
       <form method="GET" action="{% url 'products' %}" 
         class="uk-search uk-search-default uk-align-center uk-width-large">
-        <input class="uk-search-input uk-border-pill" 
+        <input class="uk-search-input uk-border-pill custom-search-bg" 
           type="text" 
           name="q" 
           placeholder="Search">

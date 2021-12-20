@@ -77,7 +77,12 @@ def add_product(request):
             messages.error(request, 'Failed to add product. Please ensure the form is valid.')
     else:
         # Render empty instance of the form
-        form = ProductForm()
+        form = ProductForm(
+            initial={
+                'type': 0,
+                'format': 0,
+            }
+        )
 
     # Template
     template = 'products/add_product.html'
@@ -94,12 +99,8 @@ def add_product(request):
 def add_custom_product(request):
     """ Create custom product """
     if request.user.is_authenticated:
-        # Get profile
+        # Get profile, username
         creator = UserProfile.objects.get(user=request.user)
-        print(type(creator))
-
-
-
 
     if request.method == 'POST':
         # Get product form with values from post
@@ -137,7 +138,7 @@ def add_custom_product(request):
             custom_product_price = artwork(cost) + markup(size)
             # Save current category value or index
             current_category = form['category'].value()
-            # Update form value with calculated custom product price 
+            # Update form value with calculated 'custom product' price 
             # if current category is '1'
             if current_category == '1':
                 form.instance.price = custom_product_price
@@ -156,9 +157,8 @@ def add_custom_product(request):
             initial={
                 'name': 'Custom Artwork',
                 'category': 1,  # Set custom product index
-                'created_by': creator,
+                'created_by': creator,  # Sets username
                 'price': 0.00,
-                'sku': 0,
                 'rating': 0,
             }
         )

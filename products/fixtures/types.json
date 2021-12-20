@@ -1,5 +1,13 @@
 [
   {
+    "pk": 0,
+    "model": "products.type",
+    "fields": {
+      "name": "none",
+      "friendly_name": "None"
+    }
+  },
+  {
     "pk": 1,
     "model": "products.type",
     "fields": {

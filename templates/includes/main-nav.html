@@ -2,33 +2,15 @@
 <div class="uk-navbar-left desktop-navbar">
   <!-- Logo -->
   <a class="uk-navbar-item uk-logo" href="{% url 'home' %}">
-    <strong>Template</strong> Heaven
+    <strong>Canvas</strong> heaven
   </a>
   <!-- Navigation menu -->
   <div class="uk-navbar-nav nav-menu">
-    <!-- Dropdown menu 1 -->
     <li>
-      <a href="{% url 'products' %}" class="uk-text-capitalize uk-text-bold">Collections</a>
-      <!-- <div class="uk-navbar-dropdown">
-        <ul class="uk-nav uk-navbar-dropdown-nav">
-          <li><a href="#">Item 1</a></li>
-          <li><a href="#">Item 2</a></li>
-        </ul>
-      </div> -->
+      <a href="{% url 'products' %}" class="uk-text-capitalize uk-text-bold uk-text-secondary">Collection</a>
     </li>
-    <!-- Dropdown menu 2 -->
     <li>
-      <a href="#" class="uk-text-capitalize uk-text-bold">About</a>
-      <div class="uk-navbar-dropdown">
-        <ul class="uk-nav uk-navbar-dropdown-nav">
-          <li><a href="#">Item 1</a></li>
-          <li><a href="#">Item 2</a></li>
-        </ul>
-      </div>
-    </li>
-    <!-- Dropdown menu 3 -->
-    <li>
-      <a href="{% url 'add_custom_product' %}" class="uk-text-capitalize uk-text-bold">Request Custom Artwork</a>
+      <a href="{% url 'add_custom_product' %}" class="uk-text-capitalize uk-text-bold uk-text-secondary">Request Custom Artwork</a>
     </li>
   </div>
 </div>

@@ -2,6 +2,7 @@
 ----------------------------------------------------------------------- 
 GENERAL */
 
+
 input.textinput.textInput {
   outline: 0;
 }
@@ -11,6 +12,10 @@ input.textinput.textInput {
 ----------------------------------------------------------------------- 
 NAVBAR */
 
+
+.custom-navbar-bg {
+  background-color: #fff !important;
+}
 
 /* Sign in button */
 .custom-sign-up {
@@ -26,9 +31,16 @@ NAVBAR */
   color: #fff !important;
 }
 
+.custom-search-bg {
+  background-color: #fff !important;
+}
+
 /* Banner bg */
 .custom-banner-bg {
-  background-color: #ebebeb;
+  /* background-color: #ebebeb; */
+  background-color: #fff;
+  border-top: 1px solid #e5e5e5;
+  border-bottom: 1px solid #e5e5e5;
 }
 
 /* Banner bg */

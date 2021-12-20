@@ -88,6 +88,7 @@
                         <p><span uk-icon="info"></span></p>
                         <p class="uk-text-small">Our design team is processing your order, and we'll send out an email with a download link once your custom artwork is produced.</p>
                         <p class="uk-text-small">For further questions, please contact us. Our design team is always available from 9:00am-18:00pm GMT during weekdays and is happy to discuss details via email or video chat.</p>
+                        <p class="uk-text-small">As soon as the requested image is completed, it will be here for download.</p>
                       {% endif %} 
                       <!-- Delivery message for physical products -->
                       {% if item.product_size %}
@@ -95,11 +96,9 @@
                         <p class="uk-text-small">Please let us know if you have not received the tracking number for this item. Meanwhile, you can download and enjoy this product as well.</p>
                       {% endif %}
                       <!-- Download button -->
-                      {% if not item.product.category.name == 'custom_product' %}
-                        <a href="{{ item.product.image.url }}"" class="uk-button uk-button-primary uk-border-pill uk-align-right" download>
-                          Download
-                        </a>
-                      {% endif %}
+                      <a href="{{ item.product.image.url }}"" class="uk-button uk-button-primary uk-border-pill uk-align-right" download>
+                        Download
+                      </a>
                     </div>
                   </div>
                 </div>

@@ -3,32 +3,731 @@
     "pk": 1,
     "model": "products.product",
     "fields": {
-      "sku": "1",
-      "name": "Black and white photo",
+      "sku": "00001",
+      "name": "Wallpaper Artwork",
       "created_by": "",
-      "fulfilment": "",
-      "description": "Bootcut jeans in our just-right original fit are comfortable and look great too.  5-pocket style sits below waist straight fit through seat and thigh bootcut leg 18\" leg opening cotton washable imported extended sizes and washes available online only",
-      "price": 53.99,
-      "category": 4,
-      "rating": 4,
-      "image_url": "http://s7d9.scene7.com/is/image/JCPenney/DP0709201205510679M.tif?hei=380&amp;wid=380&op_usm=.4,.8,0,0&resmode=sharp2&op_usm=1.5,.8,0,0&resmode=sharp",
-      "image": "DP0709201205510679M.jpg"
+      "description": "2D Illustration on beige canvas.",
+      "price": 45.00,
+      "category": 2,
+      "type": 0,
+      "format": 0,
+      "rating": 2,
+      "image_url": "",
+      "image": "and-machines-GR4ZrT97BgU-unsplash.jpg"
     }
   },
   {
     "pk": 2,
     "model": "products.product",
     "fields": {
-      "sku": "2",
-      "name": "Liz Claiborne Audra Classic Fit Straight Leg Pants",
+      "sku": "00002",
+      "name": "Liquid Glass",
       "created_by": "",
-      "fulfilment": "",
-      "description": "Straight-leg styling and on-the-job comfort make our Audra pants a flattering business decision. flat front zip fly with hook-and-bar closure 2 front and 2 back welt pockets 34 1/2\" inseam polyester/rayon/spandex washable imported",
-      "price": 58.99,
-      "category": 4,
+      "description": "2D Illustration, gold on pink background.",
+      "price": 30.00,
+      "category": 2,
+      "type": 0,
+      "format": 0,
+      "rating": 1,
+      "image_url": "",
+      "image": "ferhat-deniz-fors-e1qoosfnAvA-unsplash.jpg"
+    }
+  },
+  {
+    "pk": 3,
+    "model": "products.product",
+    "fields": {
+      "sku": "00003",
+      "name": "3D Still",
+      "created_by": "",
+      "description": "3D Daily life objects on pink background.",
+      "price": 29.00,
+      "category": 3,
+      "type": 0,
+      "format": 0,
+      "rating": 2,
+      "image_url": "",
+      "image": "anatvida-sukchanta-XQ02_0PNsww-unsplash.jpg"
+    }
+  },
+  {
+    "pk": 4,
+    "model": "products.product",
+    "fields": {
+      "sku": "00004",
+      "name": "Rainbow Bubble",
+      "created_by": "",
+      "description": "3D Bubble with rainbow shades.",
+      "price": 25.00,
+      "category": 3,
+      "type": 0,
+      "format": 0,
+      "rating": 3,
+      "image_url": "",
+      "image": "and-machines-vqTWfa4DjEk-unsplash.jpg"
+    }
+  },
+  {
+    "pk": 5,
+    "model": "products.product",
+    "fields": {
+      "sku": "00005",
+      "name": "DNA String",
+      "created_by": "",
+      "description": "Transparent dna string on black background.",
+      "price": 49.00,
+      "category": 3,
+      "type": 0,
+      "format": 0,
+      "rating": 4,
+      "image_url": "",
+      "image": "anirudh-YQYacLW8o2U-unsplash.jpg"
+    }
+  },
+  {
+    "pk": 6,
+    "model": "products.product",
+    "fields": {
+      "sku": "00006",
+      "name": "Magic Circle",
+      "created_by": "",
+      "description": "A circle of geometric weave.",
+      "price": 85.00,
+      "category": 3,
+      "type": 0,
+      "format": 0,
       "rating": 5,
-      "image_url": "http://s7d9.scene7.com/is/image/JCPenney/DP0113201617034987M.tif?hei=380&amp;wid=380&op_usm=.4,.8,0,0&resmode=sharp2&op_usm=1.5,.8,0,0&resmode=sharp",
-      "image": "DP0113201617034987M.jpg"
+      "image_url": "",
+      "image": "anunay-rai-_a6zxdgt9Qs-unsplash.jpg"
+    }
+  },
+  {
+    "pk": 7,
+    "model": "products.product",
+    "fields": {
+      "sku": "00007",
+      "name": "Floating iPhone Frames",
+      "created_by": "",
+      "description": "Floating iPhone frames coliding in space.",
+      "price": 25.00,
+      "category": 3,
+      "type": 0,
+      "format": 0,
+      "rating": 3,
+      "image_url": "",
+      "image": "anunay-rai-6zXiSHgQDcM-unsplash.jpg"
+    }
+  },
+  {
+    "pk": 8,
+    "model": "products.product",
+    "fields": {
+      "sku": "00008",
+      "name": "Floating Plates",
+      "created_by": "",
+      "description": "Floating plates with red background.",
+      "price": 39.00,
+      "category": 3,
+      "type": 0,
+      "format": 0,
+      "rating": 3,
+      "image_url": "",
+      "image": "dim-gunger-vuB7YMWQHUM-unsplash.jpg"
+    }
+  },
+  {
+    "pk": 9,
+    "model": "products.product",
+    "fields": {
+      "sku": "00009",
+      "name": "Milky Landscape",
+      "created_by": "",
+      "description": "Milky landscape 3D rendering.",
+      "price": 62.00,
+      "category": 3,
+      "type": 0,
+      "format": 0,
+      "rating": 3,
+      "image_url": "",
+      "image": "fakurian-design-7wUorDiCMSU-unsplash.jpg"
+    }
+  },
+  {
+    "pk": 10,
+    "model": "products.product",
+    "fields": {
+      "sku": "00010",
+      "name": "Feathered Face",
+      "created_by": "",
+      "description": "Face rendered with feathered texture, 3D rendering.",
+      "price": 75.00,
+      "category": 3,
+      "type": 0,
+      "format": 0,
+      "rating": 4,
+      "image_url": "",
+      "image": "hesam-jr-XXIBwII-yd8-unsplash.jpg"
+    }
+  },
+  {
+    "pk": 11,
+    "model": "products.product",
+    "fields": {
+      "sku": "00011",
+      "name": "Camera Body",
+      "created_by": "",
+      "description": "Camera body with different skins, 3D Rendering.",
+      "price": 55.00,
+      "category": 3,
+      "type": 0,
+      "format": 0,
+      "rating": 5,
+      "image_url": "",
+      "image": "javier-miranda-doCoLuqrhPg-unsplash.jpg"
+    }
+  },
+  {
+    "pk": 12,
+    "model": "products.product",
+    "fields": {
+      "sku": "00012",
+      "name": "Just Landed",
+      "created_by": "",
+      "description": "Space ship in desert, 3D rendering.",
+      "price": 85.00,
+      "category": 3,
+      "type": 0,
+      "format": 0,
+      "rating": 2,
+      "image_url": "",
+      "image": "juan-verdaguer-aguerrebehere-CCM8h60bjFQ-unsplash.jpg"
+    }
+  },
+  {
+    "pk": 13,
+    "model": "products.product",
+    "fields": {
+      "sku": "00013",
+      "name": "Spiral Stair",
+      "created_by": "",
+      "description": "Still of spiral stair.",
+      "price": 25.00,
+      "category": 3,
+      "type": 0,
+      "format": 0,
+      "rating": 1,
+      "image_url": "",
+      "image": "li-zhang-kdnSoGLjoZ8-unsplash.jpg"
+    }
+  },
+  {
+    "pk": 14,
+    "model": "products.product",
+    "fields": {
+      "sku": "00014",
+      "name": "Mc on Mars",
+      "created_by": "",
+      "description": "Space station rendering.",
+      "price": 69.00,
+      "category": 3,
+      "type": 0,
+      "format": 0,
+      "rating": 5,
+      "image_url": "",
+      "image": "omk-3ZLufn1NOcA-unsplash.jpg"
+    }
+  },
+  {
+    "pk": 15,
+    "model": "products.product",
+    "fields": {
+      "sku": "00015",
+      "name": "YouTube Button",
+      "created_by": "",
+      "description": "3D High glossy rendering.",
+      "price": 75.00,
+      "category": 3,
+      "type": 0,
+      "format": 0,
+      "rating": 5,
+      "image_url": "",
+      "image": "shubham-dhage--weorgq0juM-unsplash.jpg"
+    }
+  },
+  {
+    "pk": 16,
+    "model": "products.product",
+    "fields": {
+      "sku": "00016",
+      "name": "Reflection",
+      "created_by": "",
+      "description": "Mirror in blue desert, 3D rendering",
+      "price": 45.00,
+      "category": 3,
+      "type": 0,
+      "format": 0,
+      "rating": 4,
+      "image_url": "",
+      "image": "viktor-forgacs-IwH7MrcsNEU-unsplash.jpg"
+    }
+  },
+  {
+    "pk": 17,
+    "model": "products.product",
+    "fields": {
+      "sku": "00017",
+      "name": "Little Ghost",
+      "created_by": "",
+      "description": "Pac man ghost with yellow background, 3D rendering.",
+      "price": 39.00,
+      "category": 3,
+      "type": 0,
+      "format": 0,
+      "rating": 3,
+      "image_url": "",
+      "image": "warren-umoh-YmTIxQbQo4I-unsplash.jpg"
+    }
+  },
+  {
+    "pk": 18,
+    "model": "products.product",
+    "fields": {
+      "sku": "00018",
+      "name": "Materialized",
+      "created_by": "",
+      "description": "Acrylic and metalic surface rendering on 3D objects.",
+      "price": 75.00,
+      "category": 3,
+      "type": 0,
+      "format": 0,
+      "rating": 3,
+      "image_url": "",
+      "image": "zack-walker-iu0vI_V9218-unsplash.jpg"
+    }
+  },
+  {
+    "pk": 19,
+    "model": "products.product",
+    "fields": {
+      "sku": "00019",
+      "name": "Party Guests",
+      "created_by": "",
+      "description": "Black and white illustration.",
+      "price": 35.00,
+      "category": 5,
+      "type": 0,
+      "format": 0,
+      "rating": 2,
+      "image_url": "",
+      "image": "abin-varghese-woC7_1c_kZQ-unsplash.jpg"
+    }
+  },
+  {
+    "pk": 20,
+    "model": "products.product",
+    "fields": {
+      "sku": "00020",
+      "name": "Tourist Impression",
+      "created_by": "",
+      "description": "Palms with city background, poster.",
+      "price": 45.00,
+      "category": 4,
+      "type": 0,
+      "format": 0,
+      "rating": 3,
+      "image_url": "",
+      "image": "mcgill-library-FNjS7qZYjHQ-unsplash.jpg"
+    }
+  },
+  {
+    "pk": 21,
+    "model": "products.product",
+    "fields": {
+      "sku": "00021",
+      "name": "The Letter Press",
+      "created_by": "",
+      "description": "Letter shapes with red background.",
+      "price": 29.00,
+      "category": 4,
+      "type": 0,
+      "format": 0,
+      "rating": 4,
+      "image_url": "",
+      "image": "meric-dagli-3KJpF86nR4c-unsplash.jpg"
+    }
+  },
+  {
+    "pk": 22,
+    "model": "products.product",
+    "fields": {
+      "sku": "00022",
+      "name": "Summer Impression",
+      "created_by": "",
+      "description": "Botanic shapes graffiti, poster.",
+      "price": 39.00,
+      "category": 4,
+      "type": 0,
+      "format": 0,
+      "rating": 5,
+      "image_url": "",
+      "image": "s-o-c-i-a-l-c-u-t-OjnmCKmzr3A-unsplash.jpg"
+    }
+  },
+  {
+    "pk": 23,
+    "model": "products.product",
+    "fields": {
+      "sku": "00023",
+      "name": "Pray and Hope",
+      "created_by": "",
+      "description": "Pray and hope, poster.",
+      "price": 49.00,
+      "category": 4,
+      "type": 0,
+      "format": 0,
+      "rating": 3,
+      "image_url": "",
+      "image": "tim-mossholder-zs-PAgqgenQ-unsplash.jpg"
+    }
+  },
+  {
+    "pk": 24,
+    "model": "products.product",
+    "fields": {
+      "sku": "00024",
+      "name": "The Flower Bath",
+      "created_by": "",
+      "description": "Flower bath graffiti.",
+      "price": 35.00,
+      "category": 5,
+      "type": 0,
+      "format": 0,
+      "rating": 2,
+      "image_url": "",
+      "image": "jam--FH-VMcElVM-unsplash.jpg"
+    }
+  },
+  {
+    "pk": 25,
+    "model": "products.product",
+    "fields": {
+      "sku": "00025",
+      "name": "Origami Leaf",
+      "created_by": "",
+      "description": "Hand drawn geometric leaf structure.",
+      "price": 59.00,
+      "category": 5,
+      "type": 0,
+      "format": 0,
+      "rating": 2,
+      "image_url": "",
+      "image": "luca-pistollato-T1pRizQuyr0-unsplash.jpg"
+    }
+  },
+  {
+    "pk": 26,
+    "model": "products.product",
+    "fields": {
+      "sku": "00026",
+      "name": "Shell In The Sea",
+      "created_by": "",
+      "description": "Shell in the sea poster.",
+      "price": 39.00,
+      "category": 5,
+      "type": 0,
+      "format": 0,
+      "rating": 4,
+      "image_url": "",
+      "image": "mcgill-library-_lsEeGddmKE-unsplash.jpg"
+    }
+  },
+  {
+    "pk": 27,
+    "model": "products.product",
+    "fields": {
+      "sku": "00027",
+      "name": "The Kitchen Wall",
+      "created_by": "",
+      "description": "Illustration on white tile.",
+      "price": 25.00,
+      "category": 5,
+      "type": 0,
+      "format": 0,
+      "rating": 5,
+      "image_url": "",
+      "image": "mika-dUaf3cHs9Xk-unsplash.jpg"
+    }
+  },
+  {
+    "pk": 28,
+    "model": "products.product",
+    "fields": {
+      "sku": "00028",
+      "name": "Glass Blossom",
+      "created_by": "",
+      "description": "Floating glass flower, abstract.",
+      "price": 85.00,
+      "category": 6,
+      "type": 0,
+      "format": 0,
+      "rating": 1,
+      "image_url": "",
+      "image": "ferhat-deniz-fors-8wSfiGT8ejk-unsplash.jpg"
+    }
+  },
+  {
+    "pk": 29,
+    "model": "products.product",
+    "fields": {
+      "sku": "00029",
+      "name": "Magma",
+      "created_by": "",
+      "description": "Black marble ball wrapped in gold.",
+      "price": 99.00,
+      "category": 6,
+      "type": 0,
+      "format": 0,
+      "rating": 2,
+      "image_url": "",
+      "image": "johan-lindberg-IcWtW5WsmTg-unsplash.jpg"
+    }
+  },
+  {
+    "pk": 30,
+    "model": "products.product",
+    "fields": {
+      "sku": "00030",
+      "name": "Pink Snail",
+      "created_by": "",
+      "description": "Pink snail rendering without shell.",
+      "price": 120.00,
+      "category": 6,
+      "type": 0,
+      "format": 0,
+      "rating": 3,
+      "image_url": "",
+      "image": "li-zhang-vXkoozko2BE-unsplash.jpg"
+    }
+  },
+  {
+    "pk": 31,
+    "model": "products.product",
+    "fields": {
+      "sku": "00031",
+      "name": "The Vase",
+      "created_by": "",
+      "description": "Floating fabric vase with glass balls.",
+      "price": 130.00,
+      "category": 6,
+      "type": 0,
+      "format": 0,
+      "rating": 4,
+      "image_url": "",
+      "image": "luke-jones-vCxjJmdj03k-unsplash.jpg"
+    }
+  },
+  {
+    "pk": 32,
+    "model": "products.product",
+    "fields": {
+      "sku": "00032",
+      "name": "Super Sound Cone",
+      "created_by": "",
+      "description": "3D Cone with wave texture.",
+      "price": 150.00,
+      "category": 6,
+      "type": 0,
+      "format": 0,
+      "rating": 4,
+      "image_url": "",
+      "image": "rick-rothenberg-OdijK2o4K2g-unsplash.jpg"
+    }
+  },
+  {
+    "pk": 33,
+    "model": "products.product",
+    "fields": {
+      "sku": "00033",
+      "name": "Twisted Porcelain",
+      "created_by": "",
+      "description": "Twisted porcelain sculpture in white.",
+      "price": 169.00,
+      "category": 6,
+      "type": 0,
+      "format": 0,
+      "rating": 5,
+      "image_url": "",
+      "image": "viktor-forgacs-7C5N8yLaeDI-unsplash.jpg"
+    }
+  },
+  {
+    "pk": 34,
+    "model": "products.product",
+    "fields": {
+      "sku": "00034",
+      "name": "Open Space",
+      "created_by": "",
+      "description": "Surreal open interior and shades of pink.",
+      "price": 180.00,
+      "category": 7,
+      "type": 0,
+      "format": 0,
+      "rating": 3,
+      "image_url": "",
+      "image": "mo-i7uLJF7Ws-o-unsplash.jpg"
+    }
+  },
+  {
+    "pk": 35,
+    "model": "products.product",
+    "fields": {
+      "sku": "00035",
+      "name": "Dreamscape",
+      "created_by": "",
+      "description": "Surreal pink landscape scene with 3D objects.",
+      "price": 190.00,
+      "category": 7,
+      "type": 0,
+      "format": 0,
+      "rating": 4,
+      "image_url": "",
+      "image": "mo-NhYj5-Ib7ik-unsplash.jpg"
+    }
+  },
+  {
+    "pk": 36,
+    "model": "products.product",
+    "fields": {
+      "sku": "00036",
+      "name": "Blossom Island",
+      "created_by": "",
+      "description": "Surreal island tree in the sea.",
+      "price": 210.00,
+      "category": 7,
+      "type": 0,
+      "format": 0,
+      "rating": 5,
+      "image_url": "",
+      "image": "mo-nm8b-BUnzuk-unsplash.jpg"
+    }
+  },
+  {
+    "pk": 37,
+    "model": "products.product",
+    "fields": {
+      "sku": "00037",
+      "name": "Fluid Neon Waves",
+      "created_by": "",
+      "description": "3D Fluid texture in metallic neon colors.",
+      "price": 255.00,
+      "category": 8,
+      "type": 0,
+      "format": 0,
+      "rating": 3,
+      "image_url": "",
+      "image": "dim-gunger-3emffQOvHxA-unsplash.jpg"
+    }
+  },
+  {
+    "pk": 38,
+    "model": "products.product",
+    "fields": {
+      "sku": "00038",
+      "name": "Fluid Neon Waves 2",
+      "created_by": "",
+      "description": "3D Fluid texture in metallic neon colors version 2.",
+      "price": 235.00,
+      "category": 8,
+      "type": 0,
+      "format": 0,
+      "rating": 3,
+      "image_url": "",
+      "image": "dim-gunger-oKN104dsNsY-unsplash.jpg"
+    }
+  },
+  {
+    "pk": 39,
+    "model": "products.product",
+    "fields": {
+      "sku": "00039",
+      "name": "Cosmic Waves",
+      "created_by": "",
+      "description": "Cosmic waves in light blue on dark blue background.",
+      "price": 270.00,
+      "category": 8,
+      "type": 0,
+      "format": 0,
+      "rating": 5,
+      "image_url": "",
+      "image": "petar-petkovski-Wh2FhL0v_eo-unsplash.jpg"
+    }
+  },
+  {
+    "pk": 40,
+    "model": "products.product",
+    "fields": {
+      "sku": "00040",
+      "name": "Translucent comb structure",
+      "created_by": "",
+      "description": "Rendering of translucent comb structure with pink background.",
+      "price": 370.00,
+      "category": 8,
+      "type": 0,
+      "format": 0,
+      "rating": 4,
+      "image_url": "",
+      "image": "rick-rothenberg-oJtgJ06M3m8-unsplash.jpg"
+    }
+  },
+  {
+    "pk": 41,
+    "model": "products.product",
+    "fields": {
+      "sku": "00041",
+      "name": "Cubed surface structure",
+      "created_by": "",
+      "description": "Cubed surface, landscape structure.",
+      "price": 205.00,
+      "category": 8,
+      "type": 0,
+      "format": 0,
+      "rating": 1,
+      "image_url": "",
+      "image": "simon-lee-Ue97JK9S0QE-unsplash.jpg"
+    }
+  },
+  {
+    "pk": 42,
+    "model": "products.product",
+    "fields": {
+      "sku": "00042",
+      "name": "Ocean Summit",
+      "created_by": "",
+      "description": "Waves of blue blades.",
+      "price": 255.00,
+      "category": 8,
+      "type": 0,
+      "format": 0,
+      "rating": 3,
+      "image_url": "",
+      "image": "simon-lee-zft-W1kVEhg-unsplash.jpg"
+    }
+  },
+  {
+    "pk": 43,
+    "model": "products.product",
+    "fields": {
+      "sku": "00043",
+      "name": "Vulcano Stripes",
+      "created_by": "",
+      "description": "Abstract vulcano and fire theme.",
+      "price": 235.00,
+      "category": 8,
+      "type": 0,
+      "format": 0,
+      "rating": 2,
+      "image_url": "",
+      "image": "zac-ong-yi0TtDv-Dfg-unsplash.jpg"
     }
   }
 ]

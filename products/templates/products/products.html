@@ -23,13 +23,13 @@
           <div>
             <ul class="uk-subnav uk-subnav-pill uk-text-capitalize" uk-margin>
               {% for category in categories %}
-                <!-- CUSTOM PRODUCT CATEGORY VISIBLE -->
+                <!-- ALL CATEGORIES ARE VISIBLE TO SUPERUSER EXCEPT  -->
                 {% if request.user.is_superuser %}
                   <li uk-filter-control="[data-category='{{ category.friendly_name }}']">
                     <a href="#" class="uk-text-capitalize uk-border-pill">{{ category.friendly_name }}</a>
                   </li>
                 {% else %}
-                  <!-- CUSTOM PRODUCT CATEGORY INVISIBLE -->
+                  <!-- CATEGORY 'Custom Product' IS NOT VISIBLE TO VISITORS -->
                   {% if category.name != 'custom_product' %}
                     <li uk-filter-control="[data-category='{{ category.friendly_name }}']">
                       <a href="#" class="uk-text-capitalize uk-border-pill">{{ category.friendly_name }}</a>
@@ -101,17 +101,17 @@
               <!-- PRODUCT INFO -->
               <div class="uk-card-body uk-padding-small">
                 <!-- Name, category and price -->
-                <div class="uk-text-left uk-text-small">
+                <div class="uk-text-left uk-text-bold uk-text-secondary uk-margin-remove-vertical">
                   {{ product.name }}
                 </div>
-                <div class="uk-text-left uk-text-bold uk-margin-small-top">
+                <div class="uk-text-left uk-text-bold uk-text-small uk-margin-remove-vertical">
                   ${{ product.price }}
                 </div>
-                <div class="uk-text-left uk-text-small uk-margin-small-top">
+                <div class="uk-text-left uk-text-small uk-margin-remove-vertical">
                   {{ product.category.friendly_name }}
                 </div>
                 <!-- Rating or testimonials -->
-                <div class="uk-grid-small uk-text-small uk-margin-small-top" uk-grid>
+                <div class="uk-grid-small uk-text-small uk-margin-remove-vertical" uk-grid>
                   {% if product.rating %}
                     <span class="uk-text-left uk-width-expand">
                       <span class="uk-text-middle" uk-icon="icon: star; ratio: 0.8"></span>
@@ -161,6 +161,9 @@
                   <div class="uk-text-left uk-text-small uk-margin-small-top">
                     {{ product.category.friendly_name }}
                   </div>
+                  <div class="uk-text-left uk-text-small uk-margin-small-top">
+                    <strong>Created by: </strong> {{ product.created_by }}
+                  </div>
                   <div class="uk-grid-small uk-text-small uk-margin-small-top" uk-grid>
                     {% if product.rating %}
                       <span class="uk-text-left uk-width-expand">
@@ -181,79 +184,6 @@
           {% endif %}
         {% endif %}
       {% endfor %}
-      <!-- Empty cards for tests. Delete this later -->
-      <li data-color="white" data-size="large" data-name="A">
-        <div class="uk-card uk-card-default uk-card-body">
-          <canvas width="600" height="800"></canvas>
-          <div class="uk-position-center">A</div>
-        </div>
-      </li>
-      <li data-color="blue" data-size="small" data-name="B">
-        <div class="uk-card uk-card-primary uk-card-body">
-          <canvas width="600" height="400"></canvas>
-          <div class="uk-position-center">B</div>
-        </div>
-      </li>
-      <li data-color="white" data-size="medium" data-name="C">
-        <div class="uk-card uk-card-default uk-card-body">
-          <canvas width="600" height="600"></canvas>
-          <div class="uk-position-center">C</div>
-        </div>
-      </li>
-      <li data-color="white" data-size="small" data-name="D">
-        <div class="uk-card uk-card-default uk-card-body">
-          <canvas width="600" height="400"></canvas>
-          <div class="uk-position-center">D</div>
-        </div>
-      </li>
-      <li data-color="black" data-size="medium" data-name="E">
-        <div class="uk-card uk-card-secondary uk-card-body">
-          <canvas width="600" height="600"></canvas>
-          <div class="uk-position-center">E</div>
-        </div>
-      </li>
-      <li data-color="black" data-size="small" data-name="F">
-        <div class="uk-card uk-card-secondary uk-card-body">
-          <canvas width="600" height="400"></canvas>
-          <div class="uk-position-center">F</div>
-        </div>
-      </li>
-      <li data-color="blue" data-size="medium" data-name="G">
-        <div class="uk-card uk-card-primary uk-card-body">
-          <canvas width="600" height="600"></canvas>
-          <div class="uk-position-center">G</div>
-        </div>
-      </li>
-      <li data-color="black" data-size="large" data-name="H">
-        <div class="uk-card uk-card-secondary uk-card-body">
-          <canvas width="600" height="800"></canvas>
-          <div class="uk-position-center">H</div>
-        </div>
-      </li>
-      <li data-color="blue" data-size="large" data-name="I">
-        <div class="uk-card uk-card-primary uk-card-body">
-          <canvas width="600" height="800"></canvas>
-          <div class="uk-position-center">I</div>
-        </div>
-      </li>
-      <li data-color="white" data-size="large" data-name="J">
-        <div class="uk-card uk-card-default uk-card-body">
-          <canvas width="600" height="800"></canvas>
-          <div class="uk-position-center">J</div>
-        </div>
-      </li>
-      <li data-color="blue" data-size="medium" data-name="K">
-        <div class="uk-card uk-card-primary uk-card-body">
-          <canvas width="600" height="600"></canvas>
-          <div class="uk-position-center">K</div>
-        </div>
-      </li>
-      <li data-color="black" data-size="small" data-name="L">
-        <div class="uk-card uk-card-secondary uk-card-body">
-          <canvas width="600" height="400"></canvas>
-          <div class="uk-position-center">L</div>
-        </div>
-      </li>
     <!-- END of masonry layout -->
     </ul>
   <!-- END of uikit filter section -->
