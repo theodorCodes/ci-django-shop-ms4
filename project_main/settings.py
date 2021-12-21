@@ -124,7 +124,7 @@ LOGIN_REDIRECT_URL = '/'
 WSGI_APPLICATION = 'project_main.wsgi.application'
 
 
-# Database
+# Database - default sqlite3
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 # Default sqlite3 database settings
@@ -136,9 +136,11 @@ WSGI_APPLICATION = 'project_main.wsgi.application'
 # }
 
 
+# Database - Heroku setup
 # DATABASES = {
 #     'default': dj_database_url.parse('postgres://qmfnbsxkphqeau:1474f1cfcea281b69eb55659ea7e15bc407c66b6e908df8eebbc6fb68321431d@ec2-54-229-68-88.eu-west-1.compute.amazonaws.com:5432/d2sunk0iobrkqf')
 # }
+
 
 # Local Postgres database settings during development
 DATABASES = {
