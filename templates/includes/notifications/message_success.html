@@ -48,11 +48,12 @@
           </p>
         {% endif %}
       </div>
-      <div class="uk-modal-footer uk-text-right">
-        <a href="{% url 'products' %}" class="uk-link-text uk-margin-right">Continue Shopping</a>
+      <!-- <div class="uk-flex uk-flex-center uk-modal-footer uk-text-right"> -->
+      <div class="uk-flex uk-flex-column uk-flex-middle uk-modal-footer uk-text-right">
         <a href="{% url 'view_bag' %}" class="uk-button uk-button-secondary uk-border-pill">
           <span class="uk-text-small uk-text-upper">Go To Checkout</span>
         </a>
+        <a href="{% url 'products' %}" class="uk-link-text uk-text-center uk-margin-top">Continue Shopping</a>
       </div>
     {% endif %}
   </div>

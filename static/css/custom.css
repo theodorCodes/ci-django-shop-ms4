@@ -13,8 +13,14 @@ input.textinput.textInput {
 NAVBAR */
 
 
+/* Navbar bg */
 .custom-navbar-bg {
   background-color: #fff !important;
+}
+
+/* Logo */
+.custom-logo {
+  margin-top: -5px;
 }
 
 /* Sign in button */

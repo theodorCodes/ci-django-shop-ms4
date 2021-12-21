@@ -53,9 +53,9 @@
                 </p>
                 <!-- Show only on mobile screens -->
                 <p class="uk-hidden@m">
-                  <span class="uk-text-muted">Qty.: </span>
+                  <span class="uk-text-muted uk-text-small">Qty.: </span>
                     ${{ item.product.price }}<br>
-                  <span class="uk-text-muted">Subtotal: </span>
+                  <span class="uk-text-muted uk-text-small">Subtotal: </span>
                     ${{ item.product.price | calc_subtotal:item.quantity }}
                 </p>
               </td>
