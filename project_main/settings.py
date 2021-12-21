@@ -30,7 +30,7 @@ SECRET_KEY = 'django-insecure-(5k=5bczk6)kd$sd8_3j(6&+yrfr^l^sbd0((o6f0vfjpsh%mb
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '192.168.1.3']
+ALLOWED_HOSTS = ['codeinstitute-django-shop-ms4.herokuapp.com', '127.0.0.1', 'localhost', '192.168.1.3']
 
 
 # Application definition
@@ -136,23 +136,23 @@ WSGI_APPLICATION = 'project_main.wsgi.application'
 # }
 
 
-# Database - Heroku setup
-# DATABASES = {
-#     'default': dj_database_url.parse('postgres://qmfnbsxkphqeau:1474f1cfcea281b69eb55659ea7e15bc407c66b6e908df8eebbc6fb68321431d@ec2-54-229-68-88.eu-west-1.compute.amazonaws.com:5432/d2sunk0iobrkqf')
-# }
-
-
-# Local Postgres database settings during development
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'project_ms4',
-        'USER': 'pixelbar',
-        'PASSWORD': 'password',
-        'HOST': 'localhost',
-        'PORT': '5433',
+if 'DATABASE_URL' in os.environ:
+    # Database - Heroku setup
+    DATABASES = {
+        'default': dj_database_url.parse(os.environ.get('DATABASE_URL'))
     }
-}
+else:
+    # Local Postgres database settings during development
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': 'project_ms4',
+            'USER': 'pixelbar',
+            'PASSWORD': 'password',
+            'HOST': 'localhost',
+            'PORT': '5433',
+        }
+    }
 
 
 
