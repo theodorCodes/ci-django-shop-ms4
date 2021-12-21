@@ -11,31 +11,15 @@
       <button class="uk-offcanvas-close" type="button" uk-close></button>
       <!-- Off-canvas menu -->
       <ul class="uk-nav uk-nav-default">
-        <li class="uk-active"><a href="{% url 'home' %}">Template Heaven</a></li>
-        <li class="uk-parent">
-          <a href="{% url 'products' %}">Collections</a>
-          <a href="#">About</a>
-          <a href="#">Hire Designer</a>
-          <!-- <ul class="uk-nav-sub">
-            <li><a href="#">Sub item</a></li>
-            <li><a href="#">Sub item</a></li>
-          </ul> -->
+        <li class="uk-active">
+          <a href="{% url 'home' %}"><strong>Canvas</strong> Heaven</a>
         </li>
-        <!-- <li class="uk-nav-header">Header</li>
-        <li>
-          <a href="#">
-            <span class="uk-margin-small-right" uk-icon="icon: table">
-            </span> Item
-          </a>
+        <li class="uk-parent uk-margin-top">
+          <a href="{% url 'products' %}">Collection</a>
         </li>
-        <li>
-          <a href="#">
-            <span class="uk-margin-small-right" uk-icon="icon: thumbnails">
-            </span> Item
-          </a>
-        </li> -->
-        <!-- <li class="uk-nav-divider"></li> -->
-        <!-- Off canvas end -->
+        <li class="uk-parent uk-margin-top">
+          <a href="{% url 'add_custom_product' %}">Request Custom Artwork</a>
+        </li>
       </ul>
     </div>
   </div>

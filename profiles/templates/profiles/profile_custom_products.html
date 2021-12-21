@@ -10,7 +10,7 @@
   <div class="uk-container uk-container-medium">
     <!-- Page title -->
     <h1 class="uk-heading-line uk-text-center uk-margin-medium-bottom">
-      <span>Wishlist</span>
+      <span>Custom Products</span>
     </h1>
     <!-- Order frame -->
     <div class="uk-card uk-card-default uk-grid-collapse uk-child-width-1-1@s uk-margin" uk-grid>
@@ -38,16 +38,16 @@
                             <!-- Link to product detail page -->
                             <a href="{% url 'product_detail' product.id %}">
                               <img class="" 
-                                  src="{{ product.image.url }}" 
-                                  width="600" 
-                                  alt="{{ product.name }}">
+                                src="{{ product.image.url }}" 
+                                width="600" 
+                                alt="{{ product.name }}">
                             </a>
                           {% else %}
                             <a href="{% url 'product_detail' product.id %}">
                               <img class="" 
-                                  src="{{ MEDIA_URL }}noimage.png" 
-                                  width="600" 
-                                  alt="{{ product.name }}">
+                                src="{{ MEDIA_URL }}noimage.png" 
+                                width="600" 
+                                alt="{{ product.name }}">
                             </a>
                           {% endif %}
                         </div>
