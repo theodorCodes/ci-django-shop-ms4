@@ -1,17 +1,16 @@
-// Stripe - Element
-// Get the stripe public key
-// And client secret from template using jQuery
+/* 
+Stripe - Element
+Get the Stripe public key And client secret from template using jQuery
+*/
 
-
-// Getting their ids and using the .text function.
+// Getting their ids and using the .text() function and .slice()
 var stripePublicKey = $('#id_stripe_public_key').text().slice(1, -1);
 // Slice off first and last character which represent quotation marks.
 var clientSecret = $('#id_client_secret').text().slice(1, -1);
 // Then using Stripe (js) provided function to store public key
 var stripe = Stripe(stripePublicKey);
-// And use it to create an instance of stripe elements
+// And use it to create an instance of Stripe elements
 var elements = stripe.elements();
-
 // Using Stripe provided styling to apply on Stripe element
 var style = {
     // Adjusting some color and font settings
@@ -24,28 +23,31 @@ var style = {
             color: '#999'
         }
     },
-    // Matching uikit uk-text-danger color class
+    // Matching UIkit uk-text-danger color class
     invalid: {
         color: '#f0506e',
         iconColor: '#f0506e'
     }
 };
 
-
 // And create card element while using custom declared styles
 var card = elements.create('card', {style: style});
 // Then mount the card element to the HTML id #card-element to use in template
 card.mount('#card-element');
 
-// Stripe - Event Listener on 'card'
-// Handle realtime validation errors on the card element
-//
+
+/*
+Stripe - Event Listener on 'card'
+Handle realtime validation errors on the card element
+*/
+
 // Adding listener on the card element
-// Checking if any errors
-// If error, display error message under the card field
 card.addEventListener('change', function (event) {
+    // Checking if any errors
     var errorDiv = document.getElementById('card-errors');
+    // If error
     if (event.error) {
+        // Display error message under the card field
         var html = `
             <span role="alert" uk-icon="icon: warning"></span>
             <span class="uk-text-small">${event.error.message}</span>`;
@@ -56,9 +58,10 @@ card.addEventListener('change', function (event) {
 });
 
 
+/*
+Stripe - Submit Event Listener on 'form'
+*/
 
-// Stripe - Submit Event Listener on 'form'
-//
 // Get form element
 var form = document.getElementById('payment-form');
 // Add event listener on submit
@@ -81,10 +84,9 @@ form.addEventListener('submit', function(ev) {
     };
     // Save new url, cache_checkout_data function in views.py
     var url = '/checkout/cache_checkout_data/';
-
     // Then posting postData to new view using $.jQuery
-    // But only if payment intent was conirmed and updated before, using .done
-    // and call-back function
+    // But only if payment intent was confirmed and updated before
+    // using .done and call-back function
     $.post(url, postData).done(function () {
         // Executing .confirmCardPayment method in the call-back function
         // with required payment intent info that is saved in var form above
@@ -122,8 +124,10 @@ form.addEventListener('submit', function(ev) {
             },
         // Then execute function based on result
         }).then(function(result) {
-            // If result or reply from Stripe is an error response
-            // display error message under the card field
+            /*
+            If result or reply from Stripe is an error response
+            display error message under the card field
+            */
             if (result.error) {
                 var errorDiv = document.getElementById('card-errors');
                 var html = `
@@ -134,12 +138,12 @@ form.addEventListener('submit', function(ev) {
                 $('#loading-overlay').fadeToggle(100);  // Loading spinner
                 // And re-enable card element
                 card.update({ 'disabled': false});
-                // and submit button to allow user to fix issue
+                // And submit button to allow user to fix issue
                 $('#submit-button').attr('disabled', false);
-            // Otherwise if the response from Stripe is positive we submit the form
+            // If the response from Stripe is positive submit the form
             } else {
                 if (result.paymentIntent.status === 'succeeded') {
-                    form.submit();  // Comment out this line for testing purposes
+                    form.submit();  // Comment out this line when testing
                 }
             }
         });
@@ -147,5 +151,5 @@ form.addEventListener('submit', function(ev) {
     }).fail(function () {
         // Reloading the page, and the error will be in django messages
         location.reload();
-    })
+    });
 });

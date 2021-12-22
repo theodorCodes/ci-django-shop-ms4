@@ -15,14 +15,17 @@ import time
 class StripeWH_Handler:
     """ Handle Stripe webhooks """
 
-    # Access attributes from Stripe requests
+
     def __init__(self, request):
+        """ Access attributes from Stripe requests """
         self.request = request
 
 
-    # Order confirmation email method, use case only within this class
     def _send_confirmation_email(self, order):
-        """Send the user a confirmation email"""
+        """
+        Send the user a confirmation email
+        Use case only within this class
+        """
         # Save email from order
         cust_email = order.email
         # Use imported render_to_string method and info form settings
@@ -42,8 +45,8 @@ class StripeWH_Handler:
         )
 
 
-    """ Handle a generic/unknown/unexpected webhook event """
     def handle_event(self, event):
+        """ Handle a generic/unknown/unexpected webhook event """
         return HttpResponse(
             content=f'Unhandled webhook received: {event["type"]}',
             status=200)
@@ -52,10 +55,8 @@ class StripeWH_Handler:
     def handle_payment_intent_succeeded(self, event):
         """
         Handle the payment_intent.succeeded webhook from Stripe
+        Will be sent each time a user completes a payment process
         """
-        # Handle payment intent succeeded webhook from Stripe
-        # Will be sent each time a user completes a payment process
-
         # Save ent.data.object payment intent key in intent
         intent = event.data.object
         # TEST print intent
@@ -125,7 +126,7 @@ class StripeWH_Handler:
                 # increment attempt + 1
                 attempt += 1
                 # and use Pythons time module to snooze for one second
-                # This will in effect cause the webhook handler 
+                # This will in effect cause the webhook handler
                 # to try to find the order five times over five seconds
                 # before giving up and creating the order itself.
                 time.sleep(1)
@@ -135,7 +136,8 @@ class StripeWH_Handler:
             self._send_confirmation_email(order)
             # And return 200 response
             return HttpResponse(
-                content=f'Webhook received: {event["type"]} | SUCCESS: Verified order already in database',
+                content=f'Webhook received: \
+                  {event["type"]} | SUCCESS: Verified order already in database',
                 status=200)
         # If if does not exist, set order to none and create order without form
         else:
@@ -187,7 +189,8 @@ class StripeWH_Handler:
         # Order confirmation email with above email function
         self._send_confirmation_email(order)
         return HttpResponse(
-            content=f'Webhook received: {event["type"]} | SUCCESS: Created order in webhook',
+            content=f'Webhook received: \
+              {event["type"]} | SUCCESS: Created order in webhook',
             status=200)
 
 

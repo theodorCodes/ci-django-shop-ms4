@@ -2,90 +2,91 @@
 {% load static %}
 
 {% block content %}
-<!-- Content wrapper -->
-<div class="uk-container uk-container-medium">
-  <!-- Page title -->
-  <h1 class="uk-heading-line uk-text-center uk-margin-medium-bottom">
-    <span>Product Management</span>
-  </h1>
-  <div class="uk-flex uk-flex-center uk-child-width-expand@s" uk-grid>
-    <!-- Cart info -->
-    <div class="uk-width-1-2@m">
-      <div class="uk-card uk-card-default uk-card-body">
-        <p>Edit a Product</p>
-        <form method="POST" action="{% url 'edit_product' product.id %}" enctype="multipart/form-data">
-          {% csrf_token %}
-          <!-- Admin access -->
-          {% if request.user.is_superuser %}
-            <!-- If custom product, hide cateogry price and image_url -->
-            {% if product.category.name == 'custom_product' %}
-              <!-- Admin editable custom product fields -->
-              <div class="uk-margin">
-                {{ form.type|as_crispy_field }}
-                {{ form.format|as_crispy_field }}
-                {{ form.created_by|as_crispy_field }}
-                {{ form.sku|as_crispy_field }}
-                {{ form.name|as_crispy_field }}
-                {{ form.description|as_crispy_field }}
-                {{ form.image|as_crispy_field }}
-              </div>
-              <!-- Present even when hidden to avoid empty field values -->
-              <div class="uk-margin uk-hidden">
-                {{ form.category|as_crispy_field }}
-                {{ form.has_sizes|as_crispy_field }}
-                {{ form.price|as_crispy_field }}
-                {{ form.rating|as_crispy_field }}
-                {{ form.image_url|as_crispy_field }}
-              </div>
-            {% else %}
-              <!-- Else if product from collection show all editable fields -->
-              <div class="uk-margin">
-                {{ form.category|as_crispy_field }}
-                {{ form.sku|as_crispy_field }}
-                {{ form.name|as_crispy_field }}
-                {{ form.description|as_crispy_field }}
-                {{ form.has_sizes|as_crispy_field }}
-                {{ form.price|as_crispy_field }}
-                {{ form.rating|as_crispy_field }}
-                {{ form.image_url|as_crispy_field }}
-                {{ form.image|as_crispy_field }}
-              </div>
-              <div class="uk-margin uk-hidden">
-                {{ form.type|as_crispy_field }}
-                {{ form.format|as_crispy_field }}
-              </div>
-            {% endif %}
-          <!-- User access when product is 'custom product' -->
-          {% else %}
-            {% if user.is_authenticated %}
+  <!-- Content wrapper -->
+  <div class="uk-container uk-container-medium">
+    <!-- Page title -->
+    <h1 class="uk-heading-line uk-text-center uk-margin-medium-bottom">
+      <span>Product Management</span>
+    </h1>
+    <div class="uk-flex uk-flex-center uk-child-width-expand@s" uk-grid>
+      <!-- Cart info -->
+      <div class="uk-width-1-2@m">
+        <div class="uk-card uk-card-default uk-card-body">
+          <p>Edit a Product</p>
+          <form method="POST" action="{% url 'edit_product' product.id %}" enctype="multipart/form-data">
+            {% csrf_token %}
+            <!-- Admin access -->
+            {% if request.user.is_superuser %}
+              <!-- If custom product, hide cateogry price and image_url -->
               {% if product.category.name == 'custom_product' %}
-                <!-- User editable custom product fields -->
+                <!-- Admin editable custom product fields -->
                 <div class="uk-margin">
                   {{ form.type|as_crispy_field }}
                   {{ form.format|as_crispy_field }}
+                  {{ form.created_by|as_crispy_field }}
+                  {{ form.sku|as_crispy_field }}
+                  {{ form.name|as_crispy_field }}
                   {{ form.description|as_crispy_field }}
                   {{ form.image|as_crispy_field }}
                 </div>
                 <!-- Present even when hidden to avoid empty field values -->
                 <div class="uk-margin uk-hidden">
                   {{ form.category|as_crispy_field }}
-                  {{ form.created_by|as_crispy_field }}
-                  {{ form.sku|as_crispy_field }}
-                  {{ form.name|as_crispy_field }}
                   {{ form.has_sizes|as_crispy_field }}
                   {{ form.price|as_crispy_field }}
                   {{ form.rating|as_crispy_field }}
                   {{ form.image_url|as_crispy_field }}
                 </div>
+              {% else %}
+                <!-- Else if product from collection show all editable fields -->
+                <div class="uk-margin">
+                  {{ form.category|as_crispy_field }}
+                  {{ form.sku|as_crispy_field }}
+                  {{ form.name|as_crispy_field }}
+                  {{ form.description|as_crispy_field }}
+                  {{ form.has_sizes|as_crispy_field }}
+                  {{ form.price|as_crispy_field }}
+                  {{ form.rating|as_crispy_field }}
+                  {{ form.image_url|as_crispy_field }}
+                  {{ form.image|as_crispy_field }}
+                </div>
+                <div class="uk-margin uk-hidden">
+                  {{ form.type|as_crispy_field }}
+                  {{ form.format|as_crispy_field }}
+                </div>
+              {% endif %}
+            <!-- User access when product is 'custom product' -->
+            {% else %}
+              {% if user.is_authenticated %}
+                {% if product.category.name == 'custom_product' %}
+                  <!-- User editable custom product fields -->
+                  <div class="uk-margin">
+                    {{ form.type|as_crispy_field }}
+                    {{ form.format|as_crispy_field }}
+                    {{ form.description|as_crispy_field }}
+                    {{ form.image|as_crispy_field }}
+                  </div>
+                  <!-- Present even when hidden to avoid empty field values -->
+                  <div class="uk-margin uk-hidden">
+                    {{ form.category|as_crispy_field }}
+                    {{ form.created_by|as_crispy_field }}
+                    {{ form.sku|as_crispy_field }}
+                    {{ form.name|as_crispy_field }}
+                    {{ form.has_sizes|as_crispy_field }}
+                    {{ form.price|as_crispy_field }}
+                    {{ form.rating|as_crispy_field }}
+                    {{ form.image_url|as_crispy_field }}
+                  </div>
+                {% endif %}
               {% endif %}
             {% endif %}
-          {% endif %}
-          <hr class="uk-margin">
-          <div class="uk-text-right uk-margin-top">
-            <a class="uk-button uk-button-default uk-border-pill" href="{% url 'products' %}">Cancel</a>
-            <button class="uk-button uk-button-primary uk-border-pill" type="submit">Update Product</button>
-          </div>
-        </form>
+            <hr class="uk-margin">
+            <div class="uk-text-right uk-margin-top">
+              <a class="uk-button uk-button-default uk-border-pill" href="{% url 'products' %}">Cancel</a>
+              <button class="uk-button uk-button-primary uk-border-pill" type="submit">Update Product</button>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
   </div>
@@ -94,7 +95,7 @@
 <!-- Notifying the user of what the image will be changed to -->
 {% block postloadjs %}
     {{ block.super }}
-    <script type="text/javascript">
+    <script>
         // Listen to change event on #new-image
         $('#new-image').change(function() {
             // Store new file in variable file

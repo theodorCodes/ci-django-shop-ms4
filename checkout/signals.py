@@ -9,7 +9,6 @@ from django.dispatch import receiver
 from .models import OrderLineItem
 
 
-
 # Using decorator to signal when products have been saved to call update total
 @receiver(post_save, sender=OrderLineItem)
 def update_on_save(sender, instance, created, **kwargs):
@@ -17,7 +16,6 @@ def update_on_save(sender, instance, created, **kwargs):
     Update order total on lineitem update/create
     """
     instance.order.update_total()
-
 
 
 # Using decorator to signal when products have been deleted to call update total

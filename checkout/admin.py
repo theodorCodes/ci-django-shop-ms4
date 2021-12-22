@@ -1,6 +1,5 @@
 from django.contrib import admin
-# Import OrderLineItem model
-from .models import Order, OrderLineItem
+from .models import Order, OrderLineItem  # Import OrderLineItem model
 
 
 # Allows to add and edit items on the same page
@@ -44,12 +43,12 @@ class OrderAdmin(admin.ModelAdmin):
         # 'stripe_pid',
     )
 
-    # Specify or limit visible fields under Checkout > Orders
+    # Specify or limit visible fields under Checkout/Orders
     list_display = ('order_number', 'date', 'full_name',
                     'order_total', 'delivery_cost',
                     'grand_total',)
 
-    # Set orders to be ordered chronologically by date - newest on top
+    # Set orders to be ordered chronologically by date, newest on top
     ordering = ('-date',)
 
 # Register Order and OrderAdmin in Django admin

@@ -1,10 +1,11 @@
 # Added redirect, reverse and get product, and HttpResponse for card payment
-from django.shortcuts import render, redirect, reverse, get_object_or_404, HttpResponse
+from django.shortcuts import render, redirect, reverse, \
+        get_object_or_404, HttpResponse
 from django.views.decorators.http import require_POST  # Import for card payment
 from django.contrib import messages  # Import messages
 from django.conf import settings  # Import settings to use with Stripe
 from .forms import OrderForm  # Import order form
-from .models import Order, OrderLineItem  # Import Order, OrderLineItem from this app
+from .models import Order, OrderLineItem  # Import Order, OrderLineItem
 from products.models import Product  # Import Product from product model
 from profiles.models import UserProfile  # Import from profile model
 from profiles.forms import UserProfileForm  # Import profile form
@@ -41,9 +42,8 @@ def cache_checkout_data(request):
         return HttpResponse(content=e, status=400)
 
 
-
-# Checkout view - payment process
 def checkout(request):
+    """ Checkout view and payment process """
     # Get Stripe keys referenced in settings
     stripe_public_key = settings.STRIPE_PUBLIC_KEY
     stripe_secret_key = settings.STRIPE_SECRET_KEY
@@ -53,7 +53,8 @@ def checkout(request):
     if request.method == 'POST':
         # Get shopping bag items
         bag = request.session.get('bag', {})
-        # Manually put data from form into form_data dictionary, to skip infobox
+        # Manually put data from form into form_data dictionary
+        # to skip infobox
         form_data = {
             'full_name': request.POST['full_name'],
             'email': request.POST['email'],
@@ -125,13 +126,14 @@ def checkout(request):
                 Please double check your information.')
     # In case method is not POST
     else:
-        ## Stripe payment intent without POST data
+        # Stripe payment intent without POST data
         # Get bag saved in session
         bag = request.session.get('bag', {})
         if not bag:
             # Response message when bag is empty
             messages.error(request, "There's nothing in your bag at the moment")
-            # Redirect to products template, prevents manual url access to /checkout
+            # Redirect to products template,
+            # prevents manual url access to /checkout
             return redirect(reverse('products'))
 
         # Stripe
@@ -139,7 +141,8 @@ def checkout(request):
         current_bag = bag_contents(request)
         # And get grand_total from current_bag
         total = current_bag['grand_total']
-        # Then multiply total by 100 and round it to zero decimal to produce integer
+        # Then multiply total by 100 and round it to zero decimal
+        # to produce integer
         stripe_total = round(total * 100)
         # Set secret key on Stripe
         stripe.api_key = stripe_secret_key
@@ -196,9 +199,8 @@ def checkout(request):
     return render(request, template, context)
 
 
-
-# Checkout success view
 def checkout_success(request, order_number):
+    """ Checkout success view """
     # Save user intent to save_info from session saved above
     save_info = request.session.get('save_info')
     # Get order number

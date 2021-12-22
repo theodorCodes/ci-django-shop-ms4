@@ -5,9 +5,9 @@ from django.views.decorators.csrf import csrf_exempt  # Exempts when no csrf
 from checkout.webhook_handler import StripeWH_Handler  # Get webhook class
 import stripe  # Imports Stripe
 
+
 @require_POST  # Using imported decorator above to require POST requests
 @csrf_exempt  # Using imported decorator above to make exemptions when no csrf
-
 def webhook(request):
     """Listen for webhooks from Stripe"""
     # Setup credentials from settings.py
@@ -20,9 +20,7 @@ def webhook(request):
     event = None
 
     try:
-        event = stripe.Webhook.construct_event(
-        payload, sig_header, wh_secret
-        )
+        event = stripe.Webhook.construct_event(payload, sig_header, wh_secret)
     except ValueError as e:
         # Invalid payload
         return HttpResponse(status=400)

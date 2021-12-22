@@ -1,19 +1,21 @@
 from django import forms  # Import forms
-from .widgets import CustomClearableFileInput  # Import widget with custom classes
-from .models import Product, Category, Type, Format  # Import product and category model
+from .widgets import CustomClearableFileInput  # Import widget with custom class
+from .models import Product, Category, Type, Format
 
 
-# Product form for custom and non custom products
 class ProductForm(forms.ModelForm):
+    """ Product form for custom and non custom products """
     class Meta:
         model = Product  # Model
         fields = '__all__'  # Fields to include
 
     # Replacing image field on form, utilizing widget with custom classes
-    image = forms.ImageField(label='Image', required=False, widget=CustomClearableFileInput)
+    image = forms.ImageField(label='Image',
+            required=False, widget=CustomClearableFileInput)
 
-    # Overriding init method
+
     def __init__(self, *args, **kwargs):
+        """ Overriding init method """
         super().__init__(*args, **kwargs)
 
         # Get specific 'custom_product' category, types and formats

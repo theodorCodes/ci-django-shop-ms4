@@ -24,11 +24,12 @@ def profile(request):
             form.save()
             messages.success(request, 'Profile updated successfully')
         else:
-            messages.error(request, 'Update failed. Please ensure the form is valid.')
+            messages.error(request, 'Update failed.\
+              Please ensure the form is valid.')
     else:
         # Populate form variable with user's current profile information
         form = UserProfileForm(instance=profile)
-    # Return the profile with the order, 
+    # Return the profile with the order,
     # instead of adding user profile to context
     orders = profile.orders.all()
 
@@ -43,7 +44,6 @@ def profile(request):
     }
     # Render this in profile.html template
     return render(request, template, context)
-
 
 
 @login_required
@@ -64,7 +64,6 @@ def profile_custom_products(request):
     return render(request, template, context)
 
 
-
 @login_required
 def profile_custom_orders(request):
     """ Display users purchases """
@@ -81,7 +80,7 @@ def profile_custom_orders(request):
     else:
         # Populate form variable with user's current profile information
         form = UserProfileForm(instance=profile)
-    # Return the profile with the order, 
+    # Return the profile with the order,
     # instead of adding user profile to context
     orders = profile.orders.all()
     # Store template
@@ -96,9 +95,8 @@ def profile_custom_orders(request):
     return render(request, template, context)
 
 
-
-# for order history in profile.html
 def order_history(request, order_number):
+    """ Order history for each profile """
     # Get order
     order = get_object_or_404(Order, order_number=order_number)
     # Response message

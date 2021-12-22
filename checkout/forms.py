@@ -1,7 +1,5 @@
-# Customize Django (checkout) Form
 from django import forms  # Import forms from Django
 from .models import Order  # Import order model
-
 
 
 # Create order form class
@@ -48,7 +46,7 @@ class OrderForm(forms.ModelForm):
                     placeholder = placeholders[field]
                 # Set all fields to their placehoders as set in 'placeholders'
                 self.fields[field].widget.attrs['placeholder'] = placeholder
-            # Set HTML class to use with custom css styling
-            self.fields[field].widget.attrs['class'] = 'stripe-style-input'  # see css in checkout.css
+            # Set HTML class to use with custom css styling in checkout.css
+            self.fields[field].widget.attrs['class'] = 'stripe-style-input'
             # Remove default form field labels
             self.fields[field].label = False

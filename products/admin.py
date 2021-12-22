@@ -3,9 +3,8 @@ from django.contrib import admin
 from .models import Product, Category, Format, Type
 
 
-# Register your models here.
-# Create 'ProductAdmin' class
 class ProductAdmin(admin.ModelAdmin):
+    """ Create 'ProductAdmin' class """
     # to display all 'list_display' items as described below
     # in the same row under 'Products' in admin
     # By default Django list only the first item
@@ -24,8 +23,8 @@ class ProductAdmin(admin.ModelAdmin):
     )
 
 
-# Create 'CategoryAdmin' class
 class CategoryAdmin(admin.ModelAdmin):
+    """ Create 'CategoryAdmin' class """
     # to display both in one row,
     # 'friendly name' and 'name' from model in admin under 'Categories'
     # By default Django lists only the 'name'
@@ -35,8 +34,8 @@ class CategoryAdmin(admin.ModelAdmin):
     )
 
 
-# Create 'TypeAdmin' class
 class TypeAdmin(admin.ModelAdmin):
+    """ Create 'TypeAdmin' class """
     # to display both in one row,
     # 'friendly name' and 'name' from model in admin under 'Categories'
     # By default Django lists only the 'name'
@@ -46,8 +45,8 @@ class TypeAdmin(admin.ModelAdmin):
     )
 
 
-# Create 'FormatAdmin' class
 class FormatAdmin(admin.ModelAdmin):
+    """ Create 'FormatAdmin' class """
     # to display both in one row,
     # 'friendly name' and 'name' from model in admin under 'Categories'
     # By default Django lists only the 'name'

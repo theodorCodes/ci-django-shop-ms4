@@ -2,47 +2,48 @@
 {% load static %}
 
 {% block content %}
-<!-- Content wrapper -->
-<div class="uk-container uk-container-medium">
-  <!-- Page title -->
-  <h1 class="uk-heading-line uk-text-center uk-margin-medium-bottom">
-    <span>Add Product</span>
-  </h1>
-  <div class="uk-flex uk-flex-center uk-child-width-expand@s" uk-grid>
-    <!-- Cart info -->
-    <div class="uk-width-1-2@m">
-      <div class="uk-card uk-card-default uk-card-body">
-        <p>Add a Product</p>
-        <p class="uk-text-small">
-          <strong>Custom Products</strong> are only visible to Admin 
-          or the "creator" itself,<br>
-          and are not listed in the catalog!<br>
-          Please choose another product than "Custom Product".
-        </p>
-        <form method="POST" action="{% url 'add_product' %}" enctype="multipart/form-data">
-          {% csrf_token %}
-          <!-- User input fields -->
-          <div class="uk-margin">
-            {{ form.category|as_crispy_field }}
-            {{ form.name|as_crispy_field }}
-            {{ form.description|as_crispy_field }}
-            {{ form.sku|as_crispy_field }}
-            {{ form.price|as_crispy_field }}
-            {{ form.rating|as_crispy_field }}
-            {{ form.image|as_crispy_field }}
-          </div>
-          <!-- Required but hidden crispy fields -->
-          <div class="uk-margin uk-hidden">
-            {{ form.type|as_crispy_field }}
-            {{ form.format|as_crispy_field }}
-            {{ form.created_by|as_crispy_field }}
-          </div>
-          <hr class="uk-margin">
-          <div class="uk-text-right uk-margin-top">
-            <a class="uk-button uk-button-default uk-border-pill" href="{% url 'products' %}">Cancel</a>
-            <button class="uk-button uk-button-primary uk-border-pill" type="submit">Add Product</button>
-          </div>
-        </form>
+  <!-- Content wrapper -->
+  <div class="uk-container uk-container-medium">
+    <!-- Page title -->
+    <h1 class="uk-heading-line uk-text-center uk-margin-medium-bottom">
+      <span>Add Product</span>
+    </h1>
+    <div class="uk-flex uk-flex-center uk-child-width-expand@s" uk-grid>
+      <!-- Cart info -->
+      <div class="uk-width-1-2@m">
+        <div class="uk-card uk-card-default uk-card-body">
+          <p>Add a Product</p>
+          <p class="uk-text-small">
+            <strong>Custom Products</strong> are only visible to Admin 
+            or the "creator" itself,<br>
+            and are not listed in the catalog!<br>
+            Please choose another product than "Custom Product".
+          </p>
+          <form method="POST" action="{% url 'add_product' %}" enctype="multipart/form-data">
+            {% csrf_token %}
+            <!-- User input fields -->
+            <div class="uk-margin">
+              {{ form.category|as_crispy_field }}
+              {{ form.name|as_crispy_field }}
+              {{ form.description|as_crispy_field }}
+              {{ form.sku|as_crispy_field }}
+              {{ form.price|as_crispy_field }}
+              {{ form.rating|as_crispy_field }}
+              {{ form.image|as_crispy_field }}
+            </div>
+            <!-- Required but hidden crispy fields -->
+            <div class="uk-margin uk-hidden">
+              {{ form.type|as_crispy_field }}
+              {{ form.format|as_crispy_field }}
+              {{ form.created_by|as_crispy_field }}
+            </div>
+            <hr class="uk-margin">
+            <div class="uk-text-right uk-margin-top">
+              <a class="uk-button uk-button-default uk-border-pill" href="{% url 'products' %}">Cancel</a>
+              <button class="uk-button uk-button-primary uk-border-pill" type="submit">Add Product</button>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
   </div>
@@ -51,7 +52,7 @@
 <!-- Notifying the user of what the image will be changed to -->
 {% block postloadjs %}
     {{ block.super }}
-    <script type="text/javascript">
+    <script>
         // Listen to change event on #new-image
         $('#new-image').change(function() {
           // Store new file in variable file

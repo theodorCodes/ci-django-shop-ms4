@@ -1,72 +1,70 @@
-from django.shortcuts import render, redirect, reverse, HttpResponse, get_object_or_404
-# N1) Required for notifications
-from django.contrib import messages
-from products.models import Product
+from django.shortcuts import render, redirect, reverse, \
+    HttpResponse, get_object_or_404
+from django.contrib import messages  # Import for messages
+from products.models import Product  # Import products
 
 
-# Renders bag view
 def view_bag(request):
-    """ Show bag page """
-
+    """ Render bag template """
     return render(request, 'bag/bag.html')
 
-# Creates add to bag session, submitting with item_id info
+
 def add_to_bag(request, item_id):
-    """ Add product and quantity to the shopping bag """
-
-    # N2) Get product for notifications
+    """
+      Updates bag items in session,
+      by adding product and quantity to the shopping bag
+    """
+    # Get product where primary key is item_id
     product = Product.objects.get(pk=item_id)
-
-    # B1 Once submitted, from form:
-    # Get and store quantity
-    # Get and store redirect_url
+    # Save quantity as integer values
     quantity = int(request.POST.get('quantity'))
+    # Get redirect url
     redirect_url = request.POST.get('redirect_url')
-
-    # S1 Create size variable with None value
+    # Create size variable and set to None value
     size = None
-    # S2 then get product_size if available from product_detail.html
-    # and store it in size variable
+    # If product_size available from product_detail.html store it in size
     if 'product_size' in request.POST:
         size = request.POST['product_size']
 
-    # B2 Get bag items from session created in contexts.py, or create
+    # Get bag items from session, see contexts.py, or create {} empty dict
     bag = request.session.get('bag', {})
 
-    # S3
-    # If size or format is available and
+    # If size or (print format) available and
     # if item is in the bag and
     # if another another item with the same id is in the bag
     # increment quantity
-    # else set current quantity to bag that has size
-    # with success message
-    # else add to bag as dictionary with the key of items_by_size.
     if size:
         if item_id in list(bag.keys()):
             if size in bag[item_id]['items_by_size'].keys():
                 bag[item_id]['items_by_size'][size] += quantity
-                messages.success(request, f'Updated format {size.upper()} {product.name} quantity to {bag[item_id]["items_by_size"][size]}')
+                messages.success(request, f'Updated format {size.upper()} \
+                    {product.name} quantity to \
+                    {bag[item_id]["items_by_size"][size]}')
+            # Else set current quantity to bag that has size
+            # with success message
             else:
                 bag[item_id]['items_by_size'][size] = quantity
-                messages.success(request, f'Added format {size.upper()} {product.name} to your bag')
+                messages.success(request, f'Added format {size.upper()} \
+                    {product.name} to your bag')
+        # Else add to bag as dictionary with the key of items_by_size.
         else:
             bag[item_id] = {'items_by_size': {size: quantity}}
-            messages.success(request, f'Added format {size.upper()} {product.name} to your bag')
-    # B3
-    # if no size then just add quantity
+            messages.success(request, f'Added format {size.upper()} \
+                {product.name} to your bag')
+    # If no size then just add quantity
     else:
-        # B3
         if item_id in list(bag.keys()):
             # Update the quantity
             bag[item_id] += quantity
-            messages.success(request, f'Updated {product.name} quantity to {bag[item_id]}')
+            messages.success(request, f'Updated {product.name} quantity to \
+                {bag[item_id]}')
         else:
             # Add item to 'bag'
             bag[item_id] = quantity
-            # N3) TEST MESSAGE
+            # Test this message
             messages.success(request, f'Added {product.name} to your bag')
 
-    # B4 Then overwrite session with updated bag info
+    # Then overwrite session with updated bag info
     request.session['bag'] = bag
 
     # TEST output of content stored in 'bag' session
@@ -74,123 +72,106 @@ def add_to_bag(request, item_id):
     # Outputs: {'2': 1}
     # Which translates to item_id '2' with quantity of 1
 
-    # B5 Redirect user back to redirect_url
+    # And redirect user back to redirect_url
     return redirect(redirect_url)
 
 
-
-# Adjust bag items
-# It still takes the request and item id as parameters.
 def adjust_bag(request, item_id):
     """ Adjust the quantity of the specified product to the shopping amount """
-
+    # Get product by item id
     product = get_object_or_404(Product, pk=item_id)
-
-    # And the entire top portion
-    # will be the same except we don't need the redirect URL since we'll always want
-    # to redirect back to the shopping bag page.
+    # Save quantity from shopping bag form as string value
     quantity = int(request.POST.get('quantity'))
-    # redirect_url = request.POST.get('redirect_url')
+    # Set size to None
     size = None
+    # If product has size save it in size variable
     if 'product_size' in request.POST:
         size = request.POST['product_size']
+
+    # Get bag items or save empty dict {} in bag variable
     bag = request.session.get('bag', {})
 
+    # If there's a size and if quantity greater zero,
+    # drill into the items by size dictionary, and find that specific size
+    # and either set its quantity to the updated one
+    # or remove it if the quantity submitted is zero.
     if size:
-        # Remember that this is coming from a form on the shopping bag page which will
-        # contain the new quantity the user wants in the bag. 
-        # So the basic idea here is that if quantity is greater than zero 
         if quantity > 0:
-            # we'll want to set the items quantity accordingly 
+            # Set size for bag items with size equals quantity
             bag[item_id]['items_by_size'][size] = quantity
-            # response message
-            messages.success(request, f'Updated format {size.upper()} {product.name} quantity to {bag[item_id]["items_by_size"][size]}')
+            # Response message
+            messages.success(request, f'Updated format {size.upper()} \
+                {product.name} quantity to \
+                {bag[item_id]["items_by_size"][size]}')
         else:
-            # and otherwise we'll just remove the item.
+            # If item has no size, remove the item.
             del bag[item_id]['items_by_size'][size]
             if not bag[item_id]['items_by_size']:
                 bag.pop(item_id)
-            # response message
-            messages.success(request, f'Removed format {size.upper()} {product.name} from your bag')
-
-    # Summary to aboves if statement:        
-    # If there's a size. Of course we'll need to drill into the
-    # items by size dictionary, find that specific size and either set its
-    # quantity to the updated one or remove it if the quantity submitted is zero.
-
-    # Summary to below else statement:
-    # If there's no size that logic is quite simple and we can remove the item
-    # entirely by using the pop function.
+            # Response message
+            messages.success(request, f'Removed format {size.upper()} \
+                {product.name} from your bag')
+    # If there's no size, remove the item entirely by using the pop function.
     else:
         if quantity > 0:
             bag[item_id] = quantity
-            # response message
-            messages.success(request, f'Updated {product.name} quantity to {bag[item_id]}')
+            # Response message
+            messages.success(request, f'Updated {product.name} quantity to \
+                {bag[item_id]}')
         else:
             bag.pop(item_id)
-            # response message
+            # Response message
             messages.success(request, f'Removed {product.name} from your bag')
-    # These two operations are basically the same.
-    # They just need to be handled differently due to the more complex structure of the
-    # bag for items that have sizes.
 
+    # Then overwrite session with updated bag info
     request.session['bag'] = bag
-    # With that finished we just need to redirect back
-    # to the view bag URL. And I'll use the reverse function to do that.
-    # Importing it here at the top, see TOP
+
+    # Redirect back to the view bag URL.
+    # Using the Django reverse function to do that.
     return redirect(reverse('view_bag'))
 
 
-
-# Remove bag item
-# change name to remove_from_bag
 def remove_from_bag(request, item_id):
     """ Remove the item from the shopping bag """
-
     try:
-        # adding product here
+        # Get product by item id
         product = get_object_or_404(Product, pk=item_id)
-
-        # We don't need the quantity in this view since the intended quantity is zero.
-        ## quantity = int(request.POST.get('quantity'))
-        # Now if the user is removing a product with sizes.
-        # We want to remove only the specific size they requested.
-        # So if size is in request.post, such as in *a) and in *b)
-        # We'll want to delete that size key in the items by size dictionary at *c).
+        # Set size to None
         size = None
+        # If size available save it to size variable
         if 'product_size' in request.POST:
-            # v-- *a)
             size = request.POST['product_size']
+
+        # Get bag items or save empty dict {} in bag variable
         bag = request.session.get('bag', {})
 
-        #  v-- *b)
+        # If size available
         if size:
-            #                                 v-- *c)
+            # Delete the size info first
             del bag[item_id]['items_by_size'][size]
-            # Also if that's the only size they had in the bag.
-            # In other words, if the items by size dictionary is now empty which will evaluate to false.
+            # Then if bag item has no item by size
             if not bag[item_id]['items_by_size']:
-                # We might as well remove the entire item id so we don't end up with an empty items
-                # by size dictionary hanging around.
+                # Delete item from list using pop()
                 bag.pop(item_id)
-                # We should also do this in the adjust bag view if the quantity is set to zero.
+                # We should also do this in the adjust bag view
+                # if the quantity is set to zero.
                 # See *d)
-            # response message
-            messages.success(request, f'Removed format {size.upper()} {product.name} from your bag')
+            # Response message
+            messages.success(request, f'Removed format {size.upper()} \
+                {product.name} from your bag')
         else:
-            # If there is no size. Again removing the item is as simple as popping it out of the bag.
-            bag.pop(item_id)  ## TYPO HERE! change from: [item_id] to: (item_id) 
-            # response message
+            # If bag item has no item by size, delete using pop()
+            bag.pop(item_id)
+            # Response message
             messages.success(request, f'Removed {product.name} from your bag')
 
+        # Then overwrite session with updated bag info
         request.session['bag'] = bag
-        # Finally instead of returning a redirect.
-        ## return redirect reverse 'view_bag'
-        # Because this view will be posted to from a JavaScript function.
-        # We want to return an actual 200 HTTP response.
-        # Implying that the item was successfully removed.
+
+        # And return positive Http response
         return HttpResponse(status=200)
     except Exception as e:
-        # response message
+        # If something during this process does go wrong
+        # Response message
         messages.error(request, f'Error removing item: {e}')
         return HttpResponse(status=500)
