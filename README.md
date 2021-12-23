@@ -1366,7 +1366,7 @@ Now click on the **bucket name** in the list of Buckets.
 
 ### Permission and Policy
 
-Now in the Permission tab need to make a few changes.
+Now in the Permission tab we need to make a few changes.
 
 1.   Click on the "**Permission**" tab.
 
@@ -2277,4 +2277,5 @@ A huge thank you to the Stack Overflow community in general, where I found a lot
 A big thank you as well to the **Unsplash** community, where I got the images that you see on the site to make it bright and colourful.
 
 [back to top](#table-of-contents)
+
 
