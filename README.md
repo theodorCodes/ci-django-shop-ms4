@@ -989,7 +989,7 @@ Once saved, your application should work as before, using your local database. A
 
 ### Web Server Setup
 
-Install unicorn, which will act as our webserver.
+Install Gunicorn, which will act as our webserver.
 
 In your Terminal and in your project root folder, run the following commands to install Gunicorn and update your requirements.txt file.
 
