@@ -659,7 +659,7 @@ pip3 freeze --local > requirements.txt
 
 ```
 
-Your requirements.txt file should have the two packages just install and look similar to this:
+Your requirements.txt file should have the two packages that we just installed and look similar to this:
 
 ```bash
 asgiref==3.4.1
@@ -2274,4 +2274,4 @@ A huge thank you to the Stack Overflow community in general, where I found a lot
 
 A big thank you as well to the **Unsplash** community, where I got the images that you see on the site to make it bright and colourful.
 
-[back to top](
+[back to top](#table-of-contents)
