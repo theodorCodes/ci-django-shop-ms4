@@ -1641,7 +1641,7 @@ and only want to allow full access to our new bucket and everything within it.
 
 6.   And click "Next: Tags" and click "Next: Review" and click "Create user" until you see the Success message.
 
-7.   Now I'll download the CSV file which will contain this users access key and secret access key,
+7.   Now we can download the CSV file which will contain this users access key and secret access key,
      which we'll use to authenticate them from our Django app.
 
 **It's very important you download and save this CSV**
