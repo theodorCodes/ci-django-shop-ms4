@@ -1167,7 +1167,7 @@ In the Heroku project panel :
 
 1.   Go to "Settings" tab.
 
-2.   Then find "Domains" section .
+2.   Then find the "Domains" section.
 
 3.   Copy the URL address and paste it into your browsers address bar.
 
