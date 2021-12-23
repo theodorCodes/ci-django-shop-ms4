@@ -1315,7 +1315,7 @@ Once you're in the Amazon S3 panel:
 
 1.   Click on the "**Create Bucket**" button.
 
-2.   Give it a Bucket name:   **ci-boutique-ado-bucket**
+2.   Give it a Bucket name:   **ci-django-shop-ms4**
 
 3.   Then select a region that is closest to you:    EU (Ireland) eu-west-1
 
@@ -1326,7 +1326,7 @@ Once you're in the Amazon S3 panel:
 
 6.   With that done I'll click "**Create bucket**".
 
-And our bucket is created: **Successfully created bucket "ci-boutique-ado-bucket"**.
+And our bucket is created: **Successfully created bucket "ci-django-shop-ms4"**.
 
 [back to top](#table-of-contents)
 
@@ -1537,7 +1537,7 @@ Go back to the services menu and find and open IAM.
 
 2.   Then click on the "Create group".
 
-3.   And in the "User group name" in the text field, enter a name for the access group: manage-boutique-ado.
+3.   And in the "User group name" in the text field, enter a name for the access group: manage-django-shop-ms4.
 
 4.   Then click "Create group".
 
@@ -1615,7 +1615,7 @@ and only want to allow full access to our new bucket and everything within it.
 
 ### Attache Policy to Group
 
-1.   On the left side menu, click on "User groups" and click on the group previously created: "manage-boutique-ado".
+1.   On the left side menu, click on "User groups" and click on the group previously created: "manage-django-shop-ms4".
 
 2.   then under the "Permissions" tab, on the right click on the "Add permissions" button and choose "Attach policies".
 
@@ -1631,13 +1631,13 @@ and only want to allow full access to our new bucket and everything within it.
 
 1.   On the left side menu, click on "Users" and then click on "Add users".
 
-2.   And give it a user name:   boutique-ado-staticfiles-user.
+2.   And give it a user name:   django-shop-ms4-staticfiles-user.
 
 3.   Then check the "Access key - Programmatic access".
 
 4.   Then click the "Next: Permissions" button.
 
-5.   Now, in the list "Add user to group" select the "manage-boutique-ado" group by clicking the checkbox.
+5.   Now, in the list "Add user to group" select the "manage-django-shop-ms4" group by clicking the checkbox.
 
 6.   And click "Next: Tags" and click "Next: Review" and click "Create user" until you see the Success message.
 
