@@ -26,11 +26,8 @@ You can visit the page right [here!](https://codeinstitute-django-shop-ms4.herok
   - [View of all tables created in Postgres](#view-of-all-tables-created-in-postgres)
   - [UX Design Choices](#ux-design-choices)
   - [Wireframes and Layout](#wireframes-and-layout)
-    - [Homepage](#homepage)
-    - [Catalog Page](#catalog-page)
-    - [Cart Page](#cart-page)
-    - [Checkout Page](#checkout-page)
-    - [Order Review Page](#order-review-page)
+    - [Homepage and catalog page](#homepage-and-catalog-page)
+    - [Order history page and checkout page](#order-history-page-and-checkout-page)
 - [Technologies Used](#technologies-used)
 - [Testing](#testing)
   - [Python Syntax Check](#python-syntax-check)
@@ -321,33 +318,16 @@ The application layout is fairly simple and consists of the navigation bar, off-
 
 
 
-#### Homepage
+#### Homepage and catalog page
 
-[image here]
-
-
-
-#### Catalog Page
-
-[image here]
+![ms4-wireframe-1](/static/images/ms4-wireframe-1.png)
 
 
 
-#### Cart Page
+#### Order history page and checkout page
 
-[image here]
+![ms4-wireframe-2](/static/images/ms4-wireframe-2.png)
 
-
-
-#### Checkout Page
-
-[image here]
-
-
-
-#### Order Review Page
-
-[image here]
 
 
 
