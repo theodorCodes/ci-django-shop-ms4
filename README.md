@@ -1,6 +1,6 @@
 *A site to sell graphic design services built with the Django full stack MVC framework, Postgres, and Stripe. This application allows site owners to manage and sell products as well as receive requests for custom-built products.*
 
-[image here]
+![ms3-screenshot](/static/images/ms4-screenshot.png)
 
 Users can make use of this site to browse through various categories to find an illustration or rendering that they can purchase and download without shipping costs, purchase physical goods such as art prints, where shipping costs may apply, or request custom-built products. This Django project is part of the Code Institute's milestone project 4.
 
