@@ -27,8 +27,11 @@ You can visit the page right [here!](https://codeinstitute-django-shop-ms4.herok
   - [View of all tables created in Postgres](#view-of-all-tables-created-in-postgres)
   - [UX Design Choices](#ux-design-choices)
   - [Wireframes and Layout](#wireframes-and-layout)
-    - [Homepage and User Profile Page](#homepage-and-user-profile-page)
-    - [Recipe Detail Page and Recipe Edit Page](#recipe-detail-page-and-recipe-edit-page)
+    - [Homepage](#homepage)
+    - [Catalog Page](#catalog-page)
+    - [Cart Page](#cart-page)
+    - [Checkout Page](#checkout-page)
+    - [Order Review Page](#order-review-page)
 - [Technologies Used](#technologies-used)
 - [Testing](#testing)
   - [Python Syntax Check](#python-syntax-check)
@@ -117,9 +120,11 @@ As part of a student project at Code Institute, I chose to write a Code Institut
 ### User Story and Goals
 
 #### External user's goal: 
+
 Users are able to browse, search, and purchase existing graphical designs or request custom-built products to address their needs. The user can fill out a form describing their needs, including fields such as type and format of the image, get an automatic quote, and then pay. If the user does not purchase the custom-built product, the custom product will be saved so that the user can come back later to further formulate the custom product and purchase the service when ready.
 
 #### Site owner's goal:
+
 The site owner can earn money by selling existing graphic designs in digital or physical form, as well as earning money for doing freelance design work. Logging in as a super user, the site owner can create and categorise new products. Information such as whether physical products need to be shipped out, or if custom orders require the site owner's skills to produce a custom product, is highlighted. Once the custom product is completed, the site owner can upload the image, making the image available to the user.
 
 [back to top](#table-of-contents)
@@ -327,17 +332,33 @@ The application layout is fairly simple and consists of the navigation bar, off-
 
 
 
-#### Homepage and User Profile Page
+#### Homepage
 
 [image here]
 
 
 
-#### Recipe Detail Page and Recipe Edit Page
+#### Catalog Page
 
 [image here]
 
 
+
+#### Cart Page
+
+[image here]
+
+
+
+#### Checkout Page
+
+[image here]
+
+
+
+#### Order Review Page
+
+[image here]
 
 
 
@@ -434,6 +455,7 @@ The complaints were mainly about the backticks used.
 ### Performance Test with Lighthouse
 
 For this test, the hosted version of this application on Heroku.com is being used.
+
 
 
 
@@ -535,6 +557,8 @@ python3 manage.py createsuperuser
 
 # Load your fixtures again
 python3 manage.py loaddata categories
+python3 manage.py loaddata types
+python3 manage.py loaddata formats
 
 # Load your other fixtures again
 python3 manage.py loaddata products
@@ -574,20 +598,10 @@ This JavaScript code in **base.html** triggers the modal notification that appea
 
 ## Django Deployment at Heroku
 
-A step by step guide to deploy this Django application on Heroku with Postgres as relational database and Gmail as SMTP server. 
+A step by step guide to deploy this Django application on Heroku with Postgres as relational database, AWS S3 for storage, Stripe as payment system and Gmail as SMTP server.
 
 The repository of this project is stored on **GitHub** and the site is deployed at **Heroku**. 
 Please visit the project website by clicking [here!](https://codeinstitute-django-shop-ms4.herokuapp.com/)
-
-Deployment procedure overview:
-
--   Setup new application at Heroku.com
--   Setup Postgres DB at Heroku
--   Prepare Django to use Postgres database
--   Amazon Web Services S3 to host our media and static files
--   Setup Gmail as SMTP server
-
-[back to top](#table-of-contents)
 
 
 
@@ -958,7 +972,6 @@ The .env file stores all the credentials and is listed in the **.gitignore** fil
 If you used sqlite3 before or would like to use sqlite3 in your new setting the new database setting would look like this:
 
 ```python
-
 if 'DATABASE_URL' in os.environ:
     # Use new Postgres database at Heroku
     DATABASES = {
@@ -1373,7 +1386,6 @@ Now in the Permission tab need to make a few changes.
 4.   and paste in the following info and click the "**Save changes**" button.
 
 ```bash
-
 [
   {
       "AllowedHeaders": [
@@ -1549,7 +1561,6 @@ Go back to the services menu and find and open IAM.
 7.   Then search for "s3" in the search field and choose the "AmazonS3FullAccess" policy and click import.
 
 ```bash
-
 {
     "Version": "2012-10-17",
     "Statement": [
@@ -2274,4 +2285,4 @@ A huge thank you to the Stack Overflow community in general, where I found a lot
 
 A big thank you as well to the **Unsplash** community, where I got the images that you see on the site to make it bright and colourful.
 
-[back to top](#table-of-contents)
+[back to top](
