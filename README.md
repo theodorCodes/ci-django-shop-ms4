@@ -722,7 +722,7 @@ Find the "DATABASES" variable in settings.py and make the following changes:
 And set new "DATABASES" variabe using the dj_database_url library.
 
 ```bash
-# And replace the default database above with a call to dj_database_url.parse
+# Replace the default database above with a call to dj_database_url.parse
 DATABASES = {
     'default': dj_database_url.parse('')
 }
@@ -731,12 +731,14 @@ DATABASES = {
 
 
 
-Then update the Database information with the new DATABASE_URL from previous step "Heroku Database Address".
+Then update the Database information with the new DATABASE_URL from previous step:
+
+"Heroku Database Address"
 
 You can paste in the "Heroku Database Address" between the quotes in the parse('') function like this:
 
 ```bash
-# And paste in the database URL from Heroku that you have saved in previous step.
+# Paste in the database URL from Heroku that you have saved in previous step.
 DATABASES = {
     'default': dj_database_url.parse('postgres://zkniszpedpbpwp:5688ebd0d8749c54b2820d97a21d52ac75a70f0431e47c471c236facf2c1a2f4@ec2-63-32-12-208.eu-west-1.compute.amazonaws.com:5432/d452d01fij3i38')
 }
@@ -2275,4 +2277,7 @@ A huge thank you to the Stack Overflow community in general, where I found a lot
 A big thank you as well to the **Unsplash** community, where I got the images that you see on the site to make it bright and colourful.
 
 [back to top](#table-of-contents)
+
+
+
 
