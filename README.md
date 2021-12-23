@@ -1020,7 +1020,7 @@ sudo touch Procfile
 
 
 
-Tell Heroku to create a web dyno, which will run unicorn and serve our django app.
+Tell Heroku to create a web dyno, which will run Gunicorn and serve our django app.
 
 ```bash
 # Tell Gunicorn and Heroku which file to use
