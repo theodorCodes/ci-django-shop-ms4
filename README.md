@@ -1778,7 +1778,7 @@ Once we save these settings and commit these changes, Django will collectstatic 
 ### Set Custom Storage File
 
 In this step we set Django to use the S3 storage in production and store the static files whenever someone runs collectstatic.
-And any uploaded product images should go the S3 storage as well.
+And any uploaded product image should go to the S3 storage as well.
 Let's create a file called "custom_storages.py" to declare the above intentions.
 
 ```bash
