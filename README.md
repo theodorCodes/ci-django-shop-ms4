@@ -1189,7 +1189,7 @@ We can make use of the Heroku automatic deploy setting, which will automatically
 
 3.   Find the "Deployment method" section and click on "GitHub Connect to GitHub" button.
 
-4.   Then search for the repository name: shop-ado-tutorial.
+4.   Then search for the repository name: ci-django-shop-ms4
 
 5.   And click "Connect".
 
