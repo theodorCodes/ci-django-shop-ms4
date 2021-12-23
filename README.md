@@ -1131,7 +1131,7 @@ Go to your Heroku application panel.
 
 2.   Find the "Deploy using Heroku Git" section.
 
-3.   And copy command and execute it in your project root folder in Terminal:
+3.   And copy the command, and execute it in your project root folder in Terminal:
 
 ```bash
 # Login to Heroku via Terminal
@@ -2277,7 +2277,4 @@ A huge thank you to the Stack Overflow community in general, where I found a lot
 A big thank you as well to the **Unsplash** community, where I got the images that you see on the site to make it bright and colourful.
 
 [back to top](#table-of-contents)
-
-
-
 
