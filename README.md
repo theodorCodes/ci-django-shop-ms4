@@ -694,7 +694,7 @@ urllib3==1.26.7
 
 ### Link to Heroku Postgres DB in Django Application
 
-1)   First import Django database url package in **settings.py** that we have installed in above step.
+First import Django database url package in **settings.py** that we have installed in above step.
 
 ```python
 # Import dj_database_url at top of your settings.py file
@@ -703,8 +703,6 @@ import dj_database_url
 ```
 
 
-
-2)   Then update the Database information with the new DATABASE_URL from previous step "Heroku Database Address".
 
 Find the "DATABASES" variable in settings.py and make the following changes:
 
@@ -721,7 +719,7 @@ Find the "DATABASES" variable in settings.py and make the following changes:
 
 
 
-3.   And set new "DATABASES" variabe using the dj_database_url library.
+And set new "DATABASES" variabe using the dj_database_url library.
 
 ```bash
 # And replace the default database above with a call to dj_database_url.parse
@@ -733,7 +731,9 @@ DATABASES = {
 
 
 
-4.   Then paste in the "Heroku Database Address" between the quotes in the parse('') function like this:
+Then update the Database information with the new DATABASE_URL from previous step "Heroku Database Address".
+
+You can paste in the "Heroku Database Address" between the quotes in the parse('') function like this:
 
 ```bash
 # And paste in the database URL from Heroku that you have saved in previous step.
@@ -2275,3 +2275,4 @@ A huge thank you to the Stack Overflow community in general, where I found a lot
 A big thank you as well to the **Unsplash** community, where I got the images that you see on the site to make it bright and colourful.
 
 [back to top](#table-of-contents)
+
