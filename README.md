@@ -19,7 +19,6 @@ You can visit the page right [here!](https://codeinstitute-django-shop-ms4.herok
     - [Site owner's goal:](#site-owners-goal)
 - [Features](#features)
   - [Features Implemented](#features-implemented)
-  - [(Features Left to Implement)](#features-left-to-implement)
 - [Design](#design)
   - [Database schema for user profile](#database-schema-for-user-profile)
   - [Database schema for categories and product](#database-schema-for-categories-and-product)
@@ -156,16 +155,6 @@ In this assessment project, two **types of products** are considered: digital go
 The checkout button in this view will lead the user to the **checkout** where the actual **payment form** and fields are required to be filled in with the user's information before the actual **payment with Stripe** can be initiated. Once the payment has been initiated, the payment will be evaluated. After successful evaluation, the user will receive a **success message** and the product will be saved for both the user and the site owner to review the order or **order history**. The user can review the order, see the **order invoice**, and have the option to **download** the product. If the user has created a custom product, the product is saved and editable in the **my custom product page**. The site owner can see and review all the purchased products on the **order review page** or log in to the Django admin area to do the same. Products such as physical products or custom-built **orders are highlighted** for the site owner to action the required tasks. Furthermore, the site owner can **see all custom products** created in the catalog view.
 
 [back to top](#table-of-contents)
-
-
-
-### (Features Left to Implement)
-
-By creating this project, I just realized that there are so many features that one could implement into such an e-commerce platform that I guess the list would be exhaustive.
-
-[back to top](#table-of-contents)
-
-
 
 
 
